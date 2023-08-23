@@ -1,0 +1,144 @@
+.BrowseBanner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-image: url(./assets/demo.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 2rem 0;
+}
+
+.BrowseBanner::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%; 
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #141414 100%);
+    pointer-events: none; /* Evitar que el pseudo-elemento interfiera con el contenido */
+}
+
+.BrowseBanner__infoMovie {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: end;
+    padding: 0 0 0 10rem;
+    width: 100%;
+    position: absolute;
+    top: 30%;
+}
+
+.BrowseBanner__logo {
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+}
+
+.BrowseBanner__infoMovieContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 3rem 0;
+}
+
+.BrowseBanner__type {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0 0.5rem;
+}
+
+.BrowseBanner__infoMovie h1 {
+    font-size: 3rem;
+    letter-spacing: 1rem;
+    color: var(--color-grey);
+}
+
+.BrowseBanner__infoMovie h2 {
+    font-size: 10rem;
+}
+
+.BrowseBanner__infoMovie h3 {
+    font-size: 2rem;
+}
+
+.BrowseBanner__btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0 2rem;
+}
+
+.Btn:hover {
+    background-color: var(--color-hoverRed);
+}
+
+#BrowseBannerBtnPlay {
+    background-color: #C5C5C5;
+}
+
+#BrowseBannerBtnPlay:hover,
+#BrowseBannerBtnInfo:hover {
+    background-color: var(--color-grey);
+}
+
+#BrowseBannerBtnInfo {
+    background-color: #3D3C3D;
+}
+
+.BrowseBanner__movieOptions {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    gap: 0 2rem;
+    width: 100%;
+    height: 100%;
+    padding: 0 3rem 0 0;
+}
+
+.BrowseBanner__movieOptions button {
+    border: none;
+    border-radius: 100%;
+    width: 5rem;
+    height: 5rem;
+    color: white;
+    background-color: transparent;
+}
+
+.BrowseBanner__movieOptions span {
+    color: var(--color-text);
+    font-size: 5rem;
+    font-weight: 100;
+}
+
+.BrowseBanner__movieOptions h2 {
+    font-size: 3rem;
+}
+
+.BrowseBanner__soundBtn {
+    cursor: pointer;
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    border: 1px solid white;
+    border-radius: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.BrowseBanner__movieAge {
+    background-color: var(--color-grey);
+    width: 15rem;
+}

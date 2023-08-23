@@ -1,0 +1,466 @@
+.Player {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    background-color: var(--color-black);
+}
+
+.Player__controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    height: 20rem;
+    opacity: 0;
+}
+.Player__controls:hover{
+    opacity: 1;
+}
+
+
+.Player__controlsButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.Player__backBtn {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 2rem;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.Player__flagBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 2rem;
+    background-color: transparent;
+    border: none;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.Player__backBtn:hover,
+.Player__flagBtn:hover {
+    transform: scale(1.2);
+}
+
+.Player__barContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 0 1rem;
+}
+
+
+.Player__barContainerTimer {
+    font-size: 1.5rem;
+}
+
+.Player__controls1,
+.Player__controls2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0 3rem;
+    position: relative;
+}
+
+.Player__controls1 button,
+.Player__controls2 button {
+    width: 5rem;
+    height: 5rem;
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.Player__controls1 button:hover,
+.Player__controls2 button:hover {
+    transform: scale(1.2);
+}
+
+.Player__movieTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-text);
+    font-size: 2rem;
+}
+
+
+.player__icons {
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+}
+
+.player__icons-forward {
+    transform: rotate(180deg);
+}
+
+.player__icons-sound {
+    position: relative;
+}
+
+.player__icons-sound:hover>.player__icons-soundContainerBar {
+    display: flex;
+}
+
+.volumeDiv {
+    position: relative;
+}
+
+.volumeDiv:hover>.player__icons-soundContainerBar {
+    display: flex;
+}
+
+.player__icons-soundContainerBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 18rem;
+    position: absolute;
+    background-color: #262626;
+    bottom: 100%;
+    display: none;
+    padding: 0.25rem 0.5rem;
+}
+
+.player__icons-soundContainerBar input {
+    transform: rotate(270deg);
+}
+
+.player__icons-language {
+    position: relative;
+}
+
+.player__icons-language:hover>.player__icons-languageContainer {
+    display: flex;
+}
+
+.player__icons-languageContainer {
+    width: 40rem;
+    height: 25rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: start;
+    background-color: #262626;
+    position: absolute;
+    bottom: 100%;
+    right: 0%;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: none;
+}
+
+.player__icons-languageContainer h2 {
+    font-size: 2.5rem;
+    margin: 0 0 1.5rem 0;
+    box-sizing: border-box;
+}
+
+.player__icons-languageContainer ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    list-style: none;
+    padding: 0;
+    gap: 1rem 0;
+}
+
+.player__icons-languageContainer ul li {
+    font-size: 2rem;
+}
+
+.player__icons-velocity {
+    position: relative;
+}
+
+.player__icons-velocityContainer {
+    width: 70rem;
+    height: 25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: start;
+    background-color: #262626;
+    position: absolute;
+    bottom: 100%;
+    right: 0%;
+    padding: 2rem;
+    box-sizing: border-box;
+    display: none;
+}
+
+.player__icons-velocity:hover>.player__icons-velocityContainer {
+    display: flex;
+}
+
+.player__icons-velocityContainer h2 {
+    font-size: 3rem;
+}
+
+
+.player__icons-velocityRange {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.player__inputRangeVelocity {
+    width: 100%;
+    cursor: pointer;
+}
+
+datalist {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+option {
+    font-size: 2rem;
+    padding: 0;
+    opacity: 50%;
+}
+
+.player__inputRangeVelocity,
+.player__icons-soundContainerBar input,
+.player__icons-soundContainerBar input::-webkit-slider-runnable-track,
+.player__icons-soundContainerBar input::-webkit-slider-thumb,
+.player__inputRangeVelocity::-webkit-slider-runnable-track,
+.player__inputRangeVelocity::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: transparent;
+}
+
+.player__icons-soundContainerBar input::-webkit-slider-thumb,
+.player__inputRangeVelocity::-webkit-slider-thumb {
+    background-color: var(--color-primary);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-top: -14px;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.player__icons-soundContainerBar input::-webkit-slider-runnable-track,
+.player__inputRangeVelocity::-webkit-slider-runnable-track {
+    background-color: var(--color-black);
+    height: 5px;
+}
+
+.velocityCircle {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100%;
+    background-color: var(--color-text);
+    opacity: 10%;
+    top: 16%;
+}
+
+.inputTimer {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    background-color: var(--color-grey);
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.inputTimer::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    cursor: pointer;
+}
+
+.Player__controls2-forward {
+    position: relative;
+}
+
+.Player__controls2-nextEpisode {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    width: 60rem;
+    height: 30rem;
+    position: absolute;
+    bottom: 100%;
+    right: -400%;
+    background-color: #262626;
+    display: none;
+    overflow-y: auto;
+}
+
+.Player__controls2-forward:hover>.Player__controls2-nextEpisode {
+    display: flex;
+}
+
+.Player__controls2-nextEpisodeTitle h2 {
+    padding: 1rem 2rem;
+    font-size: 3rem;
+}
+
+.Player__controls2-nextEpisodeChapter {
+    background-color: #141212;
+    width: 100%;
+    height: 100%;
+}
+
+
+.Player__controls2-chapters {
+    position: relative;
+}
+
+.Player__controls2-chapters:hover>.player__icons-chaptersContainer {
+    display: flex;
+}
+
+.player__icons-chaptersContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    width: 60rem;
+    height: 30rem;
+    bottom: 100%;
+    right: -400%;
+    background-color: #141212;
+    position: absolute;
+    display: none;
+}
+
+.player__icons-chaptersSeason {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-content: center;
+    background-color: #262626;
+    width: 100%;
+}
+
+.player__icons-chaptersContainer h2 {
+    font-size: 3rem;
+    padding: 1rem 2rem;
+}
+
+.player__icons-chaptersList ul li {
+    list-style: none;
+}
+
+
+.configuration {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 40rem;
+    height: 55rem;
+    background-color: #262626;
+    border-radius: 10px;
+    padding: 2rem;
+    box-sizing: border-box;
+    display: none;
+}
+
+.configurationTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 0 3rem 0;
+    box-sizing: border-box;
+}
+
+.configurationTitle h2 {
+    padding: 0 2rem;
+    box-sizing: border-box;
+    font-size: 1.75rem;
+}
+
+.configuration__close {
+    color: var(--color-grey);
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 2rem;
+    transition: 0.2s;
+}
+
+.configuration__close:hover {
+    color: var(--color-text);
+}
+
+.configuration__option {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: start;
+    height: 80%;
+    text-align: start;
+    color: var(--color-text);
+}
+
+.configuration__option div {
+    border-radius: 10px;
+    padding: 1rem;
+    box-sizing: border-box;
+    cursor: pointer;
+    width: 100%;
+}
+
+.configuration__option div:hover {
+    background-color: #3c3c3c;
+}
+
+.configuration__option h2 {
+    font-size: 1.75rem;
+}
+
+.configuration__option p {
+    font-size: 1.25rem;
+    color: var(--color-grey);
+}
