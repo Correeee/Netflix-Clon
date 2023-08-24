@@ -12,7 +12,8 @@ const BrowsePrincipal = () => {
         <div className='BrowsePrincipal'>
             <BrowseNavbar />
             <BrowseBanner />
-            <Carousel categoryTitle={`Continuar viendo contenido de ${ProfileName}`} id={1}/>
+            <Carousel categoryTitle={`Continuar viendo contenido de ${ProfileName}`} id={1} />
+
         </div>
     )
 }
