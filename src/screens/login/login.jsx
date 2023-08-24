@@ -7,6 +7,11 @@ import logo from '../../components/assets/logo.png'
 const Login = () => {
     const navigate = useNavigate()
 
+
+    const handlerLogin = () => {
+        navigate('/browse')
+    }
+
     return (
         <div className='Login'>
             <div className='Screen__filter'></div>
@@ -19,7 +24,7 @@ const Login = () => {
                         <input type="email" />
                         <input type="password" />
                     </form>
-                    <Btn text={'Iniciar sesión'} width={'100%'} />
+                    <Btn text={'Iniciar sesión'} width={'100%'} onclick={handlerLogin} />
                     <div className='Login__checkbox'>
                         <div className='Login__checkboxInput'>
                             <input type="checkbox" name="rememberMe" placeholder='Recuérdame' />

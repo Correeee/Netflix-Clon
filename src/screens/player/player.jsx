@@ -67,23 +67,19 @@ const Player = () => {
     }
 
     const handlerConfiguration = () => {
-        setPlaying(false)
-        setPlayMovie(pause)
-
         if (configRef.current.style.display = 'none') {
             configRef.current.style.display = 'flex'
-            setDisabledButton(true)
         }
-
+        setDisabledButton(true)
+        handlerPlay()
     }
 
     const handlerCloseConfiguration = () => {
         if (configRef.current.style.display = 'flex') {
             configRef.current.style.display = 'none'
-            setPlaying(true)
-            setPlayMovie(play)
-            setDisabledButton(false)
         }
+        setDisabledButton(false)
+        handlerPlay()
     }
 
 
@@ -112,7 +108,6 @@ const Player = () => {
                             <div className='player__icons-soundContainerBar'>
                                 <input type="range" min={0} max={100} step={1} defaultValue={volume} value={volume} onChange={e => {
                                     setVolume(e.target.value)
-                                    // console.log(e.target.value)
                                     if (volume <= 10) {
                                         setSound(soundOff)
                                     } else {

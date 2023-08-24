@@ -13,10 +13,6 @@ const BrowsePrincipal = () => {
             <BrowseNavbar />
             <BrowseBanner />
             <Carousel categoryTitle={`Continuar viendo contenido de ${ProfileName}`} id={1}/>
-            <Carousel categoryTitle={'Solo en Netflix'} id={2}/>
-            <Carousel categoryTitle={'Tendencias'} id={3}/>
-            <Carousel categoryTitle={'Películas para reír'} id={4}/>
-            <Carousel categoryTitle={'Películas de terror'} id={5}/>
         </div>
     )
 }

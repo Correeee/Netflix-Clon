@@ -4,8 +4,11 @@ import Btn from '../button/button'
 import logo from './assets/logo.png'
 import soundOn from './assets/soundOn.png'
 import soundOff from './assets/soundOff.png'
+import { useNavigate } from 'react-router-dom'
 
 const BrowseBanner = () => {
+
+    const navigate = useNavigate()
 
     const [sound, setSound] = useState(soundOn)
 
@@ -17,6 +20,10 @@ const BrowseBanner = () => {
             setSound(soundOn)
         }
 
+    }
+
+    const handlerPlay = () => {
+        navigate('/player')
     }
 
 
@@ -31,7 +38,7 @@ const BrowseBanner = () => {
                     <h2>PELICULA</h2>
                     <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, quos fugiat ea blanditiis animi libero sed nostrum odio accusamus minus.</h3>
                     <div className='BrowseBanner__btns'>
-                        <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'30rem'} color={'black'} fontSize={'2rem'} />
+                        <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'30rem'} color={'black'} fontSize={'2rem'} onclick={handlerPlay} />
                         <Btn text={'Más información'} id={'BrowseBannerBtnInfo'} width={'30rem'} fontSize={'2rem'} />
                     </div>
                 </div>
