@@ -3,7 +3,7 @@ import './style.css'
 import BrowseNavbar from '../../components/browseNavbar.jsx/browseNavbar'
 import BrowseBanner from '../../components/browseBanner/browseBanner'
 import Carousel from '../../components/carousel/carousel'
-import { APITrending, APIGenre } from '../../data/data'
+import { APITrending, APIGenre, APIGeneresMovie } from '../../data/data'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
@@ -27,11 +27,11 @@ const BrowsePrincipal = () => {
 
     /* ------------------------------- GENRE LIST ------------------------------- */
 
-    const [genreList, setGenreList] = useState([])
+    const [genreListMovie, setGenreListMovie] = useState([])
     const genre = async () => {
         try {
             const response = await APIGenre()
-            setGenreList(response.genres)
+            setGenreListMovie(response.genres)
         } catch (error) {
             console.log(error)
         }
@@ -41,27 +41,19 @@ const BrowsePrincipal = () => {
         genre()
     }, [])
 
-    const movieType = async () => {
-        try {
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        movieType()
-    }, [])
-
-
     return (
         <div className='BrowsePrincipal'>
             <BrowseNavbar />
-            <BrowseBanner />
-            <Carousel categoryTitle={`Películas en tendencia`} list={trending} genreList={genreList} id={1} />
-            <Carousel categoryTitle={`Películas en tendencia`} list={trending} genreList={genreList} id={2} />
-            <Carousel categoryTitle={`Películas en tendencia`} list={trending} genreList={genreList} id={3} />
-            <Carousel categoryTitle={`Películas en tendencia`} list={trending} genreList={genreList} id={4} />
+            <BrowseBanner list={trending}/>
+            <Carousel categoryTitle={`Películas en tendencia`} list={trending} genreListMovie={genreListMovie} id={9999999} />
+            {
+                genreListMovie.map((genere, i) => {
+                    const GENERE_ID = genere.id
+                    return (
+                        <Carousel categoryTitle={genere.name} genreListMovie={genreListMovie} id={i} GENERE_ID={GENERE_ID} key={i}/>
+                    )
+                })
+            }
         </div>
     )
 }

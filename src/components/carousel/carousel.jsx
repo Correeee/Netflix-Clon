@@ -9,21 +9,34 @@ import like from './assets/like.png'
 import down from './assets/down.png'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { APIGeneresMovie } from '../../data/data'
 
-const Carousel = ({ categoryTitle, list, genreList, id }) => {
+
+const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
 
     const [pages, setPages] = useState(1)
     const [actualPage, setActualPage] = useState(1)
     const [disabled, setDisabled] = useState(false)
     const [scrolling, setScrolling] = useState(false)
+    const [list, setList] = useState([])
 
     const visibleItems = 5
+
+    const movieType = async () => { //BUSCAR POR PELICULA
+        try {
+            const response = await APIGeneresMovie(GENERE_ID)
+            setList(response.results)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
         const itemsLength = list.length
         const numberPages = Math.ceil(itemsLength / visibleItems)
         setPages(numberPages)
-    }, [list])
+        movieType()
+    }, [list.length])
 
     useEffect(() => {
         const carouselId = document.getElementsByClassName(`Carousel__page-id${id}`)
@@ -38,7 +51,7 @@ const Carousel = ({ categoryTitle, list, genreList, id }) => {
             }
         }
 
-    }, [actualPage, list, genreList])
+    }, [actualPage, list, genreListMovie])
 
 
     const handlerArrowLeft = (e) => {
@@ -123,7 +136,7 @@ const Carousel = ({ categoryTitle, list, genreList, id }) => {
                                     <div className='Carousel__itemInfo-Genere'>
                                         {
                                             li.genre_ids.slice(0, 3).map((gen, i) => {
-                                                const title = genreList.map(genre => {
+                                                const title = genreListMovie.map(genre => {
                                                     if (genre.id == gen) {
                                                         return genre.name
                                                     }

@@ -140,10 +140,16 @@
     border-radius: 10px;
     background-color: #141414;
     transition: 0.5s;
+    user-select: none;
+    cursor: pointer;
 }
 
 .filmItem:hover {
     transform: translateY(-5px);
+}
+
+.filmItem:hover .imgtitle img{
+    object-fit:contain;
 }
 
 .filmItem:hover>.Carousel__itemInfo {
