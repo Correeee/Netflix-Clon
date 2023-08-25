@@ -25,19 +25,18 @@ const Carousel = ({ categoryTitle, list, genreList, id }) => {
     }, [list])
 
     useEffect(() => {
-
-        const carouselPage = document.getElementsByClassName('Carousel__page');
-
-        if (carouselPage) {
-            for (let i = 0; i < carouselPage.length; i++) {
-                const pageElement = carouselPage[i];
-                if (pageElement.className.includes(actualPage)) {
+        const carouselId = document.getElementsByClassName(`Carousel__page-id${id}`)
+        if (carouselId) {
+            for (let i = 0; i < carouselId.length; i++) {
+                const pageElement = carouselId[i];
+                if (pageElement.classList[2].includes(actualPage)) {
                     pageElement.style.backgroundColor = 'var(--color-text)'
                 } else {
                     pageElement.style.backgroundColor = 'var(--color-grey)'
                 }
             }
         }
+
     }, [actualPage, list, genreList])
 
 
@@ -83,7 +82,7 @@ const Carousel = ({ categoryTitle, list, genreList, id }) => {
                     </div>
                     {
                         Array.from({ length: pages }).map((_, i) => (
-                            <div key={i} className={`Carousel__page Carousel__page-${i + 1}`}></div>
+                            <div key={i} className={`Carousel__page Carousel__page-id${id} Carousel__page-${i + 1}`}></div>
                         ))
                     }
                 </div>
