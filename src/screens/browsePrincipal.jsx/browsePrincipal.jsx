@@ -41,13 +41,27 @@ const BrowsePrincipal = () => {
         genre()
     }, [])
 
+    const movieType = async () => {
+        try {
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        movieType()
+    }, [])
+
 
     return (
         <div className='BrowsePrincipal'>
             <BrowseNavbar />
             <BrowseBanner />
-            <Carousel categoryTitle={`Películas en tendencia`} list={trending} genreList={genreList} id={1}/>
-            <Carousel categoryTitle={`Películas en tendencia`} list={trending} genreList={genreList} id={2}/>
+            <Carousel categoryTitle={`Películas en tendencia`} list={trending} genreList={genreList} id={1} />
+            <Carousel categoryTitle={`Películas en tendencia`} list={trending} genreList={genreList} id={2} />
+            <Carousel categoryTitle={`Películas en tendencia`} list={trending} genreList={genreList} id={3} />
+            <Carousel categoryTitle={`Películas en tendencia`} list={trending} genreList={genreList} id={4} />
         </div>
     )
 }

@@ -11,7 +11,8 @@ const optionsTrending = {
     }
 };
 
-export const APITrending = () => fetch('https://api.themoviedb.org/3/trending/movie/week?language=en-US', optionsTrending)
+export const APITrending = () => 
+fetch('https://api.themoviedb.org/3/trending/movie/week?language=en-US', optionsTrending)
     .then(response => response.json())
     .then(response => response.results)
     .catch(err => console.error(err));
@@ -24,8 +25,8 @@ const optionsGenre = {
     }
 };
 
-
-export const APIGenre = () => fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', optionsGenre)
+export const APIGenre = () => 
+fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', optionsGenre)
     .then(response => response.json())
     .then(response => response)
     .catch(err => console.error(err));

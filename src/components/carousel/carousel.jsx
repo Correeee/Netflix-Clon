@@ -15,6 +15,7 @@ const Carousel = ({ categoryTitle, list, genreList, id }) => {
     const [pages, setPages] = useState(1)
     const [actualPage, setActualPage] = useState(1)
     const [disabled, setDisabled] = useState(false)
+    const [scrolling, setScrolling] = useState(false)
 
     const visibleItems = 5
 
@@ -40,7 +41,8 @@ const Carousel = ({ categoryTitle, list, genreList, id }) => {
     }, [actualPage, list, genreList])
 
 
-    const handlerArrowLeft = () => {
+    const handlerArrowLeft = (e) => {
+        setScrolling(true)
         const slider = document.getElementById(`slider-${id}`)
         const offsetWidth = slider.offsetWidth
 
@@ -54,10 +56,14 @@ const Carousel = ({ categoryTitle, list, genreList, id }) => {
             setActualPage(pages)
         }
 
+        setTimeout(() => {
+            setScrolling(false)
+        }, 1000);
+
     }
 
     const handlerArrowRight = () => {
-
+        setScrolling(true)
         const slider = document.getElementById(`slider-${id}`)
         const offsetWidth = slider.offsetWidth
 
@@ -70,6 +76,9 @@ const Carousel = ({ categoryTitle, list, genreList, id }) => {
             slider.scrollTo(0, 0)
             setActualPage(1)
         }
+        setTimeout(() => {
+            setScrolling(false)
+        }, 1000);
     }
 
 
@@ -120,9 +129,9 @@ const Carousel = ({ categoryTitle, list, genreList, id }) => {
                                                     }
                                                 })
                                                 return (
-                                                    <div key={i}>
+                                                    <div className='titleContainer' key={i}>
                                                         <h3>{title}</h3>
-                                                        <span ></span>
+                                                        <span></span>
                                                     </div>
                                                 )
                                             })
@@ -136,8 +145,8 @@ const Carousel = ({ categoryTitle, list, genreList, id }) => {
 
 
             </div>
-            <button className='Carousel__arrow Carousel__arrow-left' id='arrowLeft' onClick={handlerArrowLeft} style={{ display: disabled ? 'none' : 'block' }}><img src={left} alt="left" /></button>
-            <button className='Carousel__arrow Carousel__arrow-right' id='arrowRight' onClick={handlerArrowRight} style={{ display: disabled ? 'none' : 'block' }}><img src={right} alt="right" /></button>
+            <button className='Carousel__arrow Carousel__arrow-left' id='arrowLeft' onClick={handlerArrowLeft} style={{ display: disabled ? 'none' : 'block' }} disabled={scrolling}><img src={left} alt="left" /></button>
+            <button className='Carousel__arrow Carousel__arrow-right' id='arrowRight' onClick={handlerArrowRight} style={{ display: disabled ? 'none' : 'block' }} disabled={scrolling}><img src={right} alt="right" /></button>
         </div>
     )
 }
