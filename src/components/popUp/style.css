@@ -1,0 +1,35 @@
+.PopUp{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15rem;
+    height: 5rem;
+    background-color: var(--color-text);
+    border-radius: 10px;
+    position: absolute;
+    padding: 1rem;
+    box-sizing: border-box;
+    text-align: center;
+    top: -200%;
+    left: -155%;
+    display: none;
+    z-index: 9999999;
+}
+
+.PopUp__triangle{
+    width: 0; 
+    height: 0; 
+    border-left: 25px solid var(--color-text);
+    border-top: 12.5px solid transparent;
+    border-bottom: 12.5px solid transparent; 
+    position: absolute;
+    bottom: -25%;
+    transform: rotate(90deg);
+}
+
+.PopUp h2{
+    color: var(--color-black);
+    font-size: 1.5rem;
+    width: 100%;
+}

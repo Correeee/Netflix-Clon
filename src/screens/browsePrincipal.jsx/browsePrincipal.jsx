@@ -6,9 +6,13 @@ import Carousel from '../../components/carousel/carousel'
 import { APITrending, APIGenre, APIGeneresMovie } from '../../data/data'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import PopUp from '../../components/popUp/popUp'
+import InfoFilm from '../../components/infoFilm/infoFilm'
+
 
 const BrowsePrincipal = () => {
     const ProfileName = 'Maxi'
+
 
     /* ------------------------------ TRENDINGLIST ------------------------------ */
 
@@ -42,18 +46,19 @@ const BrowsePrincipal = () => {
     }, [])
 
     return (
-        <div className='BrowsePrincipal'>
+        <div className='BrowsePrincipal' >
             <BrowseNavbar />
-            <BrowseBanner list={trending}/>
-            <Carousel categoryTitle={`Películas en tendencia`} list={trending} genreListMovie={genreListMovie} id={9999999} />
+            <BrowseBanner list={trending} />
+            <Carousel categoryTitle={`Trending movies`} list={trending} genreListMovie={genreListMovie} id={9999999} />
             {
                 genreListMovie.map((genere, i) => {
                     const GENERE_ID = genere.id
                     return (
-                        <Carousel categoryTitle={genere.name} genreListMovie={genreListMovie} id={i} GENERE_ID={GENERE_ID} key={i}/>
+                        <Carousel categoryTitle={genere.name} genreListMovie={genreListMovie} id={i} GENERE_ID={GENERE_ID} key={i} />
                     )
                 })
             }
+            <InfoFilm />
         </div>
     )
 }

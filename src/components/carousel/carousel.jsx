@@ -10,6 +10,8 @@ import down from './assets/down.png'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { APIGeneresMovie } from '../../data/data'
+import PopUp from '../popUp/popUp'
+import InfoFilm from '../infoFilm/infoFilm'
 
 
 const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
@@ -120,18 +122,28 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
                                 <div className='Carousel__itemInfo'>
                                     <div className='Carousel__itemInfo-Btns'>
                                         <div className='Carousel__itemInfo-Btns1'>
-                                            <button><img src={play} alt="Play" /></button>
-                                            <button><img src={add} alt="AddList" /></button>
-                                            <button><img src={like} alt="Like" /></button>
+                                            <button className='ItemButtons'>
+                                                <img src={play} alt="Play" />
+                                            </button>
+                                            <button className='ItemButtons'>
+                                                <img src={add} alt="AddList" />
+                                                <PopUp text={'Agregar a Mi lista'} />
+                                            </button>
+                                            <button className='ItemButtons'>
+                                                <img src={like} alt="Like" />
+                                                <PopUp text={'Me gusta'} />
+                                            </button>
                                         </div>
                                         <div className='Carousel__itemInfo-Btns2'>
-                                            <button><img src={down} alt="Down" /></button>
+                                            <button className='ItemButtons' >
+                                                <img src={down} alt="Down" />
+                                                <PopUp text={'Más información'} />
+                                            </button>
                                         </div>
                                     </div>
                                     <div className='Carousel__itemInfo-Texts'>
                                         <h3>80% para ti</h3>
                                         <h3>{li.adult ? '+18' : '+13'}</h3>
-                                        <h3>{1}h {30} min</h3>
                                     </div>
                                     <div className='Carousel__itemInfo-Genere'>
                                         {
@@ -155,7 +167,6 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
                         )
                     })
                 }
-
 
             </div>
             <button className='Carousel__arrow Carousel__arrow-left' id='arrowLeft' onClick={handlerArrowLeft} style={{ display: disabled ? 'none' : 'block' }} disabled={scrolling}><img src={left} alt="left" /></button>

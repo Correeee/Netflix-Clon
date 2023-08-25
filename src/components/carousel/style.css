@@ -146,6 +146,7 @@
 
 .filmItem:hover {
     transform: translateY(-5px);
+    z-index: 1;
 }
 
 .filmItem:hover .imgtitle img{
@@ -325,4 +326,13 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.ItemButtons{
+    position: relative;
+    z-index: 99999;
+}
+
+.ItemButtons:hover > .PopUp{
+    display: flex;
 }

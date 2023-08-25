@@ -1,0 +1,220 @@
+.InfoFilm {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 2rem 0;
+    width: 90rem;
+    height: auto;
+    background-color: #141414;
+    position: absolute;
+    top: 10%;
+    border-radius: 10px;
+}
+
+.InfoFilm__poster {
+    width: 100%;
+    height: 45rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.InfoFilm__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 0 1rem;
+    gap: 2rem 0;
+}
+
+.InfoFilm__info-text {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 0 2rem;
+}
+
+.InfoFilm__info-date {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem 0;
+}
+
+
+.InfoFilm__info-date h2 {
+    color: #45D068;
+}
+
+.InfoFilm__info-date h3 {
+    color: var(--color-grey);
+}
+
+.InfoFilm__info-text p {
+    color: var(--color-text);
+    font-size: 1.75rem;
+    margin: 0;
+}
+
+.InfoFilm__info-date div:nth-child(1) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0 2rem;
+}
+
+.InfoFilm__info-date div:nth-child(2) {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.InfoFilm__info-date div:nth-child(2) h3 {
+    border: 1px solid var(--color-text);
+    padding: 0.25rem 0.5rem;
+    color: var(--color-text);
+}
+
+
+.InfoFilm__moreTitles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 2rem;
+    box-sizing: border-box;
+}
+
+.InfoFilm__moreTitles h1 {
+    width: 100%;
+    font-size: 3rem;
+}
+
+.InfoFilm__moreTitles-filmsCards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+    box-sizing: border-box;
+    margin: 1rem 0;
+}
+
+.filmCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    box-sizing: border-box;
+    width: 25rem;
+    height: 35rem;
+    background-color: #2F2F2F;
+    border-radius: 10px;
+}
+
+.filmCard__img {
+    width: 100%;
+    background-color: white;
+    min-height: 15rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.filmCard__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.filmCard__info button {
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: transparent;
+    border: 2px solid var(--color-grey);
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.filmCard__info button:hover {
+    border-color: var(--color-text);
+    background-color: var(--color-grey);
+}
+
+.filmCard__info-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 1rem 0;
+}
+
+.filmCard__info-btnsDiv1 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem 0;
+    padding: 1rem 0;
+    box-sizing: border-box;
+}
+
+.filmCard__info-btnsDiv1 div:nth-child(1) h3 {
+    color: #46D369;
+    text-transform: uppercase;
+}
+
+.filmCard__info-btnsDiv1 div:nth-child(2) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0 1rem;
+}
+
+.filmCard__info-btnsDiv1 div:nth-child(2) h3 {
+    color: var(--color-grey);
+}
+
+.filmCard__info-btnsDiv1 div:nth-child(2) h3:nth-child(1) {
+    border: 1px solid var(--color-grey);
+    padding: 0.25rem 0.5rem;
+}
+
+.filmCard__texts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-text);
+    height: 100%;
+}
+
+.filmCard__texts p {
+    margin: 0;
+    height: 100%;
+    font-size: 1.25rem;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.filmCard__info-btnsDiv2 button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.filmCard__info-btnsDiv2 button img {
+    width: 1.75rem;
+    height: 1.75rem;
+    object-fit: cover;
+}
