@@ -32,7 +32,7 @@ const BrowseBanner = (list) => {
             const randomIndex = Math.floor(Math.random() * list.list.length);
             const randomFilm = list.list[randomIndex];
             setTrendingFilm(randomFilm)
-            console.log(randomFilm)
+
         }
     }, [list.list])
 

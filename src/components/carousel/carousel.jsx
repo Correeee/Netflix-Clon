@@ -12,6 +12,7 @@ import { useEffect } from 'react'
 import { APIGeneresMovie } from '../../data/data'
 import PopUp from '../popUp/popUp'
 import InfoFilm from '../infoFilm/infoFilm'
+import { useNavigate } from 'react-router-dom'
 
 
 const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
@@ -21,6 +22,7 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
     const [disabled, setDisabled] = useState(false)
     const [scrolling, setScrolling] = useState(false)
     const [list, setList] = useState([])
+    const navigate = useNavigate()
 
     const visibleItems = 5
 
@@ -96,6 +98,10 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
         }, 1000);
     }
 
+    const handlerInfo = (fid) => {
+        navigate(`/browse/${fid}`)
+    }
+
 
     return (
         <div className='Carousel'>
@@ -135,7 +141,7 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
                                             </button>
                                         </div>
                                         <div className='Carousel__itemInfo-Btns2'>
-                                            <button className='ItemButtons' >
+                                            <button className='ItemButtons' onClick={() => handlerInfo(li.id)}>
                                                 <img src={down} alt="Down" />
                                                 <PopUp text={'Más información'} />
                                             </button>

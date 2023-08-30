@@ -20,9 +20,9 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 50%; 
+    height: 50%;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #141414 100%);
-    pointer-events: none; /* Evitar que el pseudo-elemento interfiera con el contenido */
+    pointer-events: none;
 }
 
 .BrowseBanner__infoMovie {
@@ -52,7 +52,7 @@
     min-height: 50rem;
 }
 
-.BrowseBanner__infoMovieContainer h3{
+.BrowseBanner__infoMovieContainer h3 {
     width: 100%;
 }
 
@@ -151,4 +151,24 @@
 .BrowseBanner__movieAge {
     background-color: var(--color-grey);
     width: 15rem;
+}
+
+.InfoFilm__close {
+    width: 4rem;
+    height: 4rem;
+    background-color: var(--color-black);
+    color: var(--color-text);
+    border: 2px solid var(--color-black);
+    border-radius: 100%;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.5rem;
+    position: absolute;
+    right: 2%;
+    top: 1%;
+}
+
+.InfoFilm__close:hover {
+    border-color: var(--color-text);
 }

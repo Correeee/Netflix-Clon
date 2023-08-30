@@ -6,12 +6,14 @@ import Carousel from '../../components/carousel/carousel'
 import { APITrending, APIGenre, APIGeneresMovie } from '../../data/data'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import PopUp from '../../components/popUp/popUp'
 import InfoFilm from '../../components/infoFilm/infoFilm'
+import { useParams } from 'react-router-dom'
 
 
 const BrowsePrincipal = () => {
     const ProfileName = 'Maxi'
+
+    const { fid } = useParams()
 
 
     /* ------------------------------ TRENDINGLIST ------------------------------ */
@@ -45,6 +47,12 @@ const BrowsePrincipal = () => {
         genre()
     }, [])
 
+    useEffect(() => {
+
+    }, [fid])
+
+
+
     return (
         <div className='BrowsePrincipal' >
             <BrowseNavbar />
@@ -58,7 +66,7 @@ const BrowsePrincipal = () => {
                     )
                 })
             }
-            <InfoFilm />
+            <InfoFilm fid={fid} />
         </div>
     )
 }
