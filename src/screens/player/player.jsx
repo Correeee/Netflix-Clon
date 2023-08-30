@@ -13,9 +13,23 @@ import chapters from './assets/chapters.png'
 import back from './assets/back.png'
 import pause from './assets/pause.png'
 import configuration from './assets/configuration.png'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { APISearchMovieForId } from '../../data/data'
 
 const Player = () => {
+
+    const { fid } = useParams()
+
+    const [film, setFilm] = useState(null)
+
+
+    useEffect(() => {
+        APISearchMovieForId(fid)
+        .then(res => setFilm(res))
+        .catch(error => console.log(error))
+    }, [fid])
+    
+
 
     const navigate = useNavigate()
     const configRef = useRef(null)
@@ -119,9 +133,8 @@ const Player = () => {
                         </div>
 
                     </div>
-                    <h2 className='Player__movieTitle'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, deserunt.</h2>
+                    <h2 className='Player__movieTitle'>{film && film.original_title}</h2>
                     <div className='Player__controls2'>
-
                         <button className='Player__controls2-forward' style={{ display: isMovie && 'none' }} disabled={disabledButton}>
                             <img src={forward} alt="forward" className='player__icons' />
                             <div className='Player__controls2-nextEpisode'>

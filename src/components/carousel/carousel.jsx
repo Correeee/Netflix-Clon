@@ -102,6 +102,10 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
         navigate(`/browse/${fid}`)
     }
 
+    const handlerPlay = (id) => {
+        navigate(`/player/${id}`)
+    }
+
 
     return (
         <div className='Carousel'>
@@ -129,7 +133,7 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
                                     <div className='Carousel__itemInfo-Btns'>
                                         <div className='Carousel__itemInfo-Btns1'>
                                             <button className='ItemButtons'>
-                                                <img src={play} alt="Play" />
+                                                <img src={play} alt="Play" onClick={() => handlerPlay(li.id)} />
                                             </button>
                                             <button className='ItemButtons'>
                                                 <img src={add} alt="AddList" />

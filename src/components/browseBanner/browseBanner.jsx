@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './style.css'
 import Btn from '../button/button'
 import logo from './assets/logo.png'
+import play from './assets/play.png'
+import info from './assets/info.png'
 import soundOn from './assets/soundOn.png'
 import soundOff from './assets/soundOff.png'
 import { useNavigate } from 'react-router-dom'
@@ -23,8 +25,8 @@ const BrowseBanner = (list) => {
 
     }
 
-    const handlerPlay = () => {
-        navigate('/player')
+    const handlerPlay = (id) => {
+        navigate(`/player/${id}`)
     }
 
     useEffect(() => {
@@ -35,6 +37,10 @@ const BrowseBanner = (list) => {
 
         }
     }, [list.list])
+
+    const handlerInfo = () => {
+        navigate(`/browse/${trendingFilm.id}`)
+    }
 
     return (
         <div className='BrowseBanner' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${trendingFilm.backdrop_path})` }}>
@@ -47,12 +53,12 @@ const BrowseBanner = (list) => {
                     <h2>{trendingFilm.original_title}</h2>
                     <h3>{trendingFilm.overview}</h3>
                     <div className='BrowseBanner__btns'>
-                        <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'30rem'} color={'black'} fontSize={'2rem'} onclick={handlerPlay} />
-                        <Btn text={'Más información'} id={'BrowseBannerBtnInfo'} width={'30rem'} fontSize={'2rem'} />
+                        <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'30rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(trendingFilm.id)} imageSrc={play}/>
+                        <Btn text={'Más información'} id={'BrowseBannerBtnInfo'} width={'30rem'} fontSize={'2rem'} onclick={handlerInfo} imageSrc={info}/>
                     </div>
                 </div>
                 <div className='BrowseBanner__movieOptions'>
-                    <button onClick={handlerSound} style={{display: trendingFilm.video == true ? 'flex' : 'none'}}><img src={sound} alt="sound" className='BrowseBanner__soundBtn' /></button>
+                    <button onClick={handlerSound} style={{ display: trendingFilm.video == true ? 'flex' : 'none' }}><img src={sound} alt="sound" className='BrowseBanner__soundBtn' /></button>
                     <span>|</span>
                     <h2 className='BrowseBanner__movieAge'>{trendingFilm.adult == false ? '+13' : '+18'}</h2>
                 </div>

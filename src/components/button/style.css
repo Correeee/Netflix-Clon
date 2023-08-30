@@ -1,4 +1,8 @@
 .Btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     color: white;
     background-color: var(--color-primary);
     padding: 1.5rem 1rem;
@@ -8,8 +12,15 @@
     transition: 0.2s;
     cursor: pointer;
     font-size: 1.5rem;
+    box-sizing: border-box;
+    gap: 0 1rem;
 }
 
 .Btn:hover{
     background-color: var(--color-hoverRed);
+}
+
+.Btn__logo{
+    width: 3rem;
+    height: 3rem;
 }

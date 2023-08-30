@@ -15,6 +15,10 @@ const BrowsePrincipal = () => {
 
     const { fid } = useParams()
 
+    useEffect(() => {
+        document.querySelector('body').classList.remove('hiddenBody')
+    }, [])
+    
 
     /* ------------------------------ TRENDINGLIST ------------------------------ */
 

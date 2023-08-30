@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './style.css'
 import more from './assets/more.png'
+import play from './assets/play.png'
+import playBlack from './assets/playBlack.png'
 import { APISearchMovieForId, APISearchForGenere } from '../../data/data'
-import BrowseBanner from '../browseBanner/browseBanner'
 import { useNavigate } from 'react-router-dom'
+import logo from './assets/logo.png'
+import like from './assets/like.png'
+import PopUp from '../popUp/popUp'
 import Btn from '../button/button'
 
 
@@ -13,17 +17,24 @@ const InfoFilm = ({ fid }) => {
     const [genres, setGenres] = useState([])
     const [moreMovies, setMoreMovies] = useState([])
 
+    const navigate = useNavigate()
+
+    if (fid) {
+        document.querySelector('body').classList.add('hiddenBody')
+    }
 
     useEffect(() => {
 
-        APISearchMovieForId(fid)
-            .then(res => {
-                setFilm(res)
-                const genresIds = []
-                res.genres.map(gen => genresIds.push(gen.id))
-                setGenres(genresIds)
-            })
-            .catch(error => console.log(error))
+        if (fid) {
+            APISearchMovieForId(fid)
+                .then(res => {
+                    setFilm(res)
+                    const genresIds = []
+                    res.genres.map(gen => genresIds.push(gen.id))
+                    setGenres(genresIds)
+                })
+                .catch(error => console.log(error))
+        }
 
     }, [fid])
 
@@ -59,83 +70,128 @@ const InfoFilm = ({ fid }) => {
 
 
     const handlerClose = () => {
-        console.log('CERRAR')
+        document.querySelector('body').classList.remove('hiddenBody')
+        navigate('/browse')
     }
 
+    const handlerPlay = (id) => {
+        navigate(`/player/${id}`)
+    }
+
+    const handlerAdd = () => {
+        console.log('AGREGAR A FAVORITOS')
+    }
+
+    const handlerLike = () => {
+        console.log('ME GUSTA')
+    }
 
     return (
         <>
+            <div className='filter' style={{ display: fid && 'flex' }}></div>
             {
                 film &&
-                <div className='InfoFilm'>
-                    <button className='InfoFilm__close' onClick={handlerClose}>X</button>
-                    <div className='InfoFilm__poster' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${film.backdrop_path})` }}>
-                        <div className='InfoFilm__poster-principalInfo'>
+                <div className='InfoFilmContainer' style={{ display: !fid && 'none' }}>
+                    <div className='out' onClick={handlerClose}></div>
+                    <div className='InfoFilm' >
+                        <button className='InfoFilm__close' onClick={handlerClose}>X</button>
+                        <div className='InfoFilm__poster' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${film.backdrop_path})` }}>
+                            <div className='InfoFilm__poster-principalInfo'>
+                                <div className='principalInfo__info'>
+                                    <div className='principalInfo__infoContainer'>
+                                        <div className='principalInfo__infoLogo'>
+                                            <img src={logo} alt="logo" className='principalInfo__info-logo' />
+                                            <h1>Película</h1>
+                                        </div>
+                                        <div className='principalInfo__title'>
+                                            <h2>{film.title}</h2>
+                                        </div>
+                                        <div className='principalInfo__info-Btns'>
+                                            <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'20rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(film.id)} imageSrc={playBlack} />
+                                            <button className='principalInfo__info-add' onClick={handlerAdd}>
+                                                <img src={more} alt="add" />
+                                                <PopUp text={'Agregar a mi lista'} />
+                                            </button>
+                                            <button className='principalInfo__info-like' onClick={handlerLike}>
+                                                <img src={like} alt="like" />
+                                                <PopUp text={'Me gusta'} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    {/* <div>
+                                        <button>4</button>
+                                    </div> */}
+                                </div>
+                            </div>
 
                         </div>
-
-                    </div>
-                    <div className='InfoFilm__info'>
-                        <div className='InfoFilm__info-date'>
-                            <div>
-                                <h2>80% para ti</h2>
-                                <h3>{film.release_date}</h3>
+                        <div className='InfoFilm__info'>
+                            <div className='InfoFilm__info-date'>
+                                <div>
+                                    <h2>80% para ti</h2>
+                                    <h3>{film.release_date}</h3>
+                                    {
+                                        film.genres && film.genres.slice(0, 3).map((gen, i) => {
+                                            return (
+                                                <div key={i}>
+                                                    <h3>{gen.name}</h3>
+                                                    <span></span>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                <div>
+                                    <h3>13+</h3>
+                                </div>
+                            </div>
+                            <div className='InfoFilm__info-text'>
+                                <p>{film.overview}</p>
+                            </div>
+                        </div>
+                        <div className='InfoFilm__moreTitles'>
+                            <h1>Más títulos similares a este</h1>
+                            <div className='InfoFilm__moreTitles-filmsCards'>
                                 {
-                                    film.genres.slice(0,3).map((gen, i) => {
+                                    moreMovies.length &&
+                                    moreMovies.slice(0, 8).map((mov, i) => {
                                         return (
-                                            <div key={i}>
-                                                <h3>{gen.name}</h3>
-                                                <span></span>
+                                            <div className='filmCard' key={i}>
+                                                <div className='filmCard__posterContainer'>
+                                                    <img src={`https://image.tmdb.org/t/p/original${mov.poster_path}`} className='filmCard__img' />
+                                                    <button className='filmCard__playBtn' onClick={() => handlerPlay(mov.id)} >
+                                                        <img src={play} alt="Play" className='filmCard__play' />
+                                                    </button>
+                                                    <h2 className='filmCard__title'>{mov.title}</h2>
+                                                </div>
+
+                                                <div className='filmCard__info'>
+                                                    <div className='filmCard__info-btns'>
+                                                        <div className='filmCard__info-btnsDiv1'>
+                                                            <div>
+                                                                <h3>75% para ti</h3>
+                                                            </div>
+                                                            <div>
+                                                                <h3>{!mov.adult ? '13+' : '+18'}</h3>
+                                                                <h3>{mov.release_date}</h3>
+                                                            </div>
+                                                        </div>
+                                                        <div className='filmCard__info-btnsDiv2'>
+                                                            <button><img src={more} alt="Más" /></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='filmCard__texts'>
+                                                    <p>{mov.overview}</p>
+                                                </div>
                                             </div>
                                         )
                                     })
                                 }
                             </div>
-                            <div>
-                                <h3>13+</h3>
-                            </div>
-                        </div>
-                        <div className='InfoFilm__info-text'>
-                            <p>{film.overview}</p>
                         </div>
                     </div>
-                    <div className='InfoFilm__moreTitles'>
-                        <h1>Más títulos similares a este</h1>
-                        <div className='InfoFilm__moreTitles-filmsCards'>
-                            {
-                                moreMovies.length &&
-                                moreMovies.slice(0, 8).map((mov, i) => {
-                                    console.log(`url(https://image.tmdb.org/t/p/original${mov.poster_path})`)
-                                    return (
-                                        <div className='filmCard'>
-                                            <img src={`https://image.tmdb.org/t/p/original${mov.poster_path}`} className='filmCard__img'>
-                                            </img>
-                                            <div className='filmCard__info'>
-                                                <div className='filmCard__info-btns'>
-                                                    <div className='filmCard__info-btnsDiv1'>
-                                                        <div>
-                                                            <h3>75% para ti</h3>
-                                                        </div>
-                                                        <div>
-                                                            <h3>{!mov.adult ? '13+' : '+18'}</h3>
-                                                            <h3>{mov.release_date}</h3>
-                                                        </div>
-                                                    </div>
-                                                    <div className='filmCard__info-btnsDiv2'>
-                                                        <button><img src={more} alt="Más" /></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className='filmCard__texts'>
-                                                <p>{mov.overview}</p>
-                                            </div>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
-                </div>
+                </div >
             }
         </>
     )
