@@ -71,7 +71,7 @@ const InfoFilm = ({ fid }) => {
                     <button className='InfoFilm__close' onClick={handlerClose}>X</button>
                     <div className='InfoFilm__poster' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${film.backdrop_path})` }}>
                         <div className='InfoFilm__poster-principalInfo'>
-                    
+
                         </div>
 
                     </div>
@@ -81,7 +81,7 @@ const InfoFilm = ({ fid }) => {
                                 <h2>80% para ti</h2>
                                 <h3>{film.release_date}</h3>
                                 {
-                                    film.genres.map((gen, i) => {
+                                    film.genres.slice(0,3).map((gen, i) => {
                                         return (
                                             <div key={i}>
                                                 <h3>{gen.name}</h3>
