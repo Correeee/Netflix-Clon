@@ -7,7 +7,7 @@ import Player from './screens/player/player';
 import Explorer from './screens/explorer/explorer';
 import News from './screens/news/news'
 import MyList from './screens/mylist/mylist'
-
+import { motion } from "framer-motion"
 
 function App() {
 
@@ -26,6 +26,8 @@ function App() {
           <Route path='/player' element={<Player />} />
           <Route path='/player/:fid' element={<Player />} />
           <Route path='/news' element={<News />} />
+          <Route path='/news/movies/:fid' element={<News />} />
+          <Route path='/news/series/:fid' element={<News />} />
           <Route path='/mylist' element={<MyList />} />
           <Route path='/explorer' element={<Explorer />} />
         </Routes>

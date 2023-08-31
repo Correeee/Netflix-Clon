@@ -9,19 +9,20 @@ import like from './assets/like.png'
 import down from './assets/down.png'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { APIGeneresMovie, APIGeneresSeries } from '../../data/data'
+import { APIGeneresMovie, APIGeneresSeries, APITrendingMovies } from '../../data/data'
 import PopUp from '../popUp/popUp'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import InfoFilm from '../infoFilm/infoFilm'
-import { useLocation, useNavigate } from 'react-router-dom'
 
 
-const Carousel = ({ categoryTitle, genreList, id, GENERE_ID }) => {
+const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => {
 
     const [pages, setPages] = useState(1)
     const [actualPage, setActualPage] = useState(1)
     const [disabled, setDisabled] = useState(false)
     const [scrolling, setScrolling] = useState(false)
     const [list, setList] = useState([])
+
     const navigate = useNavigate()
 
     const { pathname } = useLocation()
@@ -44,11 +45,23 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID }) => {
     }
 
     useEffect(() => {
-        const itemsLength = list.length
-        const numberPages = Math.ceil(itemsLength / visibleItems)
-        setPages(numberPages)
-        movieType()
-    }, [list.length, pathname])
+
+        if(list){
+            const itemsLength = list.length
+            const numberPages = Math.ceil(itemsLength / visibleItems)
+            setPages(numberPages)
+            movieType()
+        }
+        if(categoryList){
+            const itemsLength = categoryList.length
+            const numberPages = Math.ceil(itemsLength / visibleItems)
+            setPages(numberPages)
+            movieType()
+        }
+
+
+    }, [list.length, categoryList])
+
 
     useEffect(() => {
         const carouselId = document.getElementsByClassName(`Carousel__page-id${id}`)
@@ -63,7 +76,7 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID }) => {
             }
         }
 
-    }, [actualPage, list, genreList])
+    }, [actualPage, pages])
 
 
     const handlerArrowLeft = (e) => {
@@ -106,14 +119,22 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID }) => {
         }, 1000);
     }
 
-    const handlerInfo = (fid) => {
-        navigate(`${pathname}/${fid}`)
+    const handlerInfo = (film) => {
+        if (pathname.includes('news')) {
+            if (film.media_type) {
+                navigate(pathname + '/movies/' + film.id)
+            } else {
+                navigate(pathname + '/series/' + film.id)
+            }
+        }
+        if (pathname.includes('browse') || pathname.includes('movies') || pathname.includes('series')) {
+            navigate(`${pathname}/${film.id}`)
+        }
     }
 
     const handlerPlay = (id) => {
         navigate(`/player/${id}`)
     }
-
 
     return (
         <div className='Carousel'>
@@ -130,6 +151,7 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID }) => {
                 </div>
 
                 {
+                    list.length &&
                     list.map((li, i) => {
                         return (
                             <div className={`filmItem`} onMouseEnter={() => setDisabled(true)} onMouseLeave={() => setDisabled(false)} key={i}>
@@ -153,7 +175,64 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID }) => {
                                             </button>
                                         </div>
                                         <div className='Carousel__itemInfo-Btns2'>
-                                            <button className='ItemButtons' onClick={() => handlerInfo(li.id)}>
+                                            <button className='ItemButtons' onClick={() => handlerInfo(li)}>
+                                                <img src={down} alt="Down" />
+                                                <PopUp text={'More information'} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className='Carousel__itemInfo-Texts'>
+                                        <h3>80% for you</h3>
+                                        <h3>{li.adult ? '+18' : '+13'}</h3>
+                                    </div>
+                                    <div className='Carousel__itemInfo-Genere'>
+                                        {
+                                            li.genre_ids.slice(0, 3).map((gen, i) => {
+                                                const title = genreList.map(genre => {
+                                                    if (genre.id == gen) {
+                                                        return genre.name
+                                                    }
+                                                })
+                                                return (
+                                                    <div className='titleContainer' key={i}>
+                                                        <h3>{title}</h3>
+                                                        <span></span>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+                {
+                    categoryList &&
+                    categoryList.map((li, i) => {
+                        return (
+                            <div className={`filmItem`} onMouseEnter={() => setDisabled(true)} onMouseLeave={() => setDisabled(false)} key={i}>
+                                <div className='imgtitle'>
+                                    <img src={`https://image.tmdb.org/t/p/w500${li.poster_path}`} className={`Carousel__item`} />
+                                    <h3>{li.original_title || li.original_name}</h3>
+                                </div>
+                                <div className='Carousel__itemInfo'>
+                                    <div className='Carousel__itemInfo-Btns'>
+                                        <div className='Carousel__itemInfo-Btns1'>
+                                            <button className='ItemButtons'>
+                                                <img src={play} alt="Play" onClick={() => handlerPlay(li.id)} />
+                                            </button>
+                                            <button className='ItemButtons'>
+                                                <img src={add} alt="AddList" />
+                                                <PopUp text={'Add to My list'} />
+                                            </button>
+                                            <button className='ItemButtons'>
+                                                <img src={like} alt="Like" />
+                                                <PopUp text={'Like it'} />
+                                            </button>
+                                        </div>
+                                        <div className='Carousel__itemInfo-Btns2'>
+                                            <button className='ItemButtons' onClick={() => handlerInfo(li)}>
                                                 <img src={down} alt="Down" />
                                                 <PopUp text={'More information'} />
                                             </button>

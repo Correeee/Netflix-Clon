@@ -19,7 +19,6 @@ const InfoFilm = ({ fid }) => {
 
     const navigate = useNavigate()
     const { pathname } = useLocation()
-    console.log('info', pathname)
 
     if (fid) {
         document.querySelector('body').classList.add('hiddenBody')
@@ -38,16 +37,17 @@ const InfoFilm = ({ fid }) => {
                     })
                     .catch(error => console.log(error))
             }
-            if(pathname.includes('series')){
+            if (pathname.includes('series')) {
                 APISearchSerieForId(fid)
-                .then(res => {
-                    setFilm(res)
-                    const genresIds = []
-                    res.genres.map(gen => genresIds.push(gen.id))
-                    setGenres(genresIds)
-                })
-                .catch(error => console.log(error))
+                    .then(res => {
+                        setFilm(res)
+                        const genresIds = []
+                        res.genres.map(gen => genresIds.push(gen.id))
+                        setGenres(genresIds)
+                    })
+                    .catch(error => console.log(error))
             }
+
 
         }
 
@@ -96,10 +96,10 @@ const InfoFilm = ({ fid }) => {
             }
         };
 
-        if(pathname.includes('browse') || pathname.includes('movies')){
+        if (pathname.includes('browse') || pathname.includes('movies')) {
             fetchMoviesForGenres();
         }
-        if(pathname.includes('series')){
+        if (pathname.includes('series')) {
             fetchSeriesForGenres();
         }
     }, [genres]);
@@ -115,11 +115,14 @@ const InfoFilm = ({ fid }) => {
         if (pathname.includes('browse')) {
             navigate('/browse')
         }
-        if (pathname.includes('movies')) {
+        if (pathname.includes('movies') && !pathname.includes('news')) {
             navigate('/movies')
         }
-        if (pathname.includes('series')) {
+        if (pathname.includes('series') && !pathname.includes('news')) {
             navigate('/series')
+        }
+        if (pathname.includes('news')) {
+            navigate('/news')
         }
     }
 
@@ -135,6 +138,7 @@ const InfoFilm = ({ fid }) => {
         console.log('ME GUSTA')
     }
 
+
     return (
         <>
             <div className='filter' style={{ display: fid && 'flex' }}></div>
@@ -145,7 +149,7 @@ const InfoFilm = ({ fid }) => {
                     <div className='InfoFilm' >
                         <button className='InfoFilm__close' onClick={handlerClose}>X</button>
                         <div className='InfoFilm__poster' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${film.backdrop_path})` }}>
-                        <div className='InfoFilmContainer__filter'></div>
+                            <div className='InfoFilmContainer__filter'></div>
                             <div className='InfoFilm__poster-principalInfo'>
                                 <div className='principalInfo__info'>
                                     <div className='principalInfo__infoContainer'>

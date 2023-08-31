@@ -8,12 +8,13 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import InfoFilm from '../../components/infoFilm/infoFilm'
 import { useLocation, useParams } from 'react-router-dom'
+import { motion } from 'framer-motion'
+
 
 
 const BrowsePrincipal = () => {
     const ProfileName = 'Maxi'
     const { pathname } = useLocation()
-
 
     const { fid } = useParams()
 
@@ -78,7 +79,14 @@ const BrowsePrincipal = () => {
 
 
     return (
-        <div className='BrowsePrincipal' >
+        <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{
+                delay: 0.2
+            }}
+            className='BrowsePrincipal' >
             <BrowseNavbar />
             <BrowseBanner list={trending} />
             {
@@ -97,7 +105,7 @@ const BrowsePrincipal = () => {
                 })
             }
             <InfoFilm fid={fid} />
-        </div>
+        </motion.div>
     )
 }
 

@@ -6,8 +6,9 @@ import play from './assets/play.png'
 import info from './assets/info.png'
 import soundOn from './assets/soundOn.png'
 import soundOff from './assets/soundOff.png'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
+import InfoFilm from '../infoFilm/infoFilm'
 
 const BrowseBanner = (list) => {
     const navigate = useNavigate()
@@ -66,7 +67,6 @@ const BrowseBanner = (list) => {
                     <h2 className='BrowseBanner__movieAge'>{trendingFilm.adult == false ? '+13' : '+18'}</h2>
                 </div>
             </div>
-
         </div>
     )
 }

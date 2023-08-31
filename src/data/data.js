@@ -14,7 +14,6 @@ const options = {
 export const APITrendingAll = () =>
     fetch('https://api.themoviedb.org/3/trending/all/week?language=en-US', options)
         .then(response => response.json())
-        .then(response => console.log(response))
         .catch(err => console.error(err));
 
 export const APITrendingMovies = () =>
@@ -28,7 +27,6 @@ export const APITrendingSeries = () =>
         .then(response => response.json())
         .then(response => response.results)
         .catch(err => console.error(err));
-
 
 export const APIGenreMovies = () =>
     fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
@@ -66,6 +64,26 @@ export const APISearchForSeriesGenere = (gid) => fetch(`https://api.themoviedb.o
     .then(response => response.json())
     .catch(error => console.error(error));
 
+export const APITopMovies = () =>
+    fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
+        .then(response => response.json())
+        .catch(err => console.error(err));
+
+export const APITopSeries = () =>
+    fetch('https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1', options)
+        .then(response => response.json())
+        .catch(err => console.error(err));
+
+
+export const APIMoviesToday = () =>
+    fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
+        .then(response => response.json())
+        .catch(err => console.error(err));
+
+export const APISeriesToday = () =>
+    fetch('https://api.themoviedb.org/3/trending/tv/day?language=en-US', options)
+        .then(response => response.json())
+        .catch(err => console.error(err));
 
 
 
