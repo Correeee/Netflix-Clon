@@ -6,7 +6,7 @@ import play from './assets/play.png'
 import info from './assets/info.png'
 import soundOn from './assets/soundOn.png'
 import soundOff from './assets/soundOff.png'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 const BrowseBanner = (list) => {
@@ -14,6 +14,7 @@ const BrowseBanner = (list) => {
 
     const [sound, setSound] = useState(soundOn)
     const [trendingFilm, setTrendingFilm] = useState({})
+    const { pathname } = useLocation()
 
     const handlerSound = () => {
 
@@ -39,7 +40,8 @@ const BrowseBanner = (list) => {
     }, [list.list])
 
     const handlerInfo = () => {
-        navigate(`/browse/${trendingFilm.id}`)
+        console.log(pathname)
+        navigate(`${pathname}/${trendingFilm.id}`)
     }
 
     return (
@@ -53,8 +55,8 @@ const BrowseBanner = (list) => {
                     <h2>{trendingFilm.original_title}</h2>
                     <h3>{trendingFilm.overview}</h3>
                     <div className='BrowseBanner__btns'>
-                        <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'30rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(trendingFilm.id)} imageSrc={play}/>
-                        <Btn text={'Más información'} id={'BrowseBannerBtnInfo'} width={'30rem'} fontSize={'2rem'} onclick={handlerInfo} imageSrc={info}/>
+                        <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'30rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(trendingFilm.id)} imageSrc={play} />
+                        <Btn text={'Más información'} id={'BrowseBannerBtnInfo'} width={'30rem'} fontSize={'2rem'} onclick={handlerInfo} imageSrc={info} />
                     </div>
                 </div>
                 <div className='BrowseBanner__movieOptions'>

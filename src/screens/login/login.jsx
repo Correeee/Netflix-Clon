@@ -24,7 +24,7 @@ const Login = () => {
                         <input type="email" />
                         <input type="password" />
                     </form>
-                    <Btn text={'Iniciar sesión'} width={'100%'} onclick={handlerLogin} />
+                    <Btn text={'Iniciar sesión'} width={'100%'} onclick={handlerLogin} imgDisplay={'none'} />
                     <div className='Login__checkbox'>
                         <div className='Login__checkboxInput'>
                             <input type="checkbox" name="rememberMe" placeholder='Recuérdame' />

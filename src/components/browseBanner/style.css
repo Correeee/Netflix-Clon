@@ -68,8 +68,9 @@
 .BrowseBanner__infoMovie h1 {
     font-size: 3rem;
     letter-spacing: 1rem;
-    color: #B6B8B4;
+    color: var(--color-text);
     font-weight: bold;
+    opacity: 70%;
 }
 
 .BrowseBanner__infoMovie h2 {

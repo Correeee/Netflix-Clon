@@ -15,20 +15,22 @@ import pause from './assets/pause.png'
 import configuration from './assets/configuration.png'
 import { useNavigate, useParams } from 'react-router-dom'
 import { APISearchMovieForId } from '../../data/data'
+import Loader from '../../components/loader/loader'
 
 const Player = () => {
 
     const { fid } = useParams()
 
     const [film, setFilm] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
 
 
     useEffect(() => {
         APISearchMovieForId(fid)
-        .then(res => setFilm(res))
-        .catch(error => console.log(error))
+            .then(res => setFilm(res))
+            .catch(error => console.log(error))
     }, [fid])
-    
+
 
 
     const navigate = useNavigate()
@@ -58,7 +60,7 @@ const Player = () => {
 
     const handlerSound = () => {
 
-        if (sound == soundOn) {
+        if (sound === soundOn) {
             setSound(soundOff)
             setVolume(0)
         } else {
@@ -188,11 +190,11 @@ const Player = () => {
                                 <div className='player__icons-velocityRange'>
                                     <input type="range" id="velocity" name="velocity" list="velocityList" className='player__inputRangeVelocity' step={25} value={rangeValue} onChange={(e) => setRangeValue(e.target.value)} disabled={disabledButton} />
                                     <datalist id="velocityList" >
-                                        <option value="0" label="0.5x" style={{ fontSize: rangeValue == 0 && '2.25rem', opacity: rangeValue == 0 && '100%' }}></option>
-                                        <option value="25" label="0.75x" style={{ fontSize: rangeValue == 25 && '2.25rem', opacity: rangeValue == 25 && '100%' }}></option>
-                                        <option value="50" label="1x(Normal)" style={{ fontSize: rangeValue == 50 && '2.25rem', opacity: rangeValue == 50 && '100%' }}></option>
-                                        <option value="75" label="1.5x" style={{ fontSize: rangeValue == 75 && '2.25rem', opacity: rangeValue == 75 && '100%' }}></option>
-                                        <option value="100" label="1.75x" style={{ fontSize: rangeValue == 100 && '2.25rem', opacity: rangeValue == 100 && '100%' }}></option>
+                                        <option value="0" label="0.5x" style={{ fontSize: rangeValue === 0 && '2.25rem', opacity: rangeValue === 0 && '100%' }}></option>
+                                        <option value="25" label="0.75x" style={{ fontSize: rangeValue === 25 && '2.25rem', opacity: rangeValue === 25 && '100%' }}></option>
+                                        <option value="50" label="1x(Normal)" style={{ fontSize: rangeValue === 50 && '2.25rem', opacity: rangeValue === 50 && '100%' }}></option>
+                                        <option value="75" label="1.5x" style={{ fontSize: rangeValue === 75 && '2.25rem', opacity: rangeValue === 75 && '100%' }}></option>
+                                        <option value="100" label="1.75x" style={{ fontSize: rangeValue === 100 && '2.25rem', opacity: rangeValue === 100 && '100%' }}></option>
                                     </datalist>
                                 </div>
                             </div>
@@ -226,6 +228,9 @@ const Player = () => {
                     </div>
                 </div>
             </div>
+            {
+                isLoading && <Loader />
+            }
         </div>
     )
 }

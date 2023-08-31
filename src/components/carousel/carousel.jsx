@@ -9,13 +9,13 @@ import like from './assets/like.png'
 import down from './assets/down.png'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { APIGeneresMovie } from '../../data/data'
+import { APIGeneresMovie, APIGeneresSeries } from '../../data/data'
 import PopUp from '../popUp/popUp'
 import InfoFilm from '../infoFilm/infoFilm'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 
-const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
+const Carousel = ({ categoryTitle, genreList, id, GENERE_ID }) => {
 
     const [pages, setPages] = useState(1)
     const [actualPage, setActualPage] = useState(1)
@@ -24,12 +24,20 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
     const [list, setList] = useState([])
     const navigate = useNavigate()
 
+    const { pathname } = useLocation()
+
     const visibleItems = 5
 
     const movieType = async () => { //BUSCAR POR PELICULA
         try {
-            const response = await APIGeneresMovie(GENERE_ID)
-            setList(response.results)
+            if (pathname.includes('browse') || pathname.includes('movies')) {
+                const response = await APIGeneresMovie(GENERE_ID)
+                setList(response.results)
+            }
+            if (pathname.includes('series')) {
+                const response = await APIGeneresSeries(GENERE_ID)
+                setList(response.results)
+            }
         } catch (error) {
             console.log(error)
         }
@@ -40,7 +48,7 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
         const numberPages = Math.ceil(itemsLength / visibleItems)
         setPages(numberPages)
         movieType()
-    }, [list.length])
+    }, [list.length, pathname])
 
     useEffect(() => {
         const carouselId = document.getElementsByClassName(`Carousel__page-id${id}`)
@@ -55,7 +63,7 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
             }
         }
 
-    }, [actualPage, list, genreListMovie])
+    }, [actualPage, list, genreList])
 
 
     const handlerArrowLeft = (e) => {
@@ -99,7 +107,7 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
     }
 
     const handlerInfo = (fid) => {
-        navigate(`/browse/${fid}`)
+        navigate(`${pathname}/${fid}`)
     }
 
     const handlerPlay = (id) => {
@@ -127,7 +135,7 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
                             <div className={`filmItem`} onMouseEnter={() => setDisabled(true)} onMouseLeave={() => setDisabled(false)} key={i}>
                                 <div className='imgtitle'>
                                     <img src={`https://image.tmdb.org/t/p/w500${li.poster_path}`} className={`Carousel__item`} />
-                                    <h3>{li.original_title}</h3>
+                                    <h3>{li.original_title || li.original_name}</h3>
                                 </div>
                                 <div className='Carousel__itemInfo'>
                                     <div className='Carousel__itemInfo-Btns'>
@@ -158,7 +166,7 @@ const Carousel = ({ categoryTitle, genreListMovie, id, GENERE_ID }) => {
                                     <div className='Carousel__itemInfo-Genere'>
                                         {
                                             li.genre_ids.slice(0, 3).map((gen, i) => {
-                                                const title = genreListMovie.map(genre => {
+                                                const title = genreList.map(genre => {
                                                     if (genre.id == gen) {
                                                         return genre.name
                                                     }

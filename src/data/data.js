@@ -11,15 +11,32 @@ const options = {
     }
 };
 
-export const APITrending = () =>
+export const APITrendingAll = () =>
+    fetch('https://api.themoviedb.org/3/trending/all/week?language=en-US', options)
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(err => console.error(err));
+
+export const APITrendingMovies = () =>
     fetch('https://api.themoviedb.org/3/trending/movie/week?language=en-US', options)
         .then(response => response.json())
         .then(response => response.results)
         .catch(err => console.error(err));
 
+export const APITrendingSeries = () =>
+    fetch('https://api.themoviedb.org/3/trending/tv/week?language=en-US', options)
+        .then(response => response.json())
+        .then(response => response.results)
+        .catch(err => console.error(err));
 
-export const APIGenre = () =>
+
+export const APIGenreMovies = () =>
     fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
+        .then(response => response.json())
+        .catch(err => console.error(err));
+
+export const APIGenreSeries = () =>
+    fetch('https://api.themoviedb.org/3/genre/tv/list?language=en', options)
         .then(response => response.json())
         .catch(err => console.error(err));
 
@@ -28,11 +45,24 @@ export const APIGeneresMovie = (GENRE_ID) =>
         .then(response => response.json())
         .catch(err => console.error(err));
 
+export const APIGeneresSeries = (GENRE_ID) =>
+    fetch(`https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&with_genres=${GENRE_ID}`, options)
+        .then(response => response.json())
+        .catch(err => console.error(err));
+
 export const APISearchMovieForId = (fid) => fetch(`https://api.themoviedb.org/3/movie/${fid}?api_key=${API_KEY}`, options)
     .then(response => response.json())
     .catch(err => console.error(err));
 
-export const APISearchForGenere = (gid) => fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${gid}`, options)
+export const APISearchSerieForId = (fid) => fetch(`https://api.themoviedb.org/3/tv/${fid}?api_key=${API_KEY}`, options)
+    .then(response => response.json())
+    .catch(err => console.error(err));
+
+export const APISearchForMovieGenere = (gid) => fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${gid}`, options)
+    .then(response => response.json())
+    .catch(error => console.error(error));
+
+export const APISearchForSeriesGenere = (gid) => fetch(`https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&with_genres=${gid}`, options)
     .then(response => response.json())
     .catch(error => console.error(error));
 

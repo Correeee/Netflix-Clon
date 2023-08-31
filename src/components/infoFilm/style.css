@@ -68,8 +68,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    padding: 0 1rem;
     gap: 2rem 0;
+    width: 100%;
+}
+
+.InfoFilm__info div{
+    padding: 0 0 0 0.5rem;
 }
 
 .InfoFilm__info-text {
@@ -382,7 +386,7 @@
 .principalInfo__infoLogo h1 {
     opacity: 70%;
     font-size: 3.5rem;
-    color: var(--color-grey);
+    color: var(--color-text);
 }
 
 .principalInfo__info-logo {

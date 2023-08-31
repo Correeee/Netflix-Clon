@@ -3,8 +3,8 @@ import './style.css'
 import more from './assets/more.png'
 import play from './assets/play.png'
 import playBlack from './assets/playBlack.png'
-import { APISearchMovieForId, APISearchForGenere } from '../../data/data'
-import { useNavigate } from 'react-router-dom'
+import { APISearchMovieForId, APISearchForMovieGenere, APISearchSerieForId, APISearchForSeriesGenere } from '../../data/data'
+import { useLocation, useNavigate } from 'react-router-dom'
 import logo from './assets/logo.png'
 import like from './assets/like.png'
 import PopUp from '../popUp/popUp'
@@ -18,6 +18,8 @@ const InfoFilm = ({ fid }) => {
     const [moreMovies, setMoreMovies] = useState([])
 
     const navigate = useNavigate()
+    const { pathname } = useLocation()
+    console.log('info', pathname)
 
     if (fid) {
         document.querySelector('body').classList.add('hiddenBody')
@@ -26,7 +28,18 @@ const InfoFilm = ({ fid }) => {
     useEffect(() => {
 
         if (fid) {
-            APISearchMovieForId(fid)
+            if (pathname.includes('browse') || pathname.includes('movies')) {
+                APISearchMovieForId(fid)
+                    .then(res => {
+                        setFilm(res)
+                        const genresIds = []
+                        res.genres.map(gen => genresIds.push(gen.id))
+                        setGenres(genresIds)
+                    })
+                    .catch(error => console.log(error))
+            }
+            if(pathname.includes('series')){
+                APISearchSerieForId(fid)
                 .then(res => {
                     setFilm(res)
                     const genresIds = []
@@ -34,6 +47,8 @@ const InfoFilm = ({ fid }) => {
                     setGenres(genresIds)
                 })
                 .catch(error => console.log(error))
+            }
+
         }
 
     }, [fid])
@@ -41,7 +56,7 @@ const InfoFilm = ({ fid }) => {
     useEffect(() => {
         const fetchMoviesForGenres = async () => {
             const promises = genres.map(gid => {
-                return APISearchForGenere(gid)
+                return APISearchForMovieGenere(gid)
                     .then(res => res.results)
                     .catch(error => {
                         console.error('Error fetching movies:', error);
@@ -60,7 +75,33 @@ const InfoFilm = ({ fid }) => {
             }
         };
 
-        fetchMoviesForGenres();
+        const fetchSeriesForGenres = async () => {
+            const promises = genres.map(gid => {
+                return APISearchForSeriesGenere(gid)
+                    .then(res => res.results)
+                    .catch(error => {
+                        console.error('Error fetching movies:', error);
+                        return []; // Devuelve un array vacío en caso de error
+                    });
+            });
+
+            try {
+                const allResults = await Promise.all(promises);
+
+                const otherMovies = allResults.flat(); // Combina los arrays de resultados en uno solo
+
+                setMoreMovies(otherMovies);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        if(pathname.includes('browse') || pathname.includes('movies')){
+            fetchMoviesForGenres();
+        }
+        if(pathname.includes('series')){
+            fetchSeriesForGenres();
+        }
     }, [genres]);
 
 
@@ -71,7 +112,15 @@ const InfoFilm = ({ fid }) => {
 
     const handlerClose = () => {
         document.querySelector('body').classList.remove('hiddenBody')
-        navigate('/browse')
+        if (pathname.includes('browse')) {
+            navigate('/browse')
+        }
+        if (pathname.includes('movies')) {
+            navigate('/movies')
+        }
+        if (pathname.includes('series')) {
+            navigate('/series')
+        }
     }
 
     const handlerPlay = (id) => {
@@ -101,7 +150,7 @@ const InfoFilm = ({ fid }) => {
                                     <div className='principalInfo__infoContainer'>
                                         <div className='principalInfo__infoLogo'>
                                             <img src={logo} alt="logo" className='principalInfo__info-logo' />
-                                            <h1>Película</h1>
+                                            <h1>{film.seasons ? 'Serie' : 'Película'}</h1>
                                         </div>
                                         <div className='principalInfo__title'>
                                             <h2>{film.title}</h2>

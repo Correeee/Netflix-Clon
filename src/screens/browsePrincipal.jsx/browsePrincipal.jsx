@@ -3,45 +3,65 @@ import './style.css'
 import BrowseNavbar from '../../components/browseNavbar.jsx/browseNavbar'
 import BrowseBanner from '../../components/browseBanner/browseBanner'
 import Carousel from '../../components/carousel/carousel'
-import { APITrending, APIGenre, APIGeneresMovie } from '../../data/data'
+import { APITrendingMovies, APIGenreMovies, APIGeneresMovie, APITrendingSeries, APITrendingAll, APIGenreSeries } from '../../data/data'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import InfoFilm from '../../components/infoFilm/infoFilm'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 
 const BrowsePrincipal = () => {
     const ProfileName = 'Maxi'
+    const { pathname } = useLocation()
+
 
     const { fid } = useParams()
 
     useEffect(() => {
         document.querySelector('body').classList.remove('hiddenBody')
     }, [])
-    
+
 
     /* ------------------------------ TRENDINGLIST ------------------------------ */
 
     const [trending, setTrending] = useState([])
-    const trendingList = async () => {
+    const listingFilms = async () => {
         try {
-            const data = await APITrending()
-            setTrending(data)
+
+            if (pathname.includes('browse') || pathname.includes('movies')) {
+                const data = await APITrendingMovies()
+                setTrending(data)
+            }
+
+            if (pathname.includes('series')) {
+                const data = await APITrendingSeries()
+                setTrending(data)
+            }
+
         } catch (error) {
             console.log(error)
         }
     }
     useEffect(() => {
-        trendingList()
-    }, [])
+        listingFilms()
+    }, [pathname])
 
     /* ------------------------------- GENRE LIST ------------------------------- */
 
-    const [genreListMovie, setGenreListMovie] = useState([])
+    const [genreList, setGenreList] = useState([])
     const genre = async () => {
         try {
-            const response = await APIGenre()
-            setGenreListMovie(response.genres)
+
+            if (pathname.includes('browse') || pathname.includes('movies')) {
+                const response = await APIGenreMovies()
+                setGenreList(response.genres)
+            }
+
+            if (pathname.includes('series')) {
+                const response = await APIGenreSeries()
+                setGenreList(response.genres)
+            }
+
         } catch (error) {
             console.log(error)
         }
@@ -49,7 +69,7 @@ const BrowsePrincipal = () => {
 
     useEffect(() => {
         genre()
-    }, [])
+    }, [pathname])
 
     useEffect(() => {
 
@@ -61,12 +81,18 @@ const BrowsePrincipal = () => {
         <div className='BrowsePrincipal' >
             <BrowseNavbar />
             <BrowseBanner list={trending} />
-            <Carousel categoryTitle={`Trending movies`} list={trending} genreListMovie={genreListMovie} id={9999999} />
             {
-                genreListMovie.map((genere, i) => {
+                pathname.includes('browse') || pathname.includes('movies') ?
+                    <Carousel categoryTitle={`Trending Movies`} list={trending} genreList={genreList} id={9999999} />
+                    :
+                    <Carousel categoryTitle={`Trending Series`} list={trending} genreList={genreList} id={9999999} />
+            }
+
+            {
+                genreList.map((genere, i) => {
                     const GENERE_ID = genere.id
                     return (
-                        <Carousel categoryTitle={genere.name} genreListMovie={genreListMovie} id={i} GENERE_ID={GENERE_ID} key={i} />
+                        <Carousel categoryTitle={genere.name} genreList={genreList} id={i} GENERE_ID={GENERE_ID} key={i} />
                     )
                 })
             }

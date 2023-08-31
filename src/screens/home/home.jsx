@@ -17,7 +17,7 @@ const Home = () => {
                     <form action="POST" id='createAccount'>
                         <input type="email" name="createAccount" placeholder='Email' />
                     </form>
-                    <Btn type={'submit'} form={'createAccount'} text={'Comenzar>'} />
+                    <Btn type={'submit'} form={'createAccount'} text={'Comenzar>'} imgDisplay={'none'}/>
                 </div>
             </div>
         </div>
