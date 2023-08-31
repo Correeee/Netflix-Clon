@@ -10,14 +10,14 @@ const Home = () => {
             <Navbar />
             <div className='Screen__filter'></div>
             <div className='Home__texts'>
-                <h1>Películas y Series ilimitadas y mucho más</h1>
-                <h2>Disfruta donde quieras. Cancela cuando quieras.</h2>
-                <h3>¿Quieres ver Netflix ya? Ingresa tu email para crear una cuenta o reiniciar tu membresía de Netflix.</h3>
+                <h1>Unlimited Movies and Series and much more</h1>
+                <h2>Enjoy wherever you want. Cancel whenever you want.</h2>
+                <h3>Do you want to watch Netflix now? Enter your email to create an account or restart your Netflix membership.</h3>
                 <div className='Home__form'>
                     <form action="POST" id='createAccount'>
                         <input type="email" name="createAccount" placeholder='Email' />
                     </form>
-                    <Btn type={'submit'} form={'createAccount'} text={'Comenzar>'} imgDisplay={'none'}/>
+                    <Btn type={'submit'} form={'createAccount'} text={'Begin>'} imgDisplay={'none'}/>
                 </div>
             </div>
         </div>

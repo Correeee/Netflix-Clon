@@ -4,6 +4,9 @@ import Home from './screens/home/home';
 import Login from './screens/login/login';
 import Browse from './screens/browse/browse';
 import Player from './screens/player/player';
+import Explorer from './screens/explorer/explorer';
+import News from './screens/news/news'
+import MyList from './screens/mylist/mylist'
 
 
 function App() {
@@ -20,8 +23,11 @@ function App() {
           <Route path='/series/:fid' element={<Browse />} />
           <Route path='/movies' element={<Browse />} />
           <Route path='/movies/:fid' element={<Browse />} />
-          <Route path='/player/:fid' element={<Player />} />
           <Route path='/player' element={<Player />} />
+          <Route path='/player/:fid' element={<Player />} />
+          <Route path='/news' element={<News />} />
+          <Route path='/mylist' element={<MyList />} />
+          <Route path='/explorer' element={<Explorer />} />
         </Routes>
       </div>
     </BrowserRouter>

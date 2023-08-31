@@ -145,12 +145,13 @@ const InfoFilm = ({ fid }) => {
                     <div className='InfoFilm' >
                         <button className='InfoFilm__close' onClick={handlerClose}>X</button>
                         <div className='InfoFilm__poster' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${film.backdrop_path})` }}>
+                        <div className='InfoFilmContainer__filter'></div>
                             <div className='InfoFilm__poster-principalInfo'>
                                 <div className='principalInfo__info'>
                                     <div className='principalInfo__infoContainer'>
                                         <div className='principalInfo__infoLogo'>
                                             <img src={logo} alt="logo" className='principalInfo__info-logo' />
-                                            <h1>{film.seasons ? 'Serie' : 'Película'}</h1>
+                                            <h1>{film.seasons ? 'Serie' : 'Movie'}</h1>
                                         </div>
                                         <div className='principalInfo__title'>
                                             <h2>{film.title}</h2>
@@ -159,11 +160,11 @@ const InfoFilm = ({ fid }) => {
                                             <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'20rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(film.id)} imageSrc={playBlack} />
                                             <button className='principalInfo__info-add' onClick={handlerAdd}>
                                                 <img src={more} alt="add" />
-                                                <PopUp text={'Agregar a mi lista'} />
+                                                <PopUp text={'Add to My list'} />
                                             </button>
                                             <button className='principalInfo__info-like' onClick={handlerLike}>
                                                 <img src={like} alt="like" />
-                                                <PopUp text={'Me gusta'} />
+                                                <PopUp text={'Like it'} />
                                             </button>
                                         </div>
                                     </div>
@@ -178,7 +179,7 @@ const InfoFilm = ({ fid }) => {
                             <div className='InfoFilm__info-date'>
                                 <div>
                                     <h2>80% para ti</h2>
-                                    <h3>{film.release_date}</h3>
+                                    <h3>{film.release_date || film.first_air_date}</h3>
                                     {
                                         film.genres && film.genres.slice(0, 3).map((gen, i) => {
                                             return (
@@ -199,7 +200,7 @@ const InfoFilm = ({ fid }) => {
                             </div>
                         </div>
                         <div className='InfoFilm__moreTitles'>
-                            <h1>Más títulos similares a este</h1>
+                            <h1>More titles similar to this</h1>
                             <div className='InfoFilm__moreTitles-filmsCards'>
                                 {
                                     moreMovies.length &&
@@ -218,7 +219,7 @@ const InfoFilm = ({ fid }) => {
                                                     <div className='filmCard__info-btns'>
                                                         <div className='filmCard__info-btnsDiv1'>
                                                             <div>
-                                                                <h3>75% para ti</h3>
+                                                                <h3>75% for you</h3>
                                                             </div>
                                                             <div>
                                                                 <h3>{!mov.adult ? '13+' : '+18'}</h3>

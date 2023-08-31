@@ -27,12 +27,12 @@ const BrowseNavbar = () => {
                     <img src={logo} alt="logo" className='logo' />
                 </div>
                 <ul>
-                    <NavLink to={'/browse'}>Inicio</NavLink>
+                    <NavLink to={'/browse'}>Home</NavLink>
                     <NavLink to={'/series'}>Series</NavLink>
-                    <NavLink to={'/movies'}>Películas</NavLink>
-                    <NavLink to={'/news'}>Novedades populares</NavLink>
-                    <NavLink to={'/mylist'}>Mi lista</NavLink>
-                    <NavLink to={'/explorer'}>Explorar por idiomas</NavLink>
+                    <NavLink to={'/movies'}>Movies</NavLink>
+                    <NavLink to={'/news'}>Popular News</NavLink>
+                    <NavLink to={'/mylist'}>My List</NavLink>
+                    <NavLink to={'/explorer'}>Explorer</NavLink>
                 </ul>
             </div>
             <div className='BrowseNavbar__profileBar'>

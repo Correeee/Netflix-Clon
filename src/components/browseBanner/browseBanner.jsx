@@ -46,17 +46,18 @@ const BrowseBanner = (list) => {
 
     return (
         <div className='BrowseBanner' style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${trendingFilm.backdrop_path})` }}>
+            <div className='BrowseBanner__filter'></div>
             <div className='BrowseBanner__infoMovie'>
                 <div className='BrowseBanner__infoMovieContainer'>
                     <div className='BrowseBanner__type'>
                         <img src={logo} alt="logo" className='BrowseBanner__logo' />
-                        <h1>{trendingFilm.media_type == 'movie' ? 'Película' : 'Serie'}</h1>
+                        <h1>{trendingFilm.media_type == 'movie' ? 'Movie' : 'Serie'}</h1>
                     </div>
                     <h2>{trendingFilm.original_title}</h2>
                     <h3>{trendingFilm.overview}</h3>
                     <div className='BrowseBanner__btns'>
-                        <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'30rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(trendingFilm.id)} imageSrc={play} />
-                        <Btn text={'Más información'} id={'BrowseBannerBtnInfo'} width={'30rem'} fontSize={'2rem'} onclick={handlerInfo} imageSrc={info} />
+                        <Btn text={'Play'} id={'BrowseBannerBtnPlay'} width={'30rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(trendingFilm.id)} imageSrc={play} />
+                        <Btn text={'More information'} id={'BrowseBannerBtnInfo'} width={'30rem'} fontSize={'2rem'} onclick={handlerInfo} imageSrc={info} />
                     </div>
                 </div>
                 <div className='BrowseBanner__movieOptions'>

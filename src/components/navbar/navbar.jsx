@@ -30,7 +30,7 @@ const Navbar = () => {
                     </select>
                 </div>
                 <div>
-                    <Btn text={'Iniciar sesión'} onclick={() => navigate('/login')} imgDisplay={'none'}/>
+                    <Btn text={'Log in'} onclick={() => navigate('/login')} imgDisplay={'none'}/>
                 </div>
             </div>
         </div>

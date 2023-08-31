@@ -19,21 +19,21 @@ const Login = () => {
             <div className='Login__container'>
                 <div className='Login__filter'></div>
                 <div className='Login__all'>
-                    <h1>Iniciar sesión</h1>
+                    <h1>Log in</h1>
                     <form action="" id='login'>
                         <input type="email" />
                         <input type="password" />
                     </form>
-                    <Btn text={'Iniciar sesión'} width={'100%'} onclick={handlerLogin} imgDisplay={'none'} />
+                    <Btn text={'Log in'} width={'100%'} onclick={handlerLogin} imgDisplay={'none'} />
                     <div className='Login__checkbox'>
                         <div className='Login__checkboxInput'>
                             <input type="checkbox" name="rememberMe" placeholder='Recuérdame' />
-                            <h3>Recuérdame</h3>
+                            <h3>Remember me</h3>
                         </div>
-                        <a href="">¿Necesitas ayuda?</a>
+                        <a href="">Need help?</a>
                     </div>
                     <div>
-                        <h2>¿Primera vez en Netflix? <a onClick={() => navigate('/')}>Suscríbete ahora.</a></h2>
+                        <h2>First time on Netflix? <a onClick={() => navigate('/')}>Subscribe now.</a></h2>
                     </div>
                 </div>
             </div>

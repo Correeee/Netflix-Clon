@@ -145,22 +145,22 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID }) => {
                                             </button>
                                             <button className='ItemButtons'>
                                                 <img src={add} alt="AddList" />
-                                                <PopUp text={'Agregar a Mi lista'} />
+                                                <PopUp text={'Add to My list'} />
                                             </button>
                                             <button className='ItemButtons'>
                                                 <img src={like} alt="Like" />
-                                                <PopUp text={'Me gusta'} />
+                                                <PopUp text={'Like it'} />
                                             </button>
                                         </div>
                                         <div className='Carousel__itemInfo-Btns2'>
                                             <button className='ItemButtons' onClick={() => handlerInfo(li.id)}>
                                                 <img src={down} alt="Down" />
-                                                <PopUp text={'Más información'} />
+                                                <PopUp text={'More information'} />
                                             </button>
                                         </div>
                                     </div>
                                     <div className='Carousel__itemInfo-Texts'>
-                                        <h3>80% para ti</h3>
+                                        <h3>80% for you</h3>
                                         <h3>{li.adult ? '+18' : '+13'}</h3>
                                     </div>
                                     <div className='Carousel__itemInfo-Genere'>
