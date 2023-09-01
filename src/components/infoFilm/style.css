@@ -483,6 +483,7 @@
     height: 100vh;
     background-color: transparent;
     position: fixed;
+    cursor: pointer;
 }
 
 .InfoFilmContainer__filter{
