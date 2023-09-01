@@ -138,6 +138,9 @@ const InfoFilm = ({ fid }) => {
         console.log('ME GUSTA')
     }
 
+    const ScrollInfoFilmTop = () => {
+        return (document.getElementsByClassName('InfoFilmContainer')[0].scrollTo(0, 0))
+    }
 
     return (
         <>
@@ -145,6 +148,7 @@ const InfoFilm = ({ fid }) => {
             {
                 film &&
                 <div className='InfoFilmContainer' style={{ display: !fid && 'none' }}>
+                    <ScrollInfoFilmTop />
                     <div className='out' onClick={handlerClose}></div>
                     <div className='InfoFilm' >
                         <button className='InfoFilm__close' onClick={handlerClose}>X</button>
