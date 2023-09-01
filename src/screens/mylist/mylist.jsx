@@ -2,6 +2,8 @@ import React from 'react'
 import './style.css'
 import BrowseNavbar from '../../components/browseNavbar.jsx/browseNavbar'
 import { motion } from 'framer-motion'
+import ScrollToTop from '../../components/scrollToTop/scrollToTop'
+
 
 const MyList = () => {
     return (
@@ -13,6 +15,7 @@ const MyList = () => {
                 delay: 0.2
             }}
             className='MyList'>
+            <ScrollToTop />
             <BrowseNavbar />
             <div className='MyList__container'>
                 <h1>My List</h1>

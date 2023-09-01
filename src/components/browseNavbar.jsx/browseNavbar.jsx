@@ -32,7 +32,6 @@ const BrowseNavbar = () => {
                     <NavLink to={'/movies'}>Movies</NavLink>
                     <NavLink to={'/news'}>Popular News</NavLink>
                     <NavLink to={'/mylist'}>My List</NavLink>
-                    <NavLink to={'/explorer'}>Explorer</NavLink>
                 </ul>
             </div>
             <div className='BrowseNavbar__profileBar'>

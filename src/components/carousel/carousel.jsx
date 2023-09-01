@@ -151,7 +151,7 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
                 </div>
 
                 {
-                    list.length &&
+                    list.length ?
                     list.map((li, i) => {
                         return (
                             <div className={`filmItem`} onMouseEnter={() => setDisabled(true)} onMouseLeave={() => setDisabled(false)} key={i}>
@@ -206,9 +206,11 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
                             </div>
                         )
                     })
+                    :
+                    null
                 }
                 {
-                    categoryList &&
+                    categoryList ?
                     categoryList.map((li, i) => {
                         return (
                             <div className={`filmItem`} onMouseEnter={() => setDisabled(true)} onMouseLeave={() => setDisabled(false)} key={i}>
@@ -263,8 +265,9 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
                             </div>
                         )
                     })
+                    :
+                    null
                 }
-
             </div>
             <button className='Carousel__arrow Carousel__arrow-left' id='arrowLeft' onClick={handlerArrowLeft} style={{ display: disabled ? 'none' : 'block' }} disabled={scrolling}><img src={left} alt="left" /></button>
             <button className='Carousel__arrow Carousel__arrow-right' id='arrowRight' onClick={handlerArrowRight} style={{ display: disabled ? 'none' : 'block' }} disabled={scrolling}><img src={right} alt="right" /></button>

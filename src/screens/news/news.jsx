@@ -7,6 +7,7 @@ import { APIGenreMovies, APIGenreSeries, APITopMovies, APITrendingMovies, APITre
 import InfoFilm from '../../components/infoFilm/infoFilm'
 import { useLocation, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import ScrollToTop from '../../components/scrollToTop/scrollToTop'
 
 
 const News = () => {
@@ -54,8 +55,6 @@ const News = () => {
 
     }, [])
 
-
-
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -65,6 +64,7 @@ const News = () => {
                 delay: 0.2
             }}
             className='News'>
+            <ScrollToTop />
             <BrowseNavbar />
             <div className='News__carousels'>
                 <Carousel categoryTitle={`What's new on Netflix`} id={1} categoryList={newToday} genreList={genreListMovies} />

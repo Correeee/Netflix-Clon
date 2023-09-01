@@ -24,9 +24,9 @@ const Navbar = () => {
             </div>
             <div className='Navbar__btns'>
                 <div>
-                    <select name="language" id="language">
+                    <select name="language" id="language" defaultValue={'English'}>
                         <option value="Español">Español</option>
-                        <option value="Español">Inglés</option>
+                        <option value="English">English</option>
                     </select>
                 </div>
                 <div>

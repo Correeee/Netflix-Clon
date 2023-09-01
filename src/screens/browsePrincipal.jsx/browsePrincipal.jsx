@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import InfoFilm from '../../components/infoFilm/infoFilm'
 import { useLocation, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import ScrollToTop from '../../components/scrollToTop/scrollToTop'
 
 
 
@@ -87,6 +88,7 @@ const BrowsePrincipal = () => {
                 delay: 0.2
             }}
             className='BrowsePrincipal' >
+            <ScrollToTop />
             <BrowseNavbar />
             <BrowseBanner list={trending} />
             {

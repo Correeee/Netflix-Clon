@@ -29,7 +29,6 @@ function App() {
           <Route path='/news/movies/:fid' element={<News />} />
           <Route path='/news/series/:fid' element={<News />} />
           <Route path='/mylist' element={<MyList />} />
-          <Route path='/explorer' element={<Explorer />} />
         </Routes>
       </div>
     </BrowserRouter>
