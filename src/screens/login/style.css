@@ -101,3 +101,9 @@
 .Login__checkbox label{
     color: var(--color-text);
 }
+
+.login__error{
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    margin: 0;
+}

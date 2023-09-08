@@ -1,43 +1,33 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './style.css'
-import BrowsePrincipal from '../browsePrincipal.jsx/browsePrincipal'
+import BrowsePrincipal from '../browsePrincipal/browsePrincipal'
+import { AuthContext } from '../../context/authContext'
+import Login from '../login/login'
+import Profiles from '../profiles/profiles'
+import { useEffect } from 'react'
 
 const Browse = () => {
+    const { isLogin, userData, selectedProfile, setSelectedProfile } = useContext(AuthContext)
 
-    const [selectedProfile, setSelectedProfile] = useState(false)
+    useEffect(() => {
+
+    }, [selectedProfile])
 
     return (
         <>
             {
-                selectedProfile ?
-                    <div className='Browse'>
-                        <h1>¿Quién está viendo ahora?</h1>
-                        <div className='Browse__profiles'>
-                            <div className='Browse__profiles__profile'>
-                                <img src="" alt="" />
-                                <h2>NOMBRE</h2>
-                            </div>
-                            <div className='Browse__profiles__profile'>
-                                <img src="" alt="" />
-                                <h2>NOMBRE</h2>
-                            </div>
-                            <div className='Browse__profiles__profile'>
-                                <img src="" alt="" />
-                                <h2>NOMBRE</h2>
-                            </div>
-                            <div className='Browse__profiles__profile'>
-                                <img src="" alt="" />
-                                <h2>NOMBRE</h2>
-                            </div>
-                            <div className='Browse__profiles__profile'>
-                                <img src="" alt="" />
-                                <h2>NOMBRE</h2>
-                            </div>
-                        </div>
-                        <button>Administrar Perfiles</button>
-                    </div>
+                isLogin
+                    ?
+                    <>
+                        {
+                            !selectedProfile ?
+                                <Profiles />
+                                :
+                                <BrowsePrincipal />
+                        }
+                    </>
                     :
-                    <BrowsePrincipal />
+                    <Login />
             }
         </>
     )

@@ -1,0 +1,89 @@
+.SelectionImage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    gap: 10rem 0;
+}
+
+.SelectionImage__bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.SelectionImage__text img{
+    width: 8rem;
+    height: 8rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.SelectionImage__text img:hover{
+    transform: scale(1.2);
+}
+
+.SelectionImage__bar div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0 2rem;
+}
+
+.SelectionImage__bar div div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 1rem 0;
+}
+
+.SelectionImage__bar div div h1{
+    font-size: 4rem;
+}
+
+.SelectionImage__bar div div h2{
+    font-size: 2rem;
+}
+
+.SelectionImage__text div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.SelectionImage__image img{
+    width: 8rem;
+    height: 8rem;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+
+.SelectionImage__options{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem 5rem;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.avatarOption{
+    width: 15rem;
+    height: 15rem;
+    border-radius: 10px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.avatarOption:hover{
+    outline: 2px solid var(--color-text);
+}

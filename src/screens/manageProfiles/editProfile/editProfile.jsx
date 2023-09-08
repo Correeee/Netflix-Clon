@@ -1,0 +1,85 @@
+import React, { useEffect, useState } from 'react'
+import './style.css'
+import { motion } from 'framer-motion'
+import edit from '../assets/edit.png'
+import { doc, getDoc, getDocs, updateDoc } from '@firebase/firestore'
+import { db } from '../../../firebase/firebase'
+import { useNavigate } from 'react-router-dom'
+import SelectionImage from './selectionImage/selectionImage'
+
+const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserData }) => {
+
+    const [profileName, setProfileName] = useState(profileSelected.name)
+    const [selectedImage, setSelectedImage] = useState(profileSelected.image)
+    const [selectionImage, setSelectionImage] = useState(false)
+
+    const profileRef = doc(db, 'users', userData.id)
+
+    useEffect(() => {
+
+    }, [userData, selectedImage])
+
+
+    const handlerUpdateProfile = async () => {
+        try {
+            if (profileName) {
+                let user = await getDoc(profileRef)
+                user = user.data()
+
+                const lastProfiles = user.profiles.filter(prof => prof.id !== profileSelected.id)
+                const newProfile = {
+                    id: selectedImage.id,
+                    image: selectedImage.image,
+                    name: profileName
+                }
+                const update = {
+                    ...user,
+                    profiles: [...lastProfiles, newProfile]
+                }
+                await updateDoc(profileRef, update)
+                setUserData(update)
+                setProfileSelected(false)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    return (
+        <>
+            {
+                !selectionImage ?
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{
+                            delay: 0.2
+                        }}
+                        className='EditProfile'>
+                        <div className='EditProfile__container'>
+                            <form action="">
+                                <div className='EditProfile__imageContainer' onClick={() => setSelectionImage(true)}>
+                                    <img src={selectedImage.image ? selectedImage.image : selectedImage} alt="Profile Image" className='EditProfile__containerImg' />
+                                    <img src={edit} alt="edit" className='EditProfile__imageContainer-edit' />
+                                </div>
+                                <div>
+                                    <input type="text" placeholder='Name' defaultValue={profileName} onChange={(e) => setProfileName(e.target.value)} />
+                                    <p style={{ visibility: profileName ? 'hidden' : 'visible' }}>Enter a name</p>
+                                </div>
+                            </form>
+                            <span></span>
+                            <div className='EditProfile__containerBtns'>
+                                <button onClick={handlerUpdateProfile}>Save</button>
+                                <button onClick={() => setProfileSelected(false)}>Cancel</button>
+                            </div>
+                        </div>
+                    </motion.div>
+                    :
+                    <SelectionImage selectedImage={selectedImage} profileName={profileName} setSelectionImage={setSelectionImage} setSelectedImage={setSelectedImage} />
+            }
+        </>
+    )
+}
+
+export default EditProfile

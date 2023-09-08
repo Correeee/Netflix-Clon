@@ -1,0 +1,171 @@
+.filmItem {
+    box-shadow:
+        0px 0px 1.2px rgba(0, 0, 0, 0.118),
+        0px 0px 3.1px rgba(0, 0, 0, 0.169),
+        0px 0px 6.4px rgba(0, 0, 0, 0.211),
+        0px 0px 13.1px rgba(0, 0, 0, 0.262),
+        0px 0px 36px rgba(0, 0, 0, 0.38);
+    border-radius: 10px;
+    background-color: #141414;
+    transition: 0.5s;
+    user-select: none;
+    cursor: pointer;
+}
+
+.filmItem:hover {
+    transform: translateY(-5px);
+    z-index: 1;
+}
+
+.filmItem:hover .imgtitle img {
+    object-fit: contain;
+}
+
+.filmItem:hover>.Carousel__itemInfo {
+    display: flex;
+}
+
+.Carousel__itemInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem 0;
+    padding: 1.5rem 1.5rem;
+    box-sizing: border-box;
+    display: none;
+    user-select: none;
+}
+
+.Carousel__itemInfo-Btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.Carousel__itemInfo-Btns img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+}
+
+.Carousel__itemInfo-Btns button {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+    border: 2px solid var(--color-grey);
+    background-color: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+}
+
+.Carousel__itemInfo-Btns1 button:nth-child(1) {
+    background-color: var(--color-text);
+    border: none;
+}
+
+.Carousel__itemInfo-Btns1 button:nth-child(1):hover {
+    background-color: #E6E6E6;
+}
+
+.Carousel__itemInfo-Btns button:hover {
+    border-color: var(--color-text);
+    background-color: #303030;
+}
+
+.Carousel__itemInfo-Btns button:nth-child(1) {
+    color: var(--color-black);
+}
+
+.Carousel__itemInfo-Btns1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0 1rem;
+}
+
+.Carousel__itemInfo-Texts {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    gap: 0 1rem;
+}
+
+.Carousel__itemInfo-Texts h3:nth-child(1) {
+    color: #40BA5E;
+}
+
+.Carousel__itemInfo-Texts h3:nth-child(2),
+.Carousel__itemInfo-Texts h3:nth-child(3) {
+    color: var(--color-grey);
+}
+
+.Carousel__itemInfo-Texts h3:nth-child(2) {
+    border: 1px solid var(--color-grey);
+    padding: 0.25rem 0.5rem;
+    box-sizing: border-box;
+}
+
+.Carousel__itemInfo-Genere {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 0 2rem;
+}
+
+.Carousel__itemInfo-Genere h3 {
+    color: var(--color-text);
+}
+
+.titleContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0 1rem;
+}
+
+.Carousel__itemInfo-Genere span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 100%;
+    background-color: var(--color-grey);
+}
+
+.imgtitle {
+    position: relative;
+}
+
+.imgtitle h3 {
+    position: absolute;
+    top: 90%;
+    font-size: 1.5rem;
+    width: 100%;
+    text-align: center;
+    background-color: var(--color-primary);
+    padding: 0 0.25rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ItemButtons {
+    position: relative;
+    z-index: 99999;
+}
+
+.ItemButtons:hover>.PopUp {
+    display: flex;
+}

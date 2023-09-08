@@ -33,6 +33,10 @@
 }
 
 .BrowseNavbar ul a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
     list-style: none;
     color: white;
@@ -100,6 +104,7 @@
     display: none;
 }
 
+
 .BrowseNavbar__profileContainerImg:hover>.BrowseNavbar__profileOptions {
     display: flex;
     flex-direction: column;
@@ -115,6 +120,7 @@
     color: var(--color-text);
     gap: 1rem 0;
     padding: 0;
+    margin: 0;
 }
 
 .BrowseNavbar__profileOptions ul a {
@@ -138,7 +144,7 @@
     width: 2rem;
     height: 2rem;
     position: absolute;
-    top: -3%;
+    top: -4%;
     right: 15%;
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './style.css'
 import more from './assets/more.png'
 import play from './assets/play.png'
@@ -9,6 +9,8 @@ import logo from './assets/logo.png'
 import like from './assets/like.png'
 import PopUp from '../popUp/popUp'
 import Btn from '../button/button'
+import { addToLike, addToList } from '../../data/userFn'
+import { AuthContext } from '../../context/authContext'
 
 
 const InfoFilm = ({ fid }) => {
@@ -19,6 +21,7 @@ const InfoFilm = ({ fid }) => {
 
     const navigate = useNavigate()
     const { pathname } = useLocation()
+    const { userData, selectedProfile } = useContext(AuthContext)
 
     if (fid) {
         document.querySelector('body').classList.add('hiddenBody')
@@ -47,7 +50,6 @@ const InfoFilm = ({ fid }) => {
                     })
                     .catch(error => console.log(error))
             }
-
 
         }
 
@@ -115,32 +117,67 @@ const InfoFilm = ({ fid }) => {
         if (pathname.includes('browse')) {
             navigate('/browse')
         }
-        if (pathname.includes('movies') && !pathname.includes('news')) {
+        if (pathname.includes('movies') && !pathname.includes('news') && !pathname.includes('mylist')) {
             navigate('/movies')
         }
-        if (pathname.includes('series') && !pathname.includes('news')) {
+        if (pathname.includes('series') && !pathname.includes('news') && !pathname.includes('mylist')) {
             navigate('/series')
         }
         if (pathname.includes('news')) {
             navigate('/news')
         }
+        if (pathname.includes('mylist')) {
+            navigate('/mylist')
+        }
     }
 
     const handlerPlay = (id) => {
-        navigate(`/player/${id}`)
+        if (pathname.includes('mylist')) {
+            if (pathname.includes('movies')) {
+                navigate(`/mylist/movies/player/${id}`)
+            }
+            if (pathname.includes('series')) {
+                navigate(`/mylist/series/player/${id}`)
+            }
+        } else {
+            if (pathname.includes('news')) {
+                if ((pathname.includes('browse') || pathname.includes('movies'))) {
+                    navigate(`/news/movies/player/${id}`)
+                }
+                if (pathname.includes('series') && !pathname.includes('mylist')) {
+                    navigate(`/news/series/player/${id}`)
+                }
+            } else {
+                if ((pathname.includes('browse') || pathname.includes('movies'))) {
+                    navigate(`/movies/player/${id}`)
+                }
+                if (pathname.includes('series') && !pathname.includes('mylist')) {
+                    navigate(`/series/player/${id}`)
+                }
+            }
+        }
+
     }
 
-    const handlerAdd = () => {
-        console.log('AGREGAR A FAVORITOS')
+    const handlerAdd = async (film) => {
+        try {
+            await addToList(film, userData, selectedProfile)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    const handlerLike = () => {
-        console.log('ME GUSTA')
+    const handlerLike = async (film) => {
+        try {
+            await addToLike(film, userData, selectedProfile)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    const ScrollInfoFilmTop = () => {
-        return (document.getElementsByClassName('InfoFilmContainer')[0].scrollTo(0, 0))
-    }
+    // const ScrollInfoFilmTop = () => {
+    //     return (document.getElementsByClassName('InfoFilmContainer')[0].scrollTo(0, 0))
+    // }
 
     return (
         <>
@@ -148,7 +185,7 @@ const InfoFilm = ({ fid }) => {
             {
                 film &&
                 <div className='InfoFilmContainer' style={{ display: !fid && 'none' }}>
-                    <ScrollInfoFilmTop />
+                    {/* <ScrollInfoFilmTop /> */}
                     <div className='out' onClick={handlerClose}></div>
                     <div className='InfoFilm' >
                         <button className='InfoFilm__close' onClick={handlerClose}>X</button>
@@ -166,11 +203,11 @@ const InfoFilm = ({ fid }) => {
                                         </div>
                                         <div className='principalInfo__info-Btns'>
                                             <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'20rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(film.id)} imageSrc={playBlack} />
-                                            <button className='principalInfo__info-add' onClick={handlerAdd}>
+                                            <button className='principalInfo__info-add' onClick={() => handlerAdd(film)}>
                                                 <img src={more} alt="add" />
                                                 <PopUp text={'Add to My list'} />
                                             </button>
-                                            <button className='principalInfo__info-like' onClick={handlerLike}>
+                                            <button className='principalInfo__info-like' onClick={() => handlerLike(film)}>
                                                 <img src={like} alt="like" />
                                                 <PopUp text={'Like it'} />
                                             </button>

@@ -8,7 +8,6 @@ import soundOn from './assets/soundOn.png'
 import soundOff from './assets/soundOff.png'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
-import InfoFilm from '../infoFilm/infoFilm'
 
 const BrowseBanner = (list) => {
     const navigate = useNavigate()
@@ -28,20 +27,18 @@ const BrowseBanner = (list) => {
     }
 
     const handlerPlay = (id) => {
-        navigate(`/player/${id}`)
+        navigate(`${pathname}/player/${id}`)
     }
 
     useEffect(() => {
         if (list.list.length) {
-            const randomIndex = Math.floor(Math.random() * list.list.length);
-            const randomFilm = list.list[randomIndex];
+            // const randomIndex = Math.floor(Math.random() * list.list.length);
+            const randomFilm = list.list[0];
             setTrendingFilm(randomFilm)
-
         }
     }, [list.list])
 
     const handlerInfo = () => {
-        console.log(pathname)
         navigate(`${pathname}/${trendingFilm.id}`)
     }
 

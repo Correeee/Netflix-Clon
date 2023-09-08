@@ -85,6 +85,18 @@ export const APISeriesToday = () =>
         .then(response => response.json())
         .catch(err => console.error(err));
 
+/* ---------------------------- BUSCAR MULTIMEDIA --------------------------- */
+
+export const APISearchMovieVideo = (mid) =>
+    fetch(`https://api.themoviedb.org/3/movie/${mid}/videos?api_key=${API_KEY}`, options)
+        .then(response => response.json())
+        .catch(err => console.error(err));
+
+export const APISearchSerieVideo = (sid) =>
+    fetch(`https://api.themoviedb.org/3/tv/${sid}/videos?api_key=${API_KEY}`, options)
+        .then(response => response.json())
+        .catch(err => console.error(err));
+
 
 
 

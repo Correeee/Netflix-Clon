@@ -11,15 +11,29 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
-    align-items: center;
+    align-items: start;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     margin-top: 8rem;
+    gap: 2rem 0;
 }
+
 
 .MyList__container h1{
     width: 100%;
     font-size: 3rem;
     padding: 0 0 0 5rem;
     box-sizing: border-box;
+    margin: 2rem 0;
+}
+
+.MyList__containerFilms{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+    gap: 2rem;
+    padding: 0 2rem;
+    flex-wrap: wrap;
 }

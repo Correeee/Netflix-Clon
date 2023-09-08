@@ -1,21 +1,23 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import './style.css'
-import demo from './assets/demo.jpg'
 import left from './assets/left.png'
 import right from './assets/right.png'
-import play from './assets/play.png'
-import add from './assets/add.png'
-import like from './assets/like.png'
-import down from './assets/down.png'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { APIGeneresMovie, APIGeneresSeries, APITrendingMovies } from '../../data/data'
 import PopUp from '../popUp/popUp'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import InfoFilm from '../infoFilm/infoFilm'
+import { AuthContext } from '../../context/authContext'
+import { doc, getDoc, getDocs, updateDoc } from '@firebase/firestore'
+import { db } from '../../firebase/firebase'
+import FilmItem from '../filmItem/filmItem'
+import { addToLike, addToList, getProfileData } from '../../data/userFn'
 
 
 const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => {
+
+    const { userData, selectedProfile, setSelectedProfile, setUserData } = useContext(AuthContext)
+
 
     const [pages, setPages] = useState(1)
     const [actualPage, setActualPage] = useState(1)
@@ -28,6 +30,10 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
     const { pathname } = useLocation()
 
     const visibleItems = 5
+
+    useEffect(() => {
+
+    }, [list, categoryList])
 
     const movieType = async () => { //BUSCAR POR PELICULA
         try {
@@ -45,22 +51,27 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
     }
 
     useEffect(() => {
+        movieType()
+    }, [])
 
-        if(list){
+
+
+    useEffect(() => {
+
+        if (list) {
             const itemsLength = list.length
             const numberPages = Math.ceil(itemsLength / visibleItems)
             setPages(numberPages)
             movieType()
         }
-        if(categoryList){
+        if (categoryList) {
             const itemsLength = categoryList.length
             const numberPages = Math.ceil(itemsLength / visibleItems)
             setPages(numberPages)
             movieType()
         }
 
-
-    }, [list.length, categoryList])
+    }, [list.length, categoryList, pathname])
 
 
     useEffect(() => {
@@ -120,8 +131,9 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
     }
 
     const handlerInfo = (film) => {
+
         if (pathname.includes('news')) {
-            if (film.media_type) {
+            if (film.media_type == "movie" || !film.first_air_date) {
                 navigate(pathname + '/movies/' + film.id)
             } else {
                 navigate(pathname + '/series/' + film.id)
@@ -130,148 +142,91 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
         if (pathname.includes('browse') || pathname.includes('movies') || pathname.includes('series')) {
             navigate(`${pathname}/${film.id}`)
         }
+
     }
 
-    const handlerPlay = (id) => {
-        navigate(`/player/${id}`)
+    const handlerPlay = (film) => {
+        if (pathname.includes('browse') || pathname.includes('movies')) {
+            navigate(`/movies/player/${film.id}`)
+        }
+        if (pathname.includes('series')) {
+            navigate(`/series/player/${film.id}`)
+        }
+        if (pathname.includes('news')) {
+            if (film.media_type == "movie" || !film.first_air_date) {
+                navigate(`/news/movies/player/${film.id}`)
+            }
+            if (film.first_air_date || film.media_type == "tv") {
+                navigate(`/news/series/player/${film.id}`)
+            }
+        }
+    }
+
+
+
+    const handlerList = async (film) => {
+        try {
+            await addToList(film, userData, selectedProfile)
+            const response = await getProfileData(userData, selectedProfile)
+            setSelectedProfile(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handlerLike = async (film) => {
+        try {
+            await addToLike(film, userData, selectedProfile)
+            const response = await getProfileData(userData, selectedProfile)
+            setSelectedProfile(response)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
-        <div className='Carousel'>
-            <div className='Carousel__container' id={`slider-${id}`} >
-                <div className='Carousel__pages'>
-                    <div className='Carousel__title'>
-                        <h2>{categoryTitle}<span>Explorar todos</span></h2>
-                    </div>
-                    {
-                        Array.from({ length: pages }).map((_, i) => (
-                            <div key={i} className={`Carousel__page Carousel__page-id${id} Carousel__page-${i + 1}`}></div>
-                        ))
-                    }
-                </div>
+        <>
+            {
+                list &&
+                <div className='Carousel'>
+                    <div className='Carousel__container' id={`slider-${id}`} >
+                        <div className='Carousel__pages'>
+                            <div className='Carousel__title'>
+                                <h2>{categoryTitle}<span>Explorar todos</span></h2>
+                            </div>
+                            {
+                                Array.from({ length: pages }).map((_, i) => (
+                                    <div key={i} className={`Carousel__page Carousel__page-id${id} Carousel__page-${i + 1}`}></div>
+                                ))
+                            }
+                        </div>
 
-                {
-                    list.length ?
-                    list.map((li, i) => {
-                        return (
-                            <div className={`filmItem`} onMouseEnter={() => setDisabled(true)} onMouseLeave={() => setDisabled(false)} key={i}>
-                                <div className='imgtitle'>
-                                    <img src={`https://image.tmdb.org/t/p/w500${li.poster_path}`} className={`Carousel__item`} />
-                                    <h3>{li.original_title || li.original_name}</h3>
-                                </div>
-                                <div className='Carousel__itemInfo'>
-                                    <div className='Carousel__itemInfo-Btns'>
-                                        <div className='Carousel__itemInfo-Btns1'>
-                                            <button className='ItemButtons'>
-                                                <img src={play} alt="Play" onClick={() => handlerPlay(li.id)} />
-                                            </button>
-                                            <button className='ItemButtons'>
-                                                <img src={add} alt="AddList" />
-                                                <PopUp text={'Add to My list'} />
-                                            </button>
-                                            <button className='ItemButtons'>
-                                                <img src={like} alt="Like" />
-                                                <PopUp text={'Like it'} />
-                                            </button>
-                                        </div>
-                                        <div className='Carousel__itemInfo-Btns2'>
-                                            <button className='ItemButtons' onClick={() => handlerInfo(li)}>
-                                                <img src={down} alt="Down" />
-                                                <PopUp text={'More information'} />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className='Carousel__itemInfo-Texts'>
-                                        <h3>80% for you</h3>
-                                        <h3>{li.adult ? '+18' : '+13'}</h3>
-                                    </div>
-                                    <div className='Carousel__itemInfo-Genere'>
-                                        {
-                                            li.genre_ids.slice(0, 3).map((gen, i) => {
-                                                const title = genreList.map(genre => {
-                                                    if (genre.id == gen) {
-                                                        return genre.name
-                                                    }
-                                                })
-                                                return (
-                                                    <div className='titleContainer' key={i}>
-                                                        <h3>{title}</h3>
-                                                        <span></span>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })
-                    :
-                    null
-                }
-                {
-                    categoryList ?
-                    categoryList.map((li, i) => {
-                        return (
-                            <div className={`filmItem`} onMouseEnter={() => setDisabled(true)} onMouseLeave={() => setDisabled(false)} key={i}>
-                                <div className='imgtitle'>
-                                    <img src={`https://image.tmdb.org/t/p/w500${li.poster_path}`} className={`Carousel__item`} />
-                                    <h3>{li.original_title || li.original_name}</h3>
-                                </div>
-                                <div className='Carousel__itemInfo'>
-                                    <div className='Carousel__itemInfo-Btns'>
-                                        <div className='Carousel__itemInfo-Btns1'>
-                                            <button className='ItemButtons'>
-                                                <img src={play} alt="Play" onClick={() => handlerPlay(li.id)} />
-                                            </button>
-                                            <button className='ItemButtons'>
-                                                <img src={add} alt="AddList" />
-                                                <PopUp text={'Add to My list'} />
-                                            </button>
-                                            <button className='ItemButtons'>
-                                                <img src={like} alt="Like" />
-                                                <PopUp text={'Like it'} />
-                                            </button>
-                                        </div>
-                                        <div className='Carousel__itemInfo-Btns2'>
-                                            <button className='ItemButtons' onClick={() => handlerInfo(li)}>
-                                                <img src={down} alt="Down" />
-                                                <PopUp text={'More information'} />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className='Carousel__itemInfo-Texts'>
-                                        <h3>80% for you</h3>
-                                        <h3>{li.adult ? '+18' : '+13'}</h3>
-                                    </div>
-                                    <div className='Carousel__itemInfo-Genere'>
-                                        {
-                                            li.genre_ids.slice(0, 3).map((gen, i) => {
-                                                const title = genreList.map(genre => {
-                                                    if (genre.id == gen) {
-                                                        return genre.name
-                                                    }
-                                                })
-                                                return (
-                                                    <div className='titleContainer' key={i}>
-                                                        <h3>{title}</h3>
-                                                        <span></span>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })
-                    :
-                    null
-                }
-            </div>
-            <button className='Carousel__arrow Carousel__arrow-left' id='arrowLeft' onClick={handlerArrowLeft} style={{ display: disabled ? 'none' : 'block' }} disabled={scrolling}><img src={left} alt="left" /></button>
-            <button className='Carousel__arrow Carousel__arrow-right' id='arrowRight' onClick={handlerArrowRight} style={{ display: disabled ? 'none' : 'block' }} disabled={scrolling}><img src={right} alt="right" /></button>
-        </div>
+                        {
+                            list.length && !pathname.includes('news') ?
+                                list.map((li, i) => {
+                                    return (
+                                        <FilmItem film={li} key={i} setDisabled={setDisabled} genreList={genreList} handlerPlay={handlerPlay} handlerInfo={handlerInfo} handlerLike={() => handlerLike(li)} handlerList={() => handlerList(li)} />
+                                    )
+                                })
+                                :
+                                null
+                        }
+                        {
+                            categoryList ?
+                                categoryList.map((li, i) => {
+                                    return (
+                                        <FilmItem film={li} key={i} setDisabled={setDisabled} genreList={genreList} handlerPlay={handlerPlay} handlerInfo={handlerInfo} handlerLike={() => handlerLike(li)} handlerList={() => handlerList(li)} />
+                                    )
+                                })
+                                :
+                                null
+                        }
+                    </div>
+                    <button className='Carousel__arrow Carousel__arrow-left' id='arrowLeft' onClick={handlerArrowLeft} style={{ display: disabled ? 'none' : 'block' }} disabled={scrolling}><img src={left} alt="left" /></button>
+                    <button className='Carousel__arrow Carousel__arrow-right' id='arrowRight' onClick={handlerArrowRight} style={{ display: disabled ? 'none' : 'block' }} disabled={scrolling}><img src={right} alt="right" /></button>
+                </div>
+            }
+        </>
     )
 }
 

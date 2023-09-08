@@ -1,0 +1,94 @@
+.ManageProfiles{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    gap: 5rem 0;
+}
+
+.ManageProfiles h1{
+    font-size: 5rem;
+}
+
+.ManageProfiles__prof{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 25rem;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.ManageProfiles button{
+    margin-top: 3rem;
+    width: auto;
+    height: auto;
+    padding: 1.5rem 2.5rem;
+    box-sizing: border-box;
+    background-color: var(--color-text);
+    color: var(--color-black);
+    font-size: 2rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.ManageProfiles button:hover{
+    color: var(--color-text);
+    background-color: var(--color-primary);
+}
+
+.ManageProfiles__profUser{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0 5rem;
+    width: 100%;
+    position: relative;
+}
+
+.ManageProfiles__profUser div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    gap: 2rem 0;
+    cursor: pointer;
+}
+
+.ManageProfiles__profUser div:hover .ManageProfiles__profImg{
+    outline: 2px solid var(--color-text);
+}
+
+.ManageProfiles__profUser div:hover h2{
+    color: var(--color-text);
+}
+
+
+.ManageProfiles__profUser h2{
+    color: var(--color-grey);
+}
+
+.ManageProfiles__profImg{
+    width: 20rem;
+    height: 20rem;
+    border-radius: 10px;
+    object-fit: cover;
+    border: none;
+    background-color: transparent;
+    opacity: 60%;
+}
+
+.ManageProfiles__profUser .edit{
+    width: 5rem;
+    height: 5rem;
+    position: absolute;
+    top: 35%;
+}

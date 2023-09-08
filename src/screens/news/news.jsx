@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './style.css'
 import Carousel from '../../components/carousel/carousel'
 import BrowseNavbar from '../../components/browseNavbar.jsx/browseNavbar'
@@ -8,9 +8,14 @@ import InfoFilm from '../../components/infoFilm/infoFilm'
 import { useLocation, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import ScrollToTop from '../../components/scrollToTop/scrollToTop'
+import { AuthContext } from '../../context/authContext'
+import Login from '../login/login'
+import Profiles from '../profiles/profiles'
 
 
 const News = () => {
+
+    const { isLogin, selectedProfile } = useContext(AuthContext)
 
     const [newToday, setNewToday] = useState([])
     const [categoryTopMovie, setCategoryTopMovie] = useState([])
@@ -55,26 +60,41 @@ const News = () => {
 
     }, [])
 
+
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{
-                delay: 0.2
-            }}
-            className='News'>
-            <ScrollToTop />
-            <BrowseNavbar />
-            <div className='News__carousels'>
-                <Carousel categoryTitle={`What's new on Netflix`} id={1} categoryList={newToday} genreList={genreListMovies} />
-                <Carousel categoryTitle={'10 Most Popular Movies'} id={2} categoryList={categoryTopMovie} genreList={genreListMovies} />
-                <Carousel categoryTitle={'Movies released today'} id={3} categoryList={movieToday} genreList={genreListMovies} />
-                <Carousel categoryTitle={'10 Most Popular Series'} id={4} categoryList={categoryTopSeries} genreList={genreListSeries} />
-                <Carousel categoryTitle={'Series released today'} id={5} categoryList={serieToday} genreList={genreListSeries} />
-            </div>
-            <InfoFilm fid={fid} />
-        </motion.div>
+        <>
+            {
+                isLogin ?
+                    <>
+                        {
+                            !selectedProfile ?
+                                <Profiles />
+                                :
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    whileInView={{ opacity: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{
+                                        delay: 0.2
+                                    }}
+                                    className='News'>
+                                    <ScrollToTop />
+                                    <BrowseNavbar />
+                                    <div className='News__carousels'>
+                                        <Carousel categoryTitle={`What's new on Netflix`} id={1} categoryList={newToday} genreList={genreListMovies} />
+                                        <Carousel categoryTitle={'10 Most Popular Movies'} id={2} categoryList={categoryTopMovie} genreList={genreListMovies} />
+                                        <Carousel categoryTitle={'Movies released today'} id={3} categoryList={movieToday} genreList={genreListMovies} />
+                                        <Carousel categoryTitle={'10 Most Popular Series'} id={4} categoryList={categoryTopSeries} genreList={genreListSeries} />
+                                        <Carousel categoryTitle={'Series released today'} id={5} categoryList={serieToday} genreList={genreListSeries} />
+                                    </div>
+                                    <InfoFilm fid={fid} />
+                                </motion.div>
+                        }
+                    </>
+                    :
+                    <Login />
+            }
+        </>
     )
 }
 
