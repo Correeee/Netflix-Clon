@@ -92,3 +92,11 @@
     position: absolute;
     top: 35%;
 }
+
+.ManageProfiles__profUserBtns{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    gap: 0 5rem;
+}

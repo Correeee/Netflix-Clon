@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import edit from '../assets/edit.png'
 import { doc, getDoc, getDocs, updateDoc } from '@firebase/firestore'
 import { db } from '../../../firebase/firebase'
-import { useNavigate } from 'react-router-dom'
 import SelectionImage from './selectionImage/selectionImage'
 
 const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserData }) => {
@@ -28,7 +27,7 @@ const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserDat
 
                 const lastProfiles = user.profiles.filter(prof => prof.id !== profileSelected.id)
                 const newProfile = {
-                    id: selectedImage.id,
+                    id: profileSelected.id,
                     image: selectedImage.image,
                     name: profileName
                 }
@@ -40,6 +39,30 @@ const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserDat
                 setUserData(update)
                 setProfileSelected(false)
             }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    const handlerDelete = async () => {
+        try {
+            let user = await getDoc(profileRef)
+            user = user.data()
+
+            const lastProfiles = user.profiles.filter(prof => prof.id !== profileSelected.id)
+            const foundedProfile = user.profiles.find(prof => prof.id === profileSelected.id).id
+            const update = {
+                ...user,
+                profiles: [...lastProfiles]
+            }
+
+            if (foundedProfile != 1) {
+                await updateDoc(profileRef, update)
+                setUserData(update)
+                setProfileSelected(false)
+            }
+
         } catch (error) {
             console.log(error)
         }
@@ -70,8 +93,16 @@ const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserDat
                             </form>
                             <span></span>
                             <div className='EditProfile__containerBtns'>
-                                <button onClick={handlerUpdateProfile}>Save</button>
-                                <button onClick={() => setProfileSelected(false)}>Cancel</button>
+                                <div>
+                                    <button onClick={handlerUpdateProfile}>Save</button>
+                                    <button onClick={() => setProfileSelected(false)}>Cancel</button>
+                                </div>
+                                <div>
+                                    {
+                                        profileSelected.id != 1 &&
+                                        <button onClick={handlerDelete}>Delete profile</button>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </motion.div>

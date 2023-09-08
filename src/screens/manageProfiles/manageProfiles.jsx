@@ -7,6 +7,7 @@ import edit from './assets/edit.png'
 import EditProfile from './editProfile/editProfile'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import { createProfile, getUserData } from '../../data/userFn'
 
 const ManageManageProfiles = () => {
     const navigate = useNavigate()
@@ -15,8 +16,18 @@ const ManageManageProfiles = () => {
     const [profileSelected, setProfileSelected] = useState(false)
 
     useEffect(() => {
-        console.log(userData)
+        
     }, [userData])
+
+    const handlerCreateProfile = async () => {
+        try {
+            await createProfile(userData)
+            const userUpdate = await getUserData(userData)
+            setUserData(userUpdate)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     return (
@@ -50,7 +61,13 @@ const ManageManageProfiles = () => {
                                             }
                                         </div>
                                     </div>
-                                    <button onClick={() => navigate('/profiles')}>Ready</button>
+                                    <div className='ManageProfiles__profUserBtns'>
+                                        <button onClick={() => navigate('/profiles')}>Ready</button>
+                                        {
+                                            userData && userData.profiles.length < 5 &&
+                                            <button onClick={handlerCreateProfile}>Add profile</button>
+                                        }
+                                    </div>
                                 </motion.div>
                                 :
                                 <EditProfile profileSelected={profileSelected} setProfileSelected={setProfileSelected} userData={userData} setUserData={setUserData} />
