@@ -41,6 +41,10 @@ const BrowseNavbar = () => {
 
     }
 
+    const handlerProfile = (prof) => {
+        setSelectedProfile(prof)
+    }
+
     return (
         <div className='BrowseNavbar' style={{ backgroundColor: scrolling ? 'rgba(0, 0, 0, 0.7)' : 'transparent' }}>
             <div className='BrowseNavbar__links'>
@@ -69,7 +73,7 @@ const BrowseNavbar = () => {
                             {
                                 userData.profiles.length && userData.profiles.map((prof, i) => {
                                     return (
-                                        <a key={i}>
+                                        <a key={i} onClick={() => handlerProfile(prof)}>
                                             <img src={prof.image} alt={prof.name} className='BrowseNavbar__profileOptionsImg' />
                                             {prof.name}
                                         </a>

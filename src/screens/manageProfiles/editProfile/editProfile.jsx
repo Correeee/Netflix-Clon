@@ -24,14 +24,15 @@ const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserDat
             if (profileName) {
                 let user = await getDoc(profileRef)
                 user = user.data()
-
+                
                 const lastProfiles = user.profiles.filter(prof => prof.id !== profileSelected.id)
+                const actualProfile = user.profiles.filter(prof => prof.id === profileSelected.id)[0]
                 const newProfile = {
                     id: profileSelected.id,
-                    image: selectedImage.image,
+                    image: selectedImage,
                     name: profileName,
-                    list: [],
-                    likes: []
+                    list: [...actualProfile.list],
+                    likes: [...actualProfile.likes]
                 }
                 const update = {
                     ...user,

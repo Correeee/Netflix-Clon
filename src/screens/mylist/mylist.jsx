@@ -18,6 +18,7 @@ import { addToLike, addToList, getProfileData } from '../../data/userFn'
 
 const MyList = () => {
     const { isLogin, setSelectedProfile, selectedProfile, userData } = useContext(AuthContext)
+    const [disabled, setDisabled] = useState(false)
     const navigate = useNavigate()
 
     const { pathname } = useLocation()
@@ -33,6 +34,8 @@ const MyList = () => {
     useEffect(() => {
 
     }, [userData])
+
+
 
 
     const handlerInfo = (film) => {
@@ -126,11 +129,11 @@ const MyList = () => {
                                                 selectedProfile.list.length && selectedProfile.list.map((film, i) => {
                                                     if (film.original_title) {
                                                         return (
-                                                            <FilmItem film={film} key={i} setDisabled={() => console.log('first')} genreList={genreMovies} handlerPlay={handlerPlay} handlerInfo={handlerInfo} handlerLike={() => handlerLike(film)} handlerList={() => handlerList(film)} />
+                                                            <FilmItem film={film} key={i} setDisabled={setDisabled} genreList={genreMovies} handlerPlay={handlerPlay} handlerInfo={handlerInfo} handlerLike={() => handlerLike(film)} handlerList={() => handlerList(film)} />
                                                         )
                                                     } else {
                                                         return (
-                                                            <FilmItem film={film} key={i} setDisabled={() => console.log('first')} genreList={genreSeries} handlerPlay={handlerPlay} handlerInfo={handlerInfo} handlerLike={() => handlerLike(film)} handlerList={() => handlerList(film)} />
+                                                            <FilmItem film={film} key={i} setDisabled={setDisabled} genreList={genreSeries} handlerPlay={handlerPlay} handlerInfo={handlerInfo} handlerLike={() => handlerLike(film)} handlerList={() => handlerList(film)} />
                                                         )
                                                     }
 

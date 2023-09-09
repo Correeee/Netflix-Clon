@@ -19,8 +19,7 @@ const SelectionImage = ({ profileName, selectedImage, setSelectionImage, setSele
     }, [])
 
     const handlerOption = (avatar) => {
-        console.log(avatar)
-        setSelectedImage(avatar)
+        setSelectedImage(avatar.image)
         setSelectionImage(false)
     }
 

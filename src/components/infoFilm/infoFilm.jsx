@@ -186,14 +186,17 @@ const InfoFilm = ({ fid }) => {
 
     const isInList = async (film) => {
         try {
-            const filmInList = await selectedProfile.list.filter((li) => li.id === film.id)
-            if (filmInList.length) {
-                setInList(true)
-                setImageList(true)
-            } else {
-                setInList(false)
-                setImageList(false)
+            if(film){
+                const filmInList = await selectedProfile.list.filter((li) => li.id === film.id)
+                if (filmInList.length) {
+                    setInList(true)
+                    setImageList(true)
+                } else {
+                    setInList(false)
+                    setImageList(false)
+                }
             }
+
         } catch (error) {
             console.log(error)
         }

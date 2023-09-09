@@ -16,7 +16,7 @@ const ManageManageProfiles = () => {
     const [profileSelected, setProfileSelected] = useState(false)
 
     useEffect(() => {
-        
+
     }, [userData])
 
     const handlerCreateProfile = async () => {
@@ -49,7 +49,7 @@ const ManageManageProfiles = () => {
                                     <div className='ManageProfiles__prof'>
                                         <div className='ManageProfiles__profUser'>
                                             {
-                                                userData && userData.profiles.map((prof, i) => {
+                                                userData && userData.profiles.sort((a, b) => a.id - b.id).map((prof, i) => {
                                                     return (
                                                         <div key={i} onClick={() => setProfileSelected(prof)}>
                                                             <img src={prof.image} alt="Profile Image" className='ManageProfiles__profImg' />

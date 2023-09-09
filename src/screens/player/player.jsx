@@ -19,6 +19,7 @@ import Loader from '../../components/loader/loader'
 import { useLocation } from 'react-router-dom'
 import { AuthContext } from '../../context/authContext'
 import Login from '../login/login'
+import ReactPlayer from 'react-player'
 
 const Player = () => {
     const { isLogin } = useContext(AuthContext)
@@ -162,12 +163,18 @@ const Player = () => {
             {
                 isLogin ?
                     <div className='Player'>
-                        <iframe
+                        {/* <iframe
                             id="videoFrame"
                             src={`https://www.youtube.com/embed/${video && video.key}`}
                             title={video && video.name}
                             className='videoTrailer'
-                        ></iframe>
+                        ></iframe> */}
+                        <ReactPlayer
+                            url={`https://www.youtube.com/embed/${video && video.key}`}
+                            width={'100%'}
+                            height={'100%'}
+                            controls
+                        />
                         <button className='Player__backBtn' onClick={handlerBack}><img src={back} alt="back" className='player__icons' /></button>
 
                         <button className='Player__flagBtn' onClick={handlerConfiguration} >
