@@ -198,7 +198,7 @@
     left: 0;
     cursor: pointer;
     opacity: 25%;
-    z-index: 999999;
+    /* z-index: 999999; */
 }
 
 .filmCard__playBtn:hover {
@@ -303,12 +303,15 @@
     text-overflow: ellipsis;
 }
 
+
+
 .filmCard__info-btnsDiv2 button {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 
 .filmCard__info-btnsDiv2 button img {
     width: 1.75rem;
@@ -330,7 +333,7 @@
     position: absolute;
     right: 2%;
     top: 1%;
-    z-index: 9999;
+    /* z-index: 9999; */
 }
 
 .InfoFilm__close:hover {
@@ -365,6 +368,10 @@
     padding: 0 0 0 1.5rem;
     width: 100%;
     font-size: 1.5rem;
+}
+
+.principalInfo__title h2{
+    color: var(--color-text);
 }
 
 .principalInfo__info h1 {
@@ -406,7 +413,7 @@
 
 .principalInfo__info-Btns button{
     position: relative;
-    z-index: 9999;
+    /* z-index: 9999; */
 }
 
 .principalInfo__info-Btns button:hover > .PopUp{
@@ -497,4 +504,12 @@
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #141414 100%);
     pointer-events: none;
     opacity: 40%;
+}
+
+.filmCard__addToList{
+    position: relative;
+}
+
+.filmCard__addToList:hover .PopUp{
+    display: flex;
 }

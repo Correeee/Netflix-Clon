@@ -1,5 +1,6 @@
-import { collection, doc, getDoc, getDocs, updateDoc } from "@firebase/firestore"
+import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from "@firebase/firestore"
 import { db, storage } from "../firebase/firebase"
+import { createUserWithEmailAndPassword } from "@firebase/auth"
 
 export const addToList = async (film, userData, selectedProfile) => {
     const userReference = doc(db, 'users', userData.id)
@@ -151,6 +152,35 @@ export const getAvatars = async () => {
         let avatars = await getDocs(avatarsCollection)
         avatars = avatars.docs.map(data => data.data())
         return avatars
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const registerAccount = async (email, password, name, lastname, phone) => {
+    try {
+        // await createUserWithEmailAndPassword(email, password)
+        const newUser = {
+            data: {
+                name: name,
+                lastname: lastname,
+                mail: email,
+                phone: phone
+            },
+            profiles: [
+                {
+                    id: 1,
+                    image: 'https://firebasestorage.googleapis.com/v0/b/netflix-clon-a8cd6.appspot.com/o/picture-1.png?alt=media&token=526a4ccf-1d58-444e-b7dc-7a6a96dc8ade',
+                    likes: [],
+                    list: [],
+                    name: 'Principal'
+                }
+            ],
+            user: email
+        }
+
+        console.log(newUser)
+
     } catch (error) {
         console.log(error)
     }

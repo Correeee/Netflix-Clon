@@ -13,8 +13,8 @@ import { getProfileData } from '../../data/userFn'
 
 const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, handlerLike, handlerList }) => {
 
-    const [colorList, setColorList] = useState(false)
-    const [colorLike, setColorLike] = useState(false)
+    const [inList, setInList] = useState(false)
+    const [inLikes, setInLikes] = useState(false)
     const [imageList, setImageList] = useState(false)
     const { selectedProfile, setSelectedProfile, userData, setUserData } = useContext(AuthContext)
 
@@ -22,10 +22,10 @@ const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, hand
         try {
             const filmInList = selectedProfile.list.filter((li) => li.id == film.id)
             if (filmInList.length) {
-                setColorList(true)
+                setInList(true)
                 setImageList(true)
             } else {
-                setColorList(false)
+                setInList(false)
                 setImageList(false)
             }
         } catch (error) {
@@ -36,9 +36,9 @@ const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, hand
     const isInLikes = (film) => {
         const filmInList = selectedProfile.likes.filter((li) => li.id == film.id)
         if (filmInList.length) {
-            setColorLike(true)
+            setInLikes(true)
         } else {
-            setColorLike(false)
+            setInLikes(false)
         }
     }
 
@@ -62,15 +62,15 @@ const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, hand
                         </button>
                         <button className='ItemButtons' onClick={() => {
                             handlerList(film)
-                        }} style={{ backgroundColor: colorList && '#40BA5E', borderColor: colorList && '#40BA5E' }}>
+                        }} style={{ backgroundColor: inList && '#40BA5E', borderColor: inList && '#40BA5E' }}>
                             <img src={imageList ? OK : add} alt="AddList" />
-                            <PopUp text={'Add to My list'} />
+                            <PopUp text={!inList ? 'Add to My list' : 'Remove from the list'} textColor={inList && 'var(--color-primary)'}/>
                         </button>
                         <button className='ItemButtons' onClick={() => {
                             handlerLike(film)
-                        }} style={{ backgroundColor: colorLike && '#40BA5E', borderColor: colorLike && '#40BA5E' }}>
+                        }} style={{ backgroundColor: inLikes && '#40BA5E', borderColor: inLikes && '#40BA5E' }}>
                             <img src={like} alt="Like" />
-                            <PopUp text={'Like it'} />
+                            <PopUp text={!inLikes ? 'Like it' : "I don't like"} textColor={inLikes && 'var(--color-primary)'}/>
                         </button>
                     </div>
                     <div className='Carousel__itemInfo-Btns2'>

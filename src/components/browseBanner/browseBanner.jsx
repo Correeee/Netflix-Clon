@@ -51,7 +51,7 @@ const BrowseBanner = (list) => {
                         <img src={logo} alt="logo" className='BrowseBanner__logo' />
                         <h1>{trendingFilm.media_type == 'movie' ? 'Movie' : 'Serie'}</h1>
                     </div>
-                    <h2>{trendingFilm.original_title}</h2>
+                    <h2>{trendingFilm.original_title || trendingFilm.original_name}</h2>
                     <h3>{trendingFilm.overview}</h3>
                     <div className='BrowseBanner__btns'>
                         <Btn text={'Play'} id={'BrowseBannerBtnPlay'} width={'30rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(trendingFilm.id)} imageSrc={play} />

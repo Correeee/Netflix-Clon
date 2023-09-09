@@ -29,12 +29,15 @@ const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserDat
                 const newProfile = {
                     id: profileSelected.id,
                     image: selectedImage.image,
-                    name: profileName
+                    name: profileName,
+                    list: [],
+                    likes: []
                 }
                 const update = {
                     ...user,
                     profiles: [...lastProfiles, newProfile]
                 }
+
                 await updateDoc(profileRef, update)
                 setUserData(update)
                 setProfileSelected(false)

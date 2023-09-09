@@ -9,9 +9,9 @@ import logo from './assets/logo.png'
 import like from './assets/like.png'
 import PopUp from '../popUp/popUp'
 import Btn from '../button/button'
-import { addToLike, addToList } from '../../data/userFn'
+import { addToLike, addToList, getProfileData } from '../../data/userFn'
 import { AuthContext } from '../../context/authContext'
-
+import OK from './assets/OK.png'
 
 const InfoFilm = ({ fid }) => {
 
@@ -21,7 +21,7 @@ const InfoFilm = ({ fid }) => {
 
     const navigate = useNavigate()
     const { pathname } = useLocation()
-    const { userData, selectedProfile } = useContext(AuthContext)
+    const { userData, selectedProfile, setSelectedProfile } = useContext(AuthContext)
 
     if (fid) {
         document.querySelector('body').classList.add('hiddenBody')
@@ -159,9 +159,11 @@ const InfoFilm = ({ fid }) => {
 
     }
 
-    const handlerAdd = async (film) => {
+    const handlerList = async (film) => {
         try {
             await addToList(film, userData, selectedProfile)
+            const response = await getProfileData(userData, selectedProfile)
+            setSelectedProfile(response)
         } catch (error) {
             console.log(error)
         }
@@ -170,10 +172,50 @@ const InfoFilm = ({ fid }) => {
     const handlerLike = async (film) => {
         try {
             await addToLike(film, userData, selectedProfile)
+            const response = await getProfileData(userData, selectedProfile)
+            setSelectedProfile(response)
         } catch (error) {
             console.log(error)
         }
     }
+
+
+    const [inList, setInList] = useState(false)
+    const [inLikes, setInLikes] = useState(false)
+    const [imageList, setImageList] = useState(false)
+
+    const isInList = async (film) => {
+        try {
+            const filmInList = await selectedProfile.list.filter((li) => li.id === film.id)
+            if (filmInList.length) {
+                setInList(true)
+                setImageList(true)
+            } else {
+                setInList(false)
+                setImageList(false)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const isInLikes = async (film) => {
+        try {
+            const filmInList = await selectedProfile.likes.filter((li) => li.id === film.id)
+            if (filmInList.length) {
+                setInLikes(true)
+            } else {
+                setInLikes(false)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        isInList(film)
+        isInLikes(film)
+    }, [selectedProfile])
 
     // const ScrollInfoFilmTop = () => {
     //     return (document.getElementsByClassName('InfoFilmContainer')[0].scrollTo(0, 0))
@@ -203,19 +245,16 @@ const InfoFilm = ({ fid }) => {
                                         </div>
                                         <div className='principalInfo__info-Btns'>
                                             <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'20rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(film.id)} imageSrc={playBlack} />
-                                            <button className='principalInfo__info-add' onClick={() => handlerAdd(film)}>
-                                                <img src={more} alt="add" />
-                                                <PopUp text={'Add to My list'} />
+                                            <button className='principalInfo__info-add' onClick={() => handlerList(film)} style={{ backgroundColor: inList && '#45D068' }}>
+                                                <img src={imageList ? OK : more} alt="add" />
+                                                <PopUp text={!inList ? 'Add to My list' : 'Remove from the list'} textColor={inList && 'var(--color-primary)'} />
                                             </button>
-                                            <button className='principalInfo__info-like' onClick={() => handlerLike(film)}>
+                                            <button className='principalInfo__info-like' onClick={() => handlerLike(film)} style={{ backgroundColor: inLikes && '#45D068' }}>
                                                 <img src={like} alt="like" />
-                                                <PopUp text={'Like it'} />
+                                                <PopUp text={!inLikes ? 'Like it' : "I don't like"} textColor={inLikes && 'var(--color-primary)'} />
                                             </button>
                                         </div>
                                     </div>
-                                    {/* <div>
-                                        <button>4</button>
-                                    </div> */}
                                 </div>
                             </div>
 
@@ -250,6 +289,7 @@ const InfoFilm = ({ fid }) => {
                                 {
                                     moreMovies.length &&
                                     moreMovies.slice(0, 8).map((mov, i) => {
+                                        const list = selectedProfile.list.find(li => li.id === mov.id)
                                         return (
                                             <div className='filmCard' key={i}>
                                                 <div className='filmCard__posterContainer'>
@@ -272,7 +312,10 @@ const InfoFilm = ({ fid }) => {
                                                             </div>
                                                         </div>
                                                         <div className='filmCard__info-btnsDiv2'>
-                                                            <button><img src={more} alt="Más" /></button>
+                                                            <button onClick={() => handlerList(mov)} style={{ backgroundColor: list && '#45D068' }} className='filmCard__addToList'>
+                                                                <img src={!list ? more : OK} alt="Add" />
+                                                                <PopUp text={!list ? 'Add to My list' : 'Remove from the list'} textColor={list && 'var(--color-primary)'} top={'-220%'} left={'-195%'}/>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>

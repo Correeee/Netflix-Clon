@@ -5,29 +5,41 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Btn from "../../components/button/button";
 import popCorn from './assets/popcorn.png'
 import { useState } from "react";
+import RegisterStep2 from "./registerStep2/registerStep2";
+import RegisterStep3 from "./registerStep2/registerStep3.jsx/registerStep3";
 
 const Register = () => {
 
     const [step, setStep] = useState(1)
     const { email } = useParams()
+    const navigate = useNavigate()
 
     const handlerContinue = () => {
-        console.log('Continue')
+        setStep(2)
     }
-/* --------- NO PERMITIR INGRESAR SI NO LE LLEGA UN MAIL CON FORMATO -------- */
+    /* --------- NO PERMITIR INGRESAR SI NO LE LLEGA UN MAIL CON FORMATO -------- */
     return (
         <div className="Register">
             <div className="Register__topBar">
                 <img src={logo} alt="logo" className="Register__logo" />
                 <Link to={'/login'}>Login</Link>
             </div>
-            <div className="Register__complete">
-                <img src={popCorn} alt="background image" />
-                <p>Paso <strong>{step}</strong> de 3</p>
-                <h1>Completa la configuración de tu cuenta</h1>
-                <h2>Netflix está personalizado para ti. Crea una contraseña para comenzar a ver Netflix.</h2>
-                <Btn text={'Siguiente'} imgDisplay={'none'} width={'20rem'} onclick={handlerContinue} />
-            </div>
+            {
+                step === 1 ?
+                    <div className="Register__complete">
+                        <img src={popCorn} alt="background image" />
+                        <p>Step <strong>{step}</strong> of 3</p>
+                        <h1>Complete your account setup</h1>
+                        <h2>Netflix is ​​personalized for you. Create a password to start watching Netflix.</h2>
+                        <Btn text={'Continue'} imgDisplay={'none'} width={'20rem'} onclick={handlerContinue} />
+                    </div>
+                    :
+                    step == 2 ?
+                        <RegisterStep2 step={step} setStep={setStep} preEmail={email}/>
+                        :
+                        step == 3 &&
+                        <RegisterStep3 step={step} />
+            }
         </div>
     )
 }

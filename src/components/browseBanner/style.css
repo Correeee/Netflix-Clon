@@ -75,6 +75,7 @@
 
 .BrowseBanner__infoMovie h2 {
     font-size: 6rem;
+    color: var(--color-text);
 }
 
 .BrowseBanner__infoMovie h3 {
