@@ -29,7 +29,6 @@ const ManageManageProfiles = () => {
         }
     }
 
-
     return (
         <>
             {

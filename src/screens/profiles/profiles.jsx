@@ -39,7 +39,7 @@ const Profiles = () => {
                                     <div className='Profiles__prof'>
                                         <div className='Profiles__profUser'>
                                             {
-                                                userData && userData.profiles.map((prof, i) => {
+                                                userData && userData.profiles.sort((a, b) => a.id - b.id).map((prof, i) => {
                                                     return (
                                                         <div key={i} onClick={() => handlerProfile(prof)}>
                                                             <img src={prof.image} alt="Profile Image" className='Profiles__profImg' />

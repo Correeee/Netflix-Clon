@@ -9,14 +9,6 @@ const Navbar = () => {
 
     const navigate = useNavigate()
 
-    const handlerLogin = () => {
-        console.log('login')
-    }
-
-    const handlerRegister = () => {
-        console.log('handlerRegister')
-    }
-
     return (
         <div className='Navbar'>
             <div>
@@ -25,12 +17,12 @@ const Navbar = () => {
             <div className='Navbar__btns'>
                 <div>
                     <select name="language" id="language" defaultValue={'English'}>
-                        <option value="Español">Español</option>
-                        <option value="English">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="en">English</option>
                     </select>
                 </div>
                 <div>
-                    <Btn text={'Log in'} onclick={() => navigate('/login')} imgDisplay={'none'}/>
+                    <Btn text={'Log in'} onclick={() => navigate('/login')} imgDisplay={'none'} />
                 </div>
             </div>
         </div>
