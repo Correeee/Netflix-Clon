@@ -51,10 +51,10 @@ const Login = () => {
                                 </form>
                                 <Btn text={'Log in'} width={'100%'} onclick={handlerLogin} imgDisplay={'none'} form={'login'} />
                                 <div className='Login__checkbox'>
-                                    <div className='Login__checkboxInput'>
+                                    {/* <div className='Login__checkboxInput'>
                                         <input type="checkbox" name="rememberMe" placeholder='Recuérdame' defaultChecked={false} />
                                         <h3>Remember me</h3>
-                                    </div>
+                                    </div> */}
                                     <a href="">Need help?</a>
                                 </div>
                                 <div>

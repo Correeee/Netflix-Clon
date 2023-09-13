@@ -12,7 +12,7 @@ const RegisterStep3 = ({ step, setStep }) => {
             <p>Step <strong>{step}</strong> of 3</p>
             <div className='RegisterStep3Texts'>
                 <h1>Account created!</h1>
-                <Btn text={'Begin'} onclick={() => navigate('/browse')} imgDisplay={'none'} width={'20rem'} />
+                <Btn text={'Begin'} onclick={() => navigate('/login')} imgDisplay={'none'} width={'20rem'} />
             </div>
         </div>
     )

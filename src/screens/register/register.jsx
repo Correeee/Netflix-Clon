@@ -1,7 +1,7 @@
 import React from "react";
 import './style.css'
 import logo from '../../components/assets/logo.png'
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Btn from "../../components/button/button";
 import popCorn from './assets/popcorn.png'
 import { useState } from "react";
@@ -12,7 +12,8 @@ const Register = () => {
 
     const [step, setStep] = useState(1)
     const { email } = useParams()
-    const navigate = useNavigate()
+
+
 
     const handlerContinue = () => {
         setStep(2)

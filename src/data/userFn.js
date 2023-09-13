@@ -1,5 +1,5 @@
 import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from "@firebase/firestore"
-import { db, storage } from "../firebase/firebase"
+import { auth, db, storage } from "../firebase/firebase"
 import { createUserWithEmailAndPassword } from "@firebase/auth"
 
 export const addToList = async (film, userData, selectedProfile) => {
@@ -160,7 +160,7 @@ export const getAvatars = async () => {
 
 export const registerAccount = async (email, password, name, lastname, phone) => {
     try {
-        // await createUserWithEmailAndPassword(email, password)
+        const userCollection = collection(db, 'users')
         const newUser = {
             data: {
                 name: name,
@@ -180,8 +180,8 @@ export const registerAccount = async (email, password, name, lastname, phone) =>
             user: email
         }
 
-        console.log(newUser)
-
+        await createUserWithEmailAndPassword(auth, email, password)
+        await addDoc(userCollection, newUser)
     } catch (error) {
         console.log(error)
     }
