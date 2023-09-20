@@ -19,19 +19,18 @@ import Loader from '../../components/loader/loader'
 import { useLocation } from 'react-router-dom'
 import { AuthContext } from '../../context/authContext'
 import Login from '../login/login'
-import ReactPlayer from 'react-player'
 
 const Player = () => {
     const { isLogin } = useContext(AuthContext)
-
     const { fid } = useParams()
     const { pathname } = useLocation()
-
 
     const [film, setFilm] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [video, setVideo] = useState(null)
-
+    const [srcVideo, setSrcVideo] = useState(null)
+    const [duration, setDuration] = useState(0)
+    const [actualTime, setActualTime] = useState(0)
 
     useEffect(() => {
         APISearchMovieForId(fid)
@@ -44,10 +43,13 @@ const Player = () => {
                     const trailer = res.results.filter(res => res.name.includes('trailer'))[0];
                     if (official) {
                         setVideo(official)
+                        setSrcVideo(`https://www.youtube.com/embed/${official && official.key}`)
                     } else if (trailer) {
                         setVideo(trailer)
+                        setSrcVideo(`https://www.youtube.com/embed/${trailer && trailer.key}`)
                     } else {
                         setVideo(res.results[0])
+                        setSrcVideo(`https://www.youtube.com/embed/${res.results[0] && res.results[0].key}`)
                     }
                     setIsLoading(false)
                 })
@@ -80,7 +82,7 @@ const Player = () => {
     const [playing, setPlaying] = useState(true)
     const [playMovie, setPlayMovie] = useState(play)
     const [sound, setSound] = useState(soundOn)
-    const [volume, setVolume] = useState(100)
+    const [volume, setVolume] = useState(1)
     const [full, setFull] = useState(false)
 
     const [disabledButton, setDisabledButton] = useState(false)
@@ -89,13 +91,37 @@ const Player = () => {
 
     const [isMovie, setIsMovie] = useState(false)
 
+    const videoPlayer = useRef(null)
+    const barInput = useRef(null)
+
+    let interval
+
     const handlerPlay = () => {
         if (playing) {
             setPlaying(false)
             setPlayMovie(pause)
+            videoPlayer.current.play()
+
+            interval = setInterval(() => {
+                if (videoPlayer.current != null) {
+                    const newTime = duration - videoPlayer.current.currentTime
+                    if (newTime > 0) {
+                        setActualTime(newTime)
+                    } else {
+                        clearInterval(interval)
+                        videoPlayer.current.currentTime = 0
+                        setActualTime(0)
+                        setPlaying(true)
+                        setPlayMovie(play)
+                    }
+                }
+            }, 1000);
+
         } else {
             setPlaying(true)
             setPlayMovie(play)
+            videoPlayer.current.pause()
+            clearInterval(interval)
         }
     }
 
@@ -104,9 +130,11 @@ const Player = () => {
         if (sound === soundOn) {
             setSound(soundOff)
             setVolume(0)
+            videoPlayer.current.volume = 0
         } else {
             setSound(soundOn)
-            setVolume(100)
+            setVolume(1)
+            videoPlayer.current.volume = 1
         }
 
     }
@@ -124,19 +152,28 @@ const Player = () => {
     }
 
     const handlerConfiguration = () => {
+
         if (configRef.current.style.display = 'none') {
             configRef.current.style.display = 'flex'
         }
+
         setDisabledButton(true)
-        handlerPlay()
+        videoPlayer.current.pause()
+        setPlayMovie(play)
+        setPlaying(true)
+
     }
 
     const handlerCloseConfiguration = () => {
+
         if (configRef.current.style.display = 'flex') {
             configRef.current.style.display = 'none'
         }
+
         setDisabledButton(false)
-        handlerPlay()
+        videoPlayer.current.play()
+        setPlayMovie(pause)
+        setPlaying(false)
     }
 
     const handlerBack = () => {
@@ -157,24 +194,73 @@ const Player = () => {
         }
     }
 
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        const formattedMinutes = String(minutes).padStart(2, '0');
+        const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+        return `${formattedMinutes}:${formattedSeconds}`;
+    }
+
+    const handlerVolumeRange = (e) => {
+
+        setVolume(e.target.value)
+        videoPlayer.current.volume = e.target.value
+        if (volume <= 0.01) {
+            setSound(soundOff)
+        } else {
+            setSound(soundOn)
+        }
+
+    }
+
+    const handlerRewind = () => {
+
+        if (videoPlayer.current.currentTime > 10) {
+            const rewindTime = videoPlayer.current.currentTime - 10
+            videoPlayer.current.currentTime = rewindTime
+        }
+        if (videoPlayer.current.currentTime < 10) {
+            videoPlayer.current.currentTime = 0
+        }
+
+    }
+
+    const handlerForward = () => {
+        const rewindTime = videoPlayer.current.currentTime + 10
+        if (videoPlayer.current.currentTime < (duration - 10)) {
+            videoPlayer.current.currentTime = rewindTime
+        }
+
+        if (videoPlayer.current.currentTime > (duration - 10)) {
+            videoPlayer.current.currentTime = 0
+            videoPlayer.current.pause()
+            setPlaying(true)
+            setPlayMovie(play)
+        }
+    }
+
+    const handlerRangeBar = (movieTime) => {
+        videoPlayer.current.currentTime = movieTime
+        setActualTime(duration - movieTime)
+    }
 
     return (
         <>
             {
                 isLogin ?
                     <div className='Player'>
-                        {/* <iframe
+                        <video
                             id="videoFrame"
-                            src={`https://www.youtube.com/embed/${video && video.key}`}
-                            title={video && video.name}
                             className='videoTrailer'
-                        ></iframe> */}
-                        <ReactPlayer
-                            url={`https://www.youtube.com/embed/${video && video.key}`}
-                            width={'100%'}
-                            height={'100%'}
-                            controls
-                        />
+                            ref={videoPlayer}
+                            onLoadedMetadata={(e) => {
+                                const time = Number(e.target.duration)
+                                setDuration(time)
+                            }}
+                        >
+                            <source src={'https://dms.licdn.com/playlist/vid/D4D05AQHxgBSqwSPGZA/mp4-720p-30fp-crf28/0/1694579662469?e=1695279600&v=beta&t=BtvHIS0XTtkX3uoGXWf04gBRKAZ8TkSiACD8Emg_ag4'} type="video/mp4" />
+                        </video>
                         <button className='Player__backBtn' onClick={handlerBack}><img src={back} alt="back" className='player__icons' /></button>
 
                         <button className='Player__flagBtn' onClick={handlerConfiguration} >
@@ -183,28 +269,36 @@ const Player = () => {
 
                         <div className='Player__controls'>
                             <div className='Player__barContainer'>
-                                <input type="range" name="" id="" className='inputTimer' min={0} max={100} defaultValue={0} disabled={disabledButton} />
-                                <h3 className='Player__barContainerTimer'>00:00:00</h3>
+                                <input
+                                    type="range"
+                                    className='inputTimer'
+                                    min={0} max={duration}
+                                    value={!actualTime || actualTime <= 0 ? 0 : (duration - actualTime)}
+                                    disabled={disabledButton}
+                                    onChange={(e) => handlerRangeBar(Number(e.target.value))}
+                                    ref={barInput}
+                                    style={{
+                                        background: videoPlayer.current &&
+                                            `linear-gradient(to right, 
+                                            var(--color-primary) 0%, 
+                                            var(--color-primary) ${videoPlayer.current.currentTime}%,
+                                            var(--color-grey) ${videoPlayer.current.currentTime + 5}%,
+                                            var(--color-grey) 100%)`
+                                    }}
+                                />
+                                <h3 className='Player__barContainerTimer'>{!actualTime ? formatTime(duration) : formatTime(actualTime)}</h3>
                             </div>
                             <div className='Player__controlsButtons'>
                                 <div className='Player__controls1'>
                                     <button disabled={disabledButton} ><img src={playMovie} alt="play" className='player__icons' onClick={handlerPlay} /></button>
-                                    <button><img src={back10} alt="back 10 seconds" className='player__icons' disabled={disabledButton} /></button>
-                                    <button disabled={disabledButton}><img src={forward10} alt="forward 10 seconds" className='player__icons player__icons-forward' /></button>
+                                    <button onClick={handlerRewind}><img src={back10} alt="back 10 seconds" className='player__icons' disabled={disabledButton} /></button>
+                                    <button onClick={handlerForward} disabled={disabledButton}><img src={forward10} alt="forward 10 seconds" className='player__icons player__icons-forward' /></button>
                                     <div className='volumeDiv'>
                                         <button onClick={handlerSound} className='player__icons-sound' disabled={disabledButton}>
                                             <img src={sound} alt="sound" className='player__icons' />
                                         </button>
                                         <div className='player__icons-soundContainerBar'>
-                                            <input type="range" min={0} max={100} step={1} defaultValue={volume} value={volume} onChange={e => {
-                                                setVolume(e.target.value)
-                                                if (volume <= 10) {
-                                                    setSound(soundOff)
-                                                } else {
-                                                    setSound(soundOn)
-                                                }
-                                            }
-                                            } disabled={disabledButton} />
+                                            <input type="range" min={0} max={1} step={0.01} defaultValue={volume} value={volume} onChange={e => handlerVolumeRange(e)} disabled={disabledButton} />
                                         </div>
                                     </div>
 

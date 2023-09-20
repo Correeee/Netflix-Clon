@@ -16,6 +16,7 @@ const BrowseNavbar = () => {
     const { setIsLogin, userData, selectedProfile, setSelectedProfile } = useContext(AuthContext)
 
     const [scrolling, setScrolling] = useState(false)
+    const [search, setSearch] = useState('')
 
     useEffect(() => {
 
@@ -45,6 +46,13 @@ const BrowseNavbar = () => {
         setSelectedProfile(prof)
     }
 
+    const [isLookingFor, setIsLookingFor] = useState(false)
+
+    useEffect(() => {
+        isLookingFor ? document.getElementById('searchInput').focus() : isLookingFor && document.getElementById('searchInput').blur()
+    }, [isLookingFor])
+
+
     return (
         <div className='BrowseNavbar' style={{ backgroundColor: scrolling ? 'rgba(0, 0, 0, 0.7)' : 'transparent' }}>
             <div className='BrowseNavbar__links'>
@@ -60,7 +68,16 @@ const BrowseNavbar = () => {
                 </ul>
             </div>
             <div className='BrowseNavbar__profileBar'>
-                <img src={busqueda} alt="buscar" className='BrowseNavbar__icons' />
+                <div className='BrowseNavbar__profileBar-lookforContainer' style={{ border: isLookingFor && '1px solid white' }}>
+                    <img src={busqueda} alt="buscar" className='BrowseNavbar__icons' id='iconLookFor' onClick={() => {
+                        setIsLookingFor(true)
+                    }} />
+                    <input type="text" placeholder='Titles, people, genres' className='BrowseNavbar__profileBar-lookfor' style={{ display: isLookingFor && 'flex' }} onBlur={(e) => {
+                        setIsLookingFor(false);
+                        e.target.value = ''
+                        setSearch('');
+                    }} onChange={(e) => setSearch(e.target.value)} id='searchInput'/>
+                </div>
                 <img src={notificaciones} alt="notificaciones" className='BrowseNavbar__icons' />
                 <div className='BrowseNavbar__profileContainerImg'>
                     <img src={selectedProfile.image} alt="profileImg" className='BrowseNavbar__profileImg' />

@@ -188,6 +188,7 @@
     font-size: 2.5rem;
     margin: 0 0 1.5rem 0;
     box-sizing: border-box;
+    color: var(--color-text);
 }
 
 .player__icons-languageContainer ul {
@@ -230,6 +231,7 @@
 
 .player__icons-velocityContainer h2 {
     font-size: 3rem;
+    color: var(--color-text);
 }
 
 
@@ -305,17 +307,18 @@ option {
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
+    cursor: pointer;
 }
 
+
 .inputTimer::-webkit-slider-thumb {
-    -webkit-appearance: none;
     appearance: none;
     width: 20px;
     height: 20px;
     border-radius: 50%;
     background-color: var(--color-primary);
-    cursor: pointer;
 }
+
 
 .Player__controls2-forward {
     position: relative;
@@ -343,6 +346,7 @@ option {
 .Player__controls2-nextEpisodeTitle h2 {
     padding: 1rem 2rem;
     font-size: 3rem;
+    color: var(--color-text);
 }
 
 .Player__controls2-nextEpisodeChapter {
@@ -386,6 +390,7 @@ option {
 .player__icons-chaptersContainer h2 {
     font-size: 3rem;
     padding: 1rem 2rem;
+    color: var(--color-text);
 }
 
 .player__icons-chaptersList ul li {
@@ -405,6 +410,8 @@ option {
     padding: 2rem;
     box-sizing: border-box;
     display: none;
+    position: absolute;
+    z-index: 999999;
 }
 
 .configurationTitle {
@@ -420,7 +427,8 @@ option {
 .configurationTitle h2 {
     padding: 0 2rem;
     box-sizing: border-box;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+    color: var(--color-text);
 }
 
 .configuration__close {
@@ -460,6 +468,7 @@ option {
 
 .configuration__option h2 {
     font-size: 1.75rem;
+    color: var(--color-text);
 }
 
 .configuration__option p {
@@ -473,3 +482,4 @@ option {
     position: absolute;
     border: none;
 }
+

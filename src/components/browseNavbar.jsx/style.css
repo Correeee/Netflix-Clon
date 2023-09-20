@@ -47,7 +47,8 @@
     font-weight: bold;
 }
 
-.BrowseNavbar ul a:hover, .BrowseNavbar__logout:hover {
+.BrowseNavbar ul a:hover,
+.BrowseNavbar__logout:hover {
     color: var(--color-grey);
 }
 
@@ -72,6 +73,7 @@
 .BrowseNavbar__icons {
     width: 2rem;
     height: 2rem;
+    cursor: pointer;
 }
 
 .BrowseNavbar__profileImg {
@@ -165,4 +167,38 @@
     color: var(--color-text);
     padding: 1rem 0;
     transition: 0.2s;
+}
+
+.BrowseNavbar__profileBar-lookforContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 0 1rem;
+    /* border: 1px solid white; */
+    border: none;
+    padding: 0.75rem;
+}
+
+
+.BrowseNavbar__profileBar-lookfor {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: var(--color-text);
+    width: 20rem;
+    display: none;
+    animation: aumWidth 0.2s linear;
+}
+
+@keyframes aumWidth {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 20rem;
+    }
+}
+
+.BrowseNavbar__profileBar-lookfor::placeholder {
+    color: var(--color-grey);
 }
