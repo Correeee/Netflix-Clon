@@ -489,6 +489,7 @@ option {
     top: 50%;
     right: 0;
     height: 20rem;
+    background-color: #141414;
 }
 
 .videoYoutubeContainer{
@@ -501,7 +502,6 @@ option {
     height: auto;
     width: 30rem;
     padding: 1rem 1rem 2rem 1rem;
-    gap: 1rem 0;
     border-radius: 10px;
     top: 0%;
     right: 0;

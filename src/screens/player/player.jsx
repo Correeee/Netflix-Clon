@@ -72,6 +72,7 @@ const Player = () => {
                         setSrcVideo(`https://www.youtube.com/embed/${trailer && trailer.key}`)
                     } else {
                         setVideo(res.results[0])
+                        setSrcVideo(`https://www.youtube.com/embed/${res.results[0] && res.results[0].key}`)
                     }
                     setIsLoading(false)
                 })
