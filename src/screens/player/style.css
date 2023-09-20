@@ -247,6 +247,7 @@
     cursor: pointer;
 }
 
+
 datalist {
     display: flex;
     flex-direction: row;
@@ -481,5 +482,37 @@ option {
     height: 100%;
     position: absolute;
     border: none;
+}
+
+.videoYoutube{
+    display: flex;
+    top: 50%;
+    right: 0;
+    height: 20rem;
+}
+
+.videoYoutubeContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 99999;
+    height: auto;
+    width: 30rem;
+    padding: 1rem 1rem 2rem 1rem;
+    gap: 1rem 0;
+    border-radius: 10px;
+    top: 50%;
+    right: 0;
+    user-select: none;
+}
+
+.videoYoutubeContainer h3{
+    color: var(--color-text);
+    font-size: 1rem;
+    background-color: #141414;
+    border-radius: 10px;
+    padding: 1rem 0;
 }
 

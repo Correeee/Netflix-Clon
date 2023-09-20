@@ -19,6 +19,7 @@ import Loader from '../../components/loader/loader'
 import { useLocation } from 'react-router-dom'
 import { AuthContext } from '../../context/authContext'
 import Login from '../login/login'
+import demoVideoEN from './assets/demoEN.mp4'
 
 const Player = () => {
     const { isLogin } = useContext(AuthContext)
@@ -37,6 +38,7 @@ const Player = () => {
             .then(res => setFilm(res))
             .catch(error => console.log(error))
         if (pathname.includes('browse') || pathname.includes('movies')) {
+            setIsMovie(true)
             APISearchMovieVideo(fid)
                 .then(res => {
                     const official = res.results.filter(res => res.name.includes('Official'))[0];
@@ -57,14 +59,17 @@ const Player = () => {
         }
 
         if (pathname.includes('series')) {
+            setIsMovie(false)
             APISearchSerieVideo(fid)
                 .then(res => {
                     const official = res.results.filter(res => res.name.includes('Official'))[0];
                     const trailer = res.results.filter(res => res.name.includes('trailer'))[0];
                     if (official) {
                         setVideo(official)
+                        setSrcVideo(`https://www.youtube.com/embed/${official && official.key}`)
                     } else if (trailer) {
                         setVideo(trailer)
+                        setSrcVideo(`https://www.youtube.com/embed/${trailer && trailer.key}`)
                     } else {
                         setVideo(res.results[0])
                     }
@@ -75,24 +80,19 @@ const Player = () => {
 
     }, [fid])
 
-
     const navigate = useNavigate()
     const configRef = useRef(null)
+    const videoPlayer = useRef(null)
+    const barInput = useRef(null)
 
-    const [playing, setPlaying] = useState(true)
+    const [playing, setPlaying] = useState(false)
     const [playMovie, setPlayMovie] = useState(play)
     const [sound, setSound] = useState(soundOn)
     const [volume, setVolume] = useState(1)
     const [full, setFull] = useState(false)
-
     const [disabledButton, setDisabledButton] = useState(false)
-
     const [rangeValue, setRangeValue] = useState(50)
-
     const [isMovie, setIsMovie] = useState(false)
-
-    const videoPlayer = useRef(null)
-    const barInput = useRef(null)
 
     let interval
 
@@ -101,7 +101,6 @@ const Player = () => {
             setPlaying(false)
             setPlayMovie(pause)
             videoPlayer.current.play()
-
             interval = setInterval(() => {
                 if (videoPlayer.current != null) {
                     const newTime = duration - videoPlayer.current.currentTime
@@ -124,6 +123,11 @@ const Player = () => {
             clearInterval(interval)
         }
     }
+
+    useEffect(() => {
+        handlerPlay()
+    }, [duration])
+
 
     const handlerSound = () => {
 
@@ -203,15 +207,14 @@ const Player = () => {
     }
 
     const handlerVolumeRange = (e) => {
-
-        setVolume(e.target.value)
-        videoPlayer.current.volume = e.target.value
-        if (volume <= 0.01) {
+        const volumeValue = e.target.value
+        setVolume(volumeValue)
+        videoPlayer.current.volume = volumeValue
+        if (volumeValue == 0) {
             setSound(soundOff)
         } else {
             setSound(soundOn)
         }
-
     }
 
     const handlerRewind = () => {
@@ -245,11 +248,16 @@ const Player = () => {
         setActualTime(duration - movieTime)
     }
 
+
     return (
         <>
             {
                 isLogin ?
                     <div className='Player'>
+                        <div className='videoYoutubeContainer'>
+                            <h3>Because the TMDB API only offers YouTube videos to integrate with 'IFRAME', the Movie or Series video will be a demo.</h3>
+                            <iframe src={srcVideo} className='videoYoutube'></iframe>
+                        </div>
                         <video
                             id="videoFrame"
                             className='videoTrailer'
@@ -259,7 +267,7 @@ const Player = () => {
                                 setDuration(time)
                             }}
                         >
-                            <source src={'https://dms.licdn.com/playlist/vid/D4D05AQHxgBSqwSPGZA/mp4-720p-30fp-crf28/0/1694579662469?e=1695279600&v=beta&t=BtvHIS0XTtkX3uoGXWf04gBRKAZ8TkSiACD8Emg_ag4'} type="video/mp4" />
+                            <source src={demoVideoEN} type="video/mp4" />
                         </video>
                         <button className='Player__backBtn' onClick={handlerBack}><img src={back} alt="back" className='player__icons' /></button>
 
@@ -290,7 +298,7 @@ const Player = () => {
                             </div>
                             <div className='Player__controlsButtons'>
                                 <div className='Player__controls1'>
-                                    <button disabled={disabledButton} ><img src={playMovie} alt="play" className='player__icons' onClick={handlerPlay} /></button>
+                                    <button disabled={disabledButton} onClick={handlerPlay}><img src={playMovie} alt="play" className='player__icons' /></button>
                                     <button onClick={handlerRewind}><img src={back10} alt="back 10 seconds" className='player__icons' disabled={disabledButton} /></button>
                                     <button onClick={handlerForward} disabled={disabledButton}><img src={forward10} alt="forward 10 seconds" className='player__icons player__icons-forward' /></button>
                                     <div className='volumeDiv'>
@@ -298,7 +306,13 @@ const Player = () => {
                                             <img src={sound} alt="sound" className='player__icons' />
                                         </button>
                                         <div className='player__icons-soundContainerBar'>
-                                            <input type="range" min={0} max={1} step={0.01} defaultValue={volume} value={volume} onChange={e => handlerVolumeRange(e)} disabled={disabledButton} />
+                                            <input type="range"
+                                                min={0} max={1} step={0.01}
+                                                defaultValue={volume}
+                                                value={volume}
+                                                onChange={e => handlerVolumeRange(e)}
+                                                disabled={disabledButton}
+                                            />
                                         </div>
                                     </div>
 
@@ -356,13 +370,21 @@ const Player = () => {
                                                 <h2>Velocidad de reproducción</h2>
                                             </div>
                                             <div className='player__icons-velocityRange'>
-                                                <input type="range" id="velocity" name="velocity" list="velocityList" className='player__inputRangeVelocity' step={25} value={rangeValue} onChange={(e) => setRangeValue(e.target.value)} disabled={disabledButton} />
+                                                <input type="range"
+                                                    id="velocity"
+                                                    name="velocity"
+                                                    list="velocityList"
+                                                    className='player__inputRangeVelocity'
+                                                    step={25}
+                                                    value={rangeValue}
+                                                    onChange={(e) => setRangeValue(e.target.value)} disabled={disabledButton}
+                                                />
                                                 <datalist id="velocityList" >
-                                                    <option value="0" label="0.5x" style={{ fontSize: rangeValue === 0 && '2.25rem', opacity: rangeValue === 0 && '100%' }}></option>
-                                                    <option value="25" label="0.75x" style={{ fontSize: rangeValue === 25 && '2.25rem', opacity: rangeValue === 25 && '100%' }}></option>
-                                                    <option value="50" label="1x(Normal)" style={{ fontSize: rangeValue === 50 && '2.25rem', opacity: rangeValue === 50 && '100%' }}></option>
-                                                    <option value="75" label="1.5x" style={{ fontSize: rangeValue === 75 && '2.25rem', opacity: rangeValue === 75 && '100%' }}></option>
-                                                    <option value="100" label="1.75x" style={{ fontSize: rangeValue === 100 && '2.25rem', opacity: rangeValue === 100 && '100%' }}></option>
+                                                    <option value="0" label="0.5x" style={{ opacity: rangeValue == 0 && '100%' }}></option>
+                                                    <option value="25" label="0.75x" style={{ opacity: rangeValue == 25 && '100%' }}></option>
+                                                    <option value="50" label="1x(Normal)" style={{ opacity: rangeValue == 50 && '100%' }}></option>
+                                                    <option value="75" label="1.5x" style={{ opacity: rangeValue == 75 && '100%' }}></option>
+                                                    <option value="100" label="1.75x" style={{ opacity: rangeValue == 100 && '100%' }}></option>
                                                 </datalist>
                                             </div>
                                         </div>
