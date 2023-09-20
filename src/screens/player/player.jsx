@@ -248,6 +248,27 @@ const Player = () => {
         setActualTime(duration - movieTime)
     }
 
+    const handlerRangeVelocity = (e) => {
+        const range = Number(e.target.value)
+        setRangeValue(range)
+        console.log(range)
+        if (range == 0) {
+            videoPlayer.current.playbackRate = 0.5
+        }
+        if (range == 25) {
+            videoPlayer.current.playbackRate = 0.75
+        }
+        if (range == 50) {
+            videoPlayer.current.playbackRate = 1
+        }
+        if (range == 75) {
+            videoPlayer.current.playbackRate = 1.5
+        }
+        if (range == 100) {
+            videoPlayer.current.playbackRate = 1.75
+        }
+    }
+
 
     return (
         <>
@@ -377,7 +398,7 @@ const Player = () => {
                                                     className='player__inputRangeVelocity'
                                                     step={25}
                                                     value={rangeValue}
-                                                    onChange={(e) => setRangeValue(e.target.value)} disabled={disabledButton}
+                                                    onChange={(e) => handlerRangeVelocity(e)} disabled={disabledButton}
                                                 />
                                                 <datalist id="velocityList" >
                                                     <option value="0" label="0.5x" style={{ opacity: rangeValue == 0 && '100%' }}></option>
