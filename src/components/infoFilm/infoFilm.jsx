@@ -30,7 +30,7 @@ const InfoFilm = ({ fid }) => {
     useEffect(() => {
 
         if (fid) {
-            if (pathname.includes('browse') || pathname.includes('movies')) {
+            if (pathname.includes('movies')) {
                 APISearchMovieForId(fid)
                     .then(res => {
                         setFilm(res)
@@ -47,6 +47,28 @@ const InfoFilm = ({ fid }) => {
                         const genresIds = []
                         res.genres.map(gen => genresIds.push(gen.id))
                         setGenres(genresIds)
+                    })
+                    .catch(error => console.log(error))
+            }
+
+            if (pathname.includes('browse')) {
+                APISearchSerieForId(fid)
+                    .then(res => {
+                        if (res.first_air_date) {
+                            setFilm(res)
+                            const genresIds = []
+                            res.genres.map(gen => genresIds.push(gen.id))
+                            setGenres(genresIds)
+                        } else {
+                            APISearchMovieForId(fid)
+                                .then(res => {
+                                    setFilm(res)
+                                    const genresIds = []
+                                    res.genres.map(gen => genresIds.push(gen.id))
+                                    setGenres(genresIds)
+                                })
+                                .catch(error => console.log(error))
+                        }
                     })
                     .catch(error => console.log(error))
             }
@@ -98,7 +120,17 @@ const InfoFilm = ({ fid }) => {
             }
         };
 
-        if (pathname.includes('browse') || pathname.includes('movies')) {
+        if (pathname.includes('browse')) {
+            if (film) {
+                if (film.first_air_date) {
+                    fetchSeriesForGenres();
+                } else {
+                    fetchMoviesForGenres();
+                }
+            }
+        }
+
+        if (pathname.includes('movies')) {
             fetchMoviesForGenres();
         }
         if (pathname.includes('series')) {
@@ -148,7 +180,14 @@ const InfoFilm = ({ fid }) => {
                     navigate(`/news/series/player/${id}`)
                 }
             } else {
-                if ((pathname.includes('browse') || pathname.includes('movies'))) {
+                if (pathname.includes('browse')) {
+                    if (film.first_air_date) {
+                        navigate(`/series/player/${id}`)
+                    } else {
+                        navigate(`/movies/player/${id}`)
+                    }
+                }
+                if (pathname.includes('movies')) {
                     navigate(`/movies/player/${id}`)
                 }
                 if (pathname.includes('series') && !pathname.includes('mylist')) {
@@ -186,7 +225,7 @@ const InfoFilm = ({ fid }) => {
 
     const isInList = async (film) => {
         try {
-            if(film){
+            if (film) {
                 const filmInList = await selectedProfile.list.filter((li) => li.id === film.id)
                 if (filmInList.length) {
                     setInList(true)
@@ -317,7 +356,7 @@ const InfoFilm = ({ fid }) => {
                                                         <div className='filmCard__info-btnsDiv2'>
                                                             <button onClick={() => handlerList(mov)} style={{ backgroundColor: list && '#45D068' }} className='filmCard__addToList'>
                                                                 <img src={!list ? more : OK} alt="Add" />
-                                                                <PopUp text={!list ? 'Add to My list' : 'Remove from the list'} textColor={list && 'var(--color-primary)'} top={'-220%'} left={'-195%'}/>
+                                                                <PopUp text={!list ? 'Add to My list' : 'Remove from the list'} textColor={list && 'var(--color-primary)'} top={'-220%'} left={'-195%'} />
                                                             </button>
                                                         </div>
                                                     </div>

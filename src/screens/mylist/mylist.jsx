@@ -39,22 +39,19 @@ const MyList = () => {
 
 
     const handlerInfo = (film) => {
-        if (film.release_date || film.movie_type == 'movie') {
-            navigate(`/mylist/movies/${film.id}`)
-        }
-
-        if (!film.release_date) {
+        if (film.first_air_date) {
             navigate(`/mylist/series/${film.id}`)
+        } else {
+            navigate(`/mylist/movies/${film.id}`)
         }
     }
 
     const handlerPlay = (film) => {
-        if (film.release_date || film.movie_type == 'movie') {
-            navigate(`/mylist/movies/player/${film.id}`)
-        }
 
-        if (!film.release_date || film.movie_type != 'movie') {
+        if (film.first_air_date) {
             navigate(`/mylist/series/player/${film.id}`)
+        } else {
+            navigate(`/mylist/movies/player/${film.id}`)
         }
 
     }

@@ -14,7 +14,7 @@ import back from './assets/back.png'
 import pause from './assets/pause.png'
 import configuration from './assets/configuration.png'
 import { useNavigate, useParams } from 'react-router-dom'
-import { APISearchMovieForId, APISearchMovieVideo, APISearchSerieVideo } from '../../data/data'
+import { APISearchMovieForId, APISearchMovieVideo, APISearchSerieForId, APISearchSerieVideo } from '../../data/data'
 import Loader from '../../components/loader/loader'
 import { useLocation } from 'react-router-dom'
 import { AuthContext } from '../../context/authContext'
@@ -34,10 +34,11 @@ const Player = () => {
     const [actualTime, setActualTime] = useState(0)
 
     useEffect(() => {
-        APISearchMovieForId(fid)
-            .then(res => setFilm(res))
-            .catch(error => console.log(error))
-        if (pathname.includes('browse') || pathname.includes('movies')) {
+
+        if (pathname.includes('movies')) {
+            APISearchMovieForId(fid)
+                .then(res => setFilm(res))
+                .catch(error => console.log(error))
             setIsMovie(true)
             APISearchMovieVideo(fid)
                 .then(res => {
@@ -59,6 +60,12 @@ const Player = () => {
         }
 
         if (pathname.includes('series')) {
+            APISearchSerieForId(fid)
+                .then(res => {
+                    setFilm(res)
+                    console.log(res)
+                })
+                .catch(error => console.log(error))
             setIsMovie(false)
             APISearchSerieVideo(fid)
                 .then(res => {
@@ -339,7 +346,7 @@ const Player = () => {
                                     </div>
 
                                 </div>
-                                <h2 className='Player__movieTitle'>{film && film.original_title}</h2>
+                                <h2 className='Player__movieTitle'>{film && (film.original_title || film.original_name || film.name)}</h2>
                                 <div className='Player__controls2'>
                                     <button className='Player__controls2-forward' style={{ display: isMovie && 'none' }} disabled={disabledButton}>
                                         <img src={forward} alt="forward" className='player__icons' />

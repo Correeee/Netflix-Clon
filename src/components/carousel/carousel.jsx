@@ -35,9 +35,24 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
 
     }, [list, categoryList])
 
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
     const movieType = async () => { //BUSCAR POR PELICULA
         try {
-            if (pathname.includes('browse') || pathname.includes('movies')) {
+            if (pathname.includes('browse')) {
+                let responseMovies = await APIGeneresMovie(GENERE_ID)
+                let responseSeries = await APIGeneresSeries(GENERE_ID)
+                responseMovies = responseMovies.results
+                responseSeries = responseSeries.results
+                const allTypeFilm = responseMovies.concat(responseSeries)
+                setList(allTypeFilm)
+            }
+            if (pathname.includes('movies')) {
                 const response = await APIGeneresMovie(GENERE_ID)
                 setList(response.results)
             }
@@ -139,6 +154,7 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
                 navigate(pathname + '/series/' + film.id)
             }
         }
+        
         if (pathname.includes('browse') || pathname.includes('movies') || pathname.includes('series')) {
             navigate(`${pathname}/${film.id}`)
         }
