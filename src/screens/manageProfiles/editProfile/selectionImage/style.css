@@ -15,12 +15,18 @@
     align-items: center;
     width: 100%;
 }
-
+.SelectionImage__text{
+    text-align: center;
+}
 .SelectionImage__text img{
     width: 8rem;
     height: 8rem;
     cursor: pointer;
     transition: 0.2s;
+}
+
+.SelectionImage__text h2{
+    color: var(--color-text);
 }
 
 .SelectionImage__text img:hover{
@@ -65,6 +71,10 @@
     object-fit: cover;
 }
 
+.SelectionImage__image h2{
+    color: var(--color-text);
+}
+
 
 .SelectionImage__options{
     display: flex;
@@ -87,3 +97,69 @@
 .avatarOption:hover{
     outline: 2px solid var(--color-text);
 }
+
+@media screen and (max-width: 1024px) {
+    .avatarOption{
+        width: 12rem;
+        height: 12rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .SelectionImage__image img{
+        width: 5rem;
+        height: 5rem;
+    }
+    .avatarOption{
+        width: 10rem;
+        height: 10rem;
+    }
+
+    .SelectionImage__text img{
+        width: 5rem;
+        height: 5rem;
+    }
+    .SelectionImage__bar div div h1{
+        font-size: 2.5rem;
+    }
+    .SelectionImage__bar div div h2{
+        font-size: 1.5rem;
+    }
+    
+}
+
+@media screen and (max-width: 425px) {
+    .SelectionImage{
+        gap: 2rem;
+    }
+
+    .SelectionImage__bar{
+        padding: 1rem 0;
+    }
+    .avatarOption{
+        width: 8rem;
+        height: 8rem;
+    }
+
+    .SelectionImage__text img{
+        width: 5rem;
+        height: 5rem;
+    }
+    .SelectionImage__bar div div h1{
+        font-size: 2rem;
+    }
+    .SelectionImage__bar div div h2{
+        font-size: 1.25rem;
+    }
+
+    .SelectionImage__image img{
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .SelectionImage__bar{
+        flex-wrap: wrap;
+        gap: 2rem 0;
+    }
+}
+

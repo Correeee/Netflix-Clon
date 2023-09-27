@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import './style.css'
 import logo from '../assets/logo.png'
 import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom'
@@ -52,6 +52,29 @@ const BrowseNavbar = () => {
         isLookingFor ? document.getElementById('searchInput').focus() : isLookingFor && document.getElementById('searchInput').blur()
     }, [isLookingFor])
 
+    const navbarRef = useRef()
+    const triangleRef = useRef()
+
+    const handlerNav = () => {
+        if (navbarRef.current.style.display === 'none' || !navbarRef.current.style.display) {
+            navbarRef.current.style.display = 'flex'
+            triangleRef.current.style.display = 'flex'
+        } else {
+            navbarRef.current.style.display = 'none'
+            triangleRef.current.style.display = 'none'
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', (e) => {
+            const windowWidth = e.target.innerWidth
+            if (windowWidth > 800) {
+                navbarRef.current.style.display = 'none'
+                triangleRef.current.style.display = 'none'
+            }
+        })
+    }, [])
+
 
     return (
         <div className='BrowseNavbar' style={{ backgroundColor: scrolling ? 'rgba(0, 0, 0, 0.7)' : 'transparent' }}>
@@ -59,7 +82,18 @@ const BrowseNavbar = () => {
                 <div>
                     <img src={logo} alt="logo" className='logo' />
                 </div>
-                <ul>
+                <div>
+                    <button className='BrowseNavbar__openOptions' onClick={handlerNav}>Explorar</button>
+                    <ul className='BrowseNavbar__listResponsive' ref={navbarRef}>
+                        <div className='triangle' ref={triangleRef}></div>
+                        <NavLink to={'/browse'}>Home</NavLink>
+                        <NavLink to={'/series'}>Series</NavLink>
+                        <NavLink to={'/movies'}>Movies</NavLink>
+                        <NavLink to={'/news'}>Popular News</NavLink>
+                        <NavLink to={'/mylist'}>My List</NavLink>
+                    </ul>
+                </div>
+                <ul className='BrowseNavbar__list' >
                     <NavLink to={'/browse'}>Home</NavLink>
                     <NavLink to={'/series'}>Series</NavLink>
                     <NavLink to={'/movies'}>Movies</NavLink>
@@ -76,7 +110,7 @@ const BrowseNavbar = () => {
                         setIsLookingFor(false);
                         e.target.value = ''
                         setSearch('');
-                    }} onChange={(e) => setSearch(e.target.value)} id='searchInput'/>
+                    }} onChange={(e) => setSearch(e.target.value)} id='searchInput' />
                 </div>
                 <img src={notificaciones} alt="notificaciones" className='BrowseNavbar__icons' />
                 <div className='BrowseNavbar__profileContainerImg'>

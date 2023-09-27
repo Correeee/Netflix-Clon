@@ -50,7 +50,7 @@ const ManageManageProfiles = () => {
                                             {
                                                 userData && userData.profiles.sort((a, b) => a.id - b.id).map((prof, i) => {
                                                     return (
-                                                        <div key={i} onClick={() => setProfileSelected(prof)}>
+                                                        <div className='profileBox' key={i} onClick={() => setProfileSelected(prof)}>
                                                             <img src={prof.image} alt="Profile Image" className='ManageProfiles__profImg' />
                                                             <h2>{prof.name}</h2>
                                                             <img src={edit} alt="edit" className='edit' />

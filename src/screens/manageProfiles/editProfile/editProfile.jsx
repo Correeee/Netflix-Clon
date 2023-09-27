@@ -91,7 +91,7 @@ const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserDat
                                     <img src={edit} alt="edit" className='EditProfile__imageContainer-edit' />
                                 </div>
                                 <div>
-                                    <input type="text" placeholder='Name' defaultValue={profileName} onChange={(e) => setProfileName(e.target.value)} />
+                                    <input type="text" placeholder='Name' defaultValue={profileName} onChange={(e) => setProfileName(e.target.value)} className='inputName'/>
                                     <p style={{ visibility: profileName ? 'hidden' : 'visible' }}>Enter a name</p>
                                 </div>
                             </form>

@@ -3,7 +3,7 @@ import './style.css'
 import BrowseNavbar from '../../components/browseNavbar.jsx/browseNavbar'
 import BrowseBanner from '../../components/browseBanner/browseBanner'
 import Carousel from '../../components/carousel/carousel'
-import { APITrendingMovies, APIGenreMovies, APIGeneresMovie, APITrendingSeries, APITrendingAll, APIGenreSeries } from '../../data/data'
+import { APITrendingMovies, APIGenreMovies, APITrendingSeries, APIGenreSeries } from '../../data/data'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import InfoFilm from '../../components/infoFilm/infoFilm'
@@ -23,7 +23,7 @@ const BrowsePrincipal = () => {
     useEffect(() => {
         document.querySelector('body').classList.remove('hiddenBody')
     }, [])
-    
+
 
 
     /* ------------------------------ TRENDINGLIST ------------------------------ */
@@ -94,14 +94,17 @@ const BrowsePrincipal = () => {
                             delay: 0.2
                         }}
                         className='BrowsePrincipal' >
-                        {/* <ScrollToTop /> */}
+                        <ScrollToTop />
                         <BrowseNavbar />
                         <BrowseBanner list={trending} />
                         {
-                            pathname.includes('browse') || pathname.includes('movies') ?
-                                <Carousel categoryTitle={`Trending Movies`} list={trending} genreList={genreList} id={9999999} />
+                            pathname.includes('browse') ?
+                                <Carousel categoryTitle={`Trending`} list={trending} genreList={genreList} id={9999999} /> //MODIFICAR ESTE TRENDING PARA UNIR SERIES Y PELICULAS
                                 :
-                                <Carousel categoryTitle={`Trending Series`} list={trending} genreList={genreList} id={9999999} />
+                                pathname.includes('movies') ?
+                                    <Carousel categoryTitle={`Trending Movies`} list={trending} genreList={genreList} id={9999999} />
+                                    :
+                                    <Carousel categoryTitle={`Trending Series`} list={trending} genreList={genreList} id={9999999} /> 
                         }
 
                         {

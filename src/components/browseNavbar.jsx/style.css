@@ -20,9 +20,12 @@
 .BrowseNavbar__links {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
-.BrowseNavbar__links ul {
+.BrowseNavbar__list {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -189,6 +192,7 @@
     animation: aumWidth 0.2s linear;
 }
 
+
 @keyframes aumWidth {
     from {
         width: 0;
@@ -199,6 +203,60 @@
     }
 }
 
+
 .BrowseNavbar__profileBar-lookfor::placeholder {
     color: var(--color-grey);
+}
+
+.BrowseNavbar__openOptions{
+    display: none;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-text);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.BrowseNavbar__listResponsive{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem 0;
+    padding: 1rem;
+    background-color: var(--color-black);
+    width: 20rem;
+    position: absolute;
+    top: 100%;
+    left: 25%;
+    border-top: 2px solid var(--color-text);
+}
+
+.triangle{
+    display: none;
+    width: 1rem;
+    height: 1rem;
+    transform: rotate(45deg);
+    background-color: var(--color-text);
+    position: absolute;
+    top: -3%;
+    z-index: -1;
+}
+
+
+@media screen and (max-width: 800px) {
+    .BrowseNavbar__list{
+        display: none;
+    }
+    
+
+    .BrowseNavbar__openOptions{
+        display: flex;
+    }
+
+    .BrowseNavbar__list a{
+        width: 100%;
+    }
+
 }

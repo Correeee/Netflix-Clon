@@ -168,3 +168,38 @@
     pointer-events: none;
     opacity: 70%;
 }
+
+@media screen and (max-width: 1024px) {
+    .BrowseBanner__infoMovieContainer{
+        width: 100%;
+    }
+
+    .BrowseBanner__btns{
+        justify-content: start;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem 0;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .BrowseBanner__infoMovie{
+        justify-content: center;
+        align-items: center;
+        padding: 0 0 0 1rem;
+        flex-wrap: wrap;
+    }
+    .BrowseBanner__movieOptions{
+        padding: 0;
+    }
+    .BrowseBanner__infoMovieContainer{
+        padding: 0 1rem;
+    }
+
+    .BrowseBanner__btns{
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+}

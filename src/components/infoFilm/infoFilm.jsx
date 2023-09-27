@@ -92,7 +92,6 @@ const InfoFilm = ({ fid }) => {
                 const allResults = await Promise.all(promises);
 
                 const otherMovies = allResults.flat(); // Combina los arrays de resultados en uno solo
-
                 setMoreMovies(otherMovies);
             } catch (error) {
                 console.error(error);
@@ -111,7 +110,7 @@ const InfoFilm = ({ fid }) => {
 
             try {
                 const allResults = await Promise.all(promises);
-
+                
                 const otherMovies = allResults.flat(); // Combina los arrays de resultados en uno solo
 
                 setMoreMovies(otherMovies);
@@ -259,9 +258,10 @@ const InfoFilm = ({ fid }) => {
         isInLikes(film)
     }, [selectedProfile])
 
-    // const ScrollInfoFilmTop = () => {
-    //     return (document.getElementsByClassName('InfoFilmContainer')[0].scrollTo(0, 0))
-    // }
+    const ScrollInfoFilmTop = () => {
+        return (document.getElementsByClassName('InfoFilmContainer')[0] && document.getElementsByClassName('InfoFilmContainer')[0].scrollTo(0, 0))
+    }
+
 
     return (
         <>
@@ -269,7 +269,7 @@ const InfoFilm = ({ fid }) => {
             {
                 film &&
                 <div className='InfoFilmContainer' style={{ display: !fid && 'none' }}>
-                    {/* <ScrollInfoFilmTop /> */}
+                    <ScrollInfoFilmTop />
                     <div className='out' onClick={handlerClose}></div>
                     <div className='InfoFilm' >
                         <button className='InfoFilm__close' onClick={handlerClose}>X</button>
@@ -329,7 +329,7 @@ const InfoFilm = ({ fid }) => {
                             <h1>More titles similar to this</h1>
                             <div className='InfoFilm__moreTitles-filmsCards'>
                                 {
-                                    moreMovies.length &&
+                                    moreMovies.length ?
                                     moreMovies.slice(0, 8).map((mov, i) => {
                                         const list = selectedProfile.list.find(li => li.id === mov.id)
                                         return (
@@ -367,6 +367,8 @@ const InfoFilm = ({ fid }) => {
                                             </div>
                                         )
                                     })
+                                    :
+                                    <h2 className='noTitles'>There are not related titles...</h2>
                                 }
                             </div>
                         </div>
