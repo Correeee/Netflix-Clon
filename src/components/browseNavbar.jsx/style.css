@@ -258,4 +258,16 @@
         width: 100%;
     }
 
+    .BrowseNavbar{
+        padding: 0;
+    }
+
+}
+
+
+@media screen and (max-width: 425px) {
+    .BrowseNavbar__profileBar-lookforContainer, .BrowseNavbar__icons-notifications{
+        display: none;
+    }
+    
 }

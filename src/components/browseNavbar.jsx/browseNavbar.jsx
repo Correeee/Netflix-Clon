@@ -118,7 +118,7 @@ const BrowseNavbar = () => {
                         setSearch('');
                     }} onChange={(e) => setSearch(e.target.value)} id='searchInput' />
                 </div>
-                <img src={notificaciones} alt="notificaciones" className='BrowseNavbar__icons' />
+                <img src={notificaciones} alt="notificaciones" className='BrowseNavbar__icons BrowseNavbar__icons-notifications' />
                 <div className='BrowseNavbar__profileContainerImg'>
                     <img src={selectedProfile.image} alt="profileImg" className='BrowseNavbar__profileImg' />
                     <img src={down} alt="down" className='BrowseNavbar__icons BrowseNavbar__icons-down' />
