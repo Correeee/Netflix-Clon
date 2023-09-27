@@ -55,7 +55,7 @@ const BrowseNavbar = () => {
     const navbarRef = useRef()
     const triangleRef = useRef()
 
-    const handlerNav = () => {
+    const widthResponsive = () => {
         if (navbarRef.current.style.display === 'none' || !navbarRef.current.style.display) {
             navbarRef.current.style.display = 'flex'
             triangleRef.current.style.display = 'flex'
@@ -65,12 +65,18 @@ const BrowseNavbar = () => {
         }
     }
 
+    const handlerNav = () => {
+        widthResponsive()
+    }
+
     useEffect(() => {
         window.addEventListener('resize', (e) => {
             const windowWidth = e.target.innerWidth
-            if (windowWidth > 800) {
-                navbarRef.current.style.display = 'none'
-                triangleRef.current.style.display = 'none'
+            if (windowWidth > 800) { 
+                if(navbarRef.current.style.display === 'flex'){
+                    navbarRef.current.style.display = 'none'
+                    triangleRef.current.style.display = 'none'
+                }
             }
         })
     }, [])
@@ -86,11 +92,11 @@ const BrowseNavbar = () => {
                     <button className='BrowseNavbar__openOptions' onClick={handlerNav}>Explorar</button>
                     <ul className='BrowseNavbar__listResponsive' ref={navbarRef}>
                         <div className='triangle' ref={triangleRef}></div>
-                        <NavLink to={'/browse'}>Home</NavLink>
-                        <NavLink to={'/series'}>Series</NavLink>
-                        <NavLink to={'/movies'}>Movies</NavLink>
-                        <NavLink to={'/news'}>Popular News</NavLink>
-                        <NavLink to={'/mylist'}>My List</NavLink>
+                        <NavLink to={'/browse'} onClick={() => widthResponsive()}>Home</NavLink>
+                        <NavLink to={'/series'} onClick={() => widthResponsive()}>Series</NavLink>
+                        <NavLink to={'/movies'} onClick={() => widthResponsive()}>Movies</NavLink>
+                        <NavLink to={'/news'} onClick={() => widthResponsive()}>Popular News</NavLink>
+                        <NavLink to={'/mylist'} onClick={() => widthResponsive()}>My List</NavLink>
                     </ul>
                 </div>
                 <ul className='BrowseNavbar__list' >
