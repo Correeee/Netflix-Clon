@@ -73,7 +73,8 @@ const BrowseNavbar = () => {
         window.addEventListener('resize', (e) => {
             const windowWidth = e.target.innerWidth
             if (windowWidth > 800) { 
-                if(navbarRef.current.style.display === 'flex'){
+                if(navbarRef.current){
+                    console.log('first')
                     navbarRef.current.style.display = 'none'
                     triangleRef.current.style.display = 'none'
                 }
