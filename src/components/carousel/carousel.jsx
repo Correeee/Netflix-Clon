@@ -35,22 +35,31 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
 
     }, [list, categoryList])
 
+    function suffleArrays(array1, array2) {
+        const resultado = [];
+        const maxLength = Math.max(array1.length, array2.length);
+
+        for (let i = 0; i < maxLength; i++) {
+            if (i < array1.length) {
+                resultado.push(array1[i]);
+            }
+            if (i < array2.length) {
+                resultado.push(array2[i]);
+            }
+        }
+
+        return resultado;
+    }
+
 
     const movieType = async () => { //BUSCAR POR PELICULA
         try {
             if (pathname.includes('browse')) {
                 let responseMovies = await APIGeneresMovie(GENERE_ID)
                 let responseSeries = await APIGeneresSeries(GENERE_ID)
-                responseMovies = responseMovies.results
-                responseSeries = responseSeries.results
-                const films = []
-                for (let i = 0; i < 20; i++) {
-                    if (i == 0 || i % 2 === 0) {
-                        films.push(responseMovies[i])
-                    } else {
-                        films.push(responseSeries[i])
-                    }
-                }
+                responseMovies = responseMovies.results.slice(0, 10)
+                responseSeries = responseSeries.results.slice(0, 10)
+                const films = suffleArrays(responseMovies, responseSeries)
                 setList(films)
             }
             if (pathname.includes('movies')) {

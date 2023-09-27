@@ -31,8 +31,13 @@ const BrowsePrincipal = () => {
     const [trending, setTrending] = useState([])
     const listingFilms = async () => {
         try {
-
-            if (pathname.includes('browse') || pathname.includes('movies')) {
+            if(pathname.includes('browse')){
+                const dataMovies = await APITrendingMovies()
+                const dataSeries = await APITrendingSeries()
+                const allFilms = dataMovies.concat(...dataSeries)
+                setTrending(allFilms)
+            }
+            if (pathname.includes('movies')) {
                 const data = await APITrendingMovies()
                 setTrending(data)
             }
@@ -94,12 +99,12 @@ const BrowsePrincipal = () => {
                             delay: 0.2
                         }}
                         className='BrowsePrincipal' >
-                        <ScrollToTop />
+                        {/* <ScrollToTop /> */}
                         <BrowseNavbar />
                         <BrowseBanner list={trending} />
                         {
                             pathname.includes('browse') ?
-                                <Carousel categoryTitle={`Trending`} list={trending} genreList={genreList} id={9999999} /> //MODIFICAR ESTE TRENDING PARA UNIR SERIES Y PELICULAS
+                                <Carousel categoryTitle={`Trending`} list={trending} genreList={genreList} id={9999999} /> 
                                 :
                                 pathname.includes('movies') ?
                                     <Carousel categoryTitle={`Trending Movies`} list={trending} genreList={genreList} id={9999999} />

@@ -521,3 +521,46 @@
     font-size: 2rem;
     margin: 2rem 0;
 }
+
+.principalInfo__playAndAdd{
+    display: flex;
+    flex-direction: row;
+}
+
+@media screen and (max-width: 1024px) {
+    .InfoFilm{
+        width: 90%;
+    }
+
+    .principalInfo__info-Btns{
+        flex-wrap: wrap;
+        gap: 2rem 0;
+    }
+
+    .principalInfo__info-Btns button{
+        margin: 0 1rem;
+    }
+}
+
+@media screen and (max-width: 525px) {
+
+    .InfoFilm__info-date div:nth-child(1){
+        flex-wrap: wrap;
+        justify-content: start;
+        gap: 1rem;
+    }
+
+}
+
+@media screen and (max-width: 425px) {
+    .InfoFilm{
+        width: 90%;
+    }
+    
+
+    .principalInfo__infoContainer, .principalInfo__infoLogo, .principalInfo__title, .principalInfo__info-Btns{
+        justify-content: center;
+        align-items: center;
+    }
+
+}

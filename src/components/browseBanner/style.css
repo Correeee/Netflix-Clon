@@ -203,3 +203,16 @@
         gap: 1rem;
     }
 }
+
+@media screen and (max-width: 425px) {
+    .BrowseBanner__infoMovie{
+        padding: 0;
+    }
+    .BrowseBanner__infoMovieContainer h2{
+        font-size: 4rem;
+    }
+
+    .BrowseBanner__infoMovieContainer h3{
+        font-size: 1.5rem;
+    }
+}

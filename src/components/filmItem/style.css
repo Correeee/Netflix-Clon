@@ -169,3 +169,20 @@
 .ItemButtons:hover>.PopUp {
     display: flex;
 }
+
+@media screen and (max-width: 425px) {
+
+    .filmItem, .Carousel__itemInfo{
+        width: 25rem;
+    }
+
+    .imgtitle{
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .filmItem:hover .imgtitle img {
+        object-fit: cover;
+    }
+
+}

@@ -37,3 +37,11 @@
     padding: 0 2rem;
     flex-wrap: wrap;
 }
+
+@media screen and (max-width: 1024px) {
+    .MyList__containerFilms{
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+}

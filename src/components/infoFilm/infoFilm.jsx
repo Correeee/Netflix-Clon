@@ -110,7 +110,7 @@ const InfoFilm = ({ fid }) => {
 
             try {
                 const allResults = await Promise.all(promises);
-                
+
                 const otherMovies = allResults.flat(); // Combina los arrays de resultados en uno solo
 
                 setMoreMovies(otherMovies);
@@ -287,14 +287,24 @@ const InfoFilm = ({ fid }) => {
                                         </div>
                                         <div className='principalInfo__info-Btns'>
                                             <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'20rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(film.id)} imageSrc={playBlack} />
-                                            <button className='principalInfo__info-add' onClick={() => handlerList(film)} style={{ backgroundColor: inList && '#45D068' }}>
-                                                <img src={imageList ? OK : more} alt="add" />
-                                                <PopUp text={!inList ? 'Add to My list' : 'Remove from the list'} textColor={inList && 'var(--color-primary)'} />
-                                            </button>
-                                            <button className='principalInfo__info-like' onClick={() => handlerLike(film)} style={{ backgroundColor: inLikes && '#45D068' }}>
-                                                <img src={like} alt="like" />
-                                                <PopUp text={!inLikes ? 'Like it' : "I don't like"} textColor={inLikes && 'var(--color-primary)'} />
-                                            </button>
+                                            <div className='principalInfo__playAndAdd'>
+                                                <button
+                                                    className='principalInfo__info-add'
+                                                    onClick={() => handlerList(film)}
+                                                    style={{ backgroundColor: inList && '#45D068' }}
+                                                >
+                                                    <img src={imageList ? OK : more} alt="add" />
+                                                    <PopUp text={!inList ? 'Add to My list' : 'Remove from the list'} textColor={inList && 'var(--color-primary)'} />
+                                                </button>
+                                                <button
+                                                    className='principalInfo__info-like'
+                                                    onClick={() => handlerLike(film)}
+                                                    style={{ backgroundColor: inLikes && '#45D068' }}
+                                                >
+                                                    <img src={like} alt="like" />
+                                                    <PopUp text={!inLikes ? 'Like it' : "I don't like"} textColor={inLikes && 'var(--color-primary)'} />
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -330,45 +340,45 @@ const InfoFilm = ({ fid }) => {
                             <div className='InfoFilm__moreTitles-filmsCards'>
                                 {
                                     moreMovies.length ?
-                                    moreMovies.slice(0, 8).map((mov, i) => {
-                                        const list = selectedProfile.list.find(li => li.id === mov.id)
-                                        return (
-                                            <div className='filmCard' key={i}>
-                                                <div className='filmCard__posterContainer'>
-                                                    <img src={`https://image.tmdb.org/t/p/original${mov.poster_path}`} className='filmCard__img' />
-                                                    <button className='filmCard__playBtn' onClick={() => handlerPlay(mov.id)} >
-                                                        <img src={play} alt="Play" className='filmCard__play' />
-                                                    </button>
-                                                    <h2 className='filmCard__title'>{mov.title || mov.name}</h2>
-                                                </div>
+                                        moreMovies.slice(0, 8).map((mov, i) => {
+                                            const list = selectedProfile.list.find(li => li.id === mov.id)
+                                            return (
+                                                <div className='filmCard' key={i}>
+                                                    <div className='filmCard__posterContainer'>
+                                                        <img src={`https://image.tmdb.org/t/p/original${mov.poster_path}`} className='filmCard__img' />
+                                                        <button className='filmCard__playBtn' onClick={() => handlerPlay(mov.id)} >
+                                                            <img src={play} alt="Play" className='filmCard__play' />
+                                                        </button>
+                                                        <h2 className='filmCard__title'>{mov.title || mov.name}</h2>
+                                                    </div>
 
-                                                <div className='filmCard__info'>
-                                                    <div className='filmCard__info-btns'>
-                                                        <div className='filmCard__info-btnsDiv1'>
-                                                            <div>
-                                                                <h3>75% for you</h3>
+                                                    <div className='filmCard__info'>
+                                                        <div className='filmCard__info-btns'>
+                                                            <div className='filmCard__info-btnsDiv1'>
+                                                                <div>
+                                                                    <h3>75% for you</h3>
+                                                                </div>
+                                                                <div>
+                                                                    <h3>{!mov.adult ? '13+' : '+18'}</h3>
+                                                                    <h3>{mov.release_date}</h3>
+                                                                </div>
                                                             </div>
-                                                            <div>
-                                                                <h3>{!mov.adult ? '13+' : '+18'}</h3>
-                                                                <h3>{mov.release_date}</h3>
+                                                            <div className='filmCard__info-btnsDiv2'>
+                                                                <button onClick={() => handlerList(mov)} style={{ backgroundColor: list && '#45D068' }} className='filmCard__addToList'>
+                                                                    <img src={!list ? more : OK} alt="Add" />
+                                                                    <PopUp text={!list ? 'Add to My list' : 'Remove from the list'} textColor={list && 'var(--color-primary)'} top={'-220%'} left={'-195%'} />
+                                                                </button>
                                                             </div>
-                                                        </div>
-                                                        <div className='filmCard__info-btnsDiv2'>
-                                                            <button onClick={() => handlerList(mov)} style={{ backgroundColor: list && '#45D068' }} className='filmCard__addToList'>
-                                                                <img src={!list ? more : OK} alt="Add" />
-                                                                <PopUp text={!list ? 'Add to My list' : 'Remove from the list'} textColor={list && 'var(--color-primary)'} top={'-220%'} left={'-195%'} />
-                                                            </button>
                                                         </div>
                                                     </div>
+                                                    <div className='filmCard__texts'>
+                                                        <p>{mov.overview}</p>
+                                                    </div>
                                                 </div>
-                                                <div className='filmCard__texts'>
-                                                    <p>{mov.overview}</p>
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                    :
-                                    <h2 className='noTitles'>There are not related titles...</h2>
+                                            )
+                                        })
+                                        :
+                                        <h2 className='noTitles'>There are not related titles...</h2>
                                 }
                             </div>
                         </div>

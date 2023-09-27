@@ -3,6 +3,7 @@ import './style.css'
 import Btn from '../../components/button/button';
 import Navbar from '../../components/navbar/navbar';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Home = () => {
 
@@ -10,13 +11,19 @@ const Home = () => {
     const navigate = useNavigate()
 
     const handlerRegister = () => {
-        if(email){
+        if (email) {
             navigate(`/register/${email}`)
         }
     }
-
     return (
-        <div className="Home">
+        <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{
+                delay: 0.2
+            }}
+            className="Home">
             <Navbar />
             <div className='Screen__filter'></div>
             <div className='Home__texts'>
@@ -25,12 +32,12 @@ const Home = () => {
                 <h3>Do you want to watch Netflix now? Enter your email to create an account or restart your Netflix membership.</h3>
                 <div className='Home__form'>
                     <form action="POST" id='createAccount' onSubmit={e => e.preventDefault()}>
-                        <input type="email" name="createAccount" placeholder='Email' onChange={(e) => setEmail(e.target.value)} required={true}/>
+                        <input type="email" name="createAccount" placeholder='Email' onChange={(e) => setEmail(e.target.value)} required={true} />
                     </form>
                     <Btn type={'submit'} form={'createAccount'} text={'Begin>'} imgDisplay={'none'} onclick={handlerRegister} />
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

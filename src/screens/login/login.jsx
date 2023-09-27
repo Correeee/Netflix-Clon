@@ -8,6 +8,7 @@ import { auth } from '../../firebase/firebase';
 import { useState } from 'react';
 import { AuthContext } from '../../context/authContext';
 import Browse from '../browse/browse';
+import { motion } from 'framer-motion';
 
 
 const Login = () => {
@@ -37,7 +38,14 @@ const Login = () => {
         <>
             {
                 !isLogin ?
-                    <div className='Login'>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{
+                            delay: 0.2
+                        }}
+                        className='Login'>
                         <div className='Screen__filter'></div>
                         <img src={logo} alt="logo" className='Login__logo' />
                         <div className='Login__container'>
@@ -62,7 +70,7 @@ const Login = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                     :
                     <Browse />
             }
