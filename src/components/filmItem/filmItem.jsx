@@ -47,7 +47,7 @@ const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, hand
         isInLikes(film)
     }, [selectedProfile])
 
-
+console.log(film)
     return (
         <>
             {
@@ -55,7 +55,7 @@ const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, hand
                 <div className={`filmItem`} onMouseEnter={() => setDisabled(true)} onMouseLeave={() => setDisabled(false)}>
                     <div className='imgtitle' onClick={()=>handlerInfo(film)}>
                         <img src={film.poster_path ? `https://image.tmdb.org/t/p/w500${film.poster_path}` : `https://image.tmdb.org/t/p/w500${film.backdrop_path}`} className={`Carousel__item`} />
-                        <h3>{film.original_title || film.original_name}</h3>
+                        <h3>{film.title || film.name || film.original_title || film.original_name}</h3>
                     </div>
                     <div className='Carousel__itemInfo'>
                         <div className='Carousel__itemInfo-Btns'>

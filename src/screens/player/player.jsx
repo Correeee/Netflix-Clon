@@ -350,7 +350,7 @@ const Player = () => {
                                     </div>
 
                                 </div>
-                                <h2 className='Player__movieTitle'>{film && (film.original_title || film.original_name || film.name)}</h2>
+                                <h2 className='Player__movieTitle'>{film && (film.title || film.original_title || film.original_name || film.name)}</h2>
                                 <div className='Player__controls2'>
                                     <button className='Player__controls2-forward' style={{ display: isMovie && 'none' }} disabled={disabledButton}>
                                         <img src={forward} alt="forward" className='player__icons' />
