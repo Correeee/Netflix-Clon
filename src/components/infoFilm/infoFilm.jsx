@@ -262,7 +262,6 @@ const InfoFilm = ({ fid }) => {
         return (document.getElementsByClassName('InfoFilmContainer')[0] && document.getElementsByClassName('InfoFilmContainer')[0].scrollTo(0, 0))
     }
 
-
     return (
         <>
             <div className='filter' style={{ display: fid && 'flex' }}></div>

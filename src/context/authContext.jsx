@@ -12,8 +12,20 @@ const AuthProvider = ({ children }) => {
     const [isLogin, setIsLogin] = useState(false)
     const [userData, setUserData] = useState([])
     const [selectedProfile, setSelectedProfile] = useState(null)
+    const [language, setLanguage] = useState('en')
 
     const usercollection = collection(db, 'users')
+
+    useEffect(() => {
+        if (localStorage.getItem('language')) {
+            const lang = localStorage.getItem('language')
+            setLanguage(lang)
+        } else {
+            localStorage.setItem('language', 'en')
+            setLanguage('en')
+        }
+    }, [])
+
 
     useEffect(() => {
         onAuthStateChanged(auth, (status) => {
@@ -37,7 +49,7 @@ const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider value={{
             setUser, user, isLogin, setIsLogin, userData, setUserData, selectedProfile,
-            setSelectedProfile
+            setSelectedProfile, language, setLanguage
         }}>
             {children}
         </AuthContext.Provider>

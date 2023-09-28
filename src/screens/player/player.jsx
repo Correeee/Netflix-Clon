@@ -285,7 +285,11 @@ const Player = () => {
                     <div className='Player'>
                         <div className='videoYoutubeContainer'>
                             <h3>Because the TMDB API only offers YouTube videos to integrate with 'IFRAME', the Movie or Series video will be a demo.</h3>
-                            <iframe src={srcVideo} className='videoYoutube'></iframe>
+                            {isLoading ?
+                                <Loader />
+                                :
+                                <iframe src={srcVideo} className='videoYoutube' ></iframe>
+                            }
                         </div>
                         <video
                             id="videoFrame"
@@ -364,7 +368,7 @@ const Player = () => {
                                         <img src={chapters} alt="chapters" className='player__icons' />
                                         <div className='player__icons-chaptersContainer'>
                                             <div className='player__icons-chaptersSeason'>
-                                                <h2>Temporada 1</h2>
+                                                <h2>Season 1</h2>
                                             </div>
                                             <div className='player__icons-chaptersList'>
                                             </div>
@@ -377,15 +381,15 @@ const Player = () => {
                                             <div className='player__icons-languageContainer-audio'>
                                                 <h2>Audio</h2>
                                                 <ul>
-                                                    <li>Español</li>
-                                                    <li>Inglés</li>
+                                                    <li>Spanish</li>
+                                                    <li>English</li>
                                                 </ul>
                                             </div>
                                             <div className='player__icons-languageContainer-subtitle'>
-                                                <h2>Subtitulos</h2>
+                                                <h2>Subtitles</h2>
                                                 <ul>
-                                                    <li>Español</li>
-                                                    <li>Inglés</li>
+                                                    <li>Spanish</li>
+                                                    <li>English</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -396,7 +400,7 @@ const Player = () => {
 
                                         <div className='player__icons-velocityContainer'>
                                             <div className='player__icons-velocityTitle'>
-                                                <h2>Velocidad de reproducción</h2>
+                                                <h2>Playback speed</h2>
                                             </div>
                                             <div className='player__icons-velocityRange'>
                                                 <input type="range"
@@ -447,9 +451,6 @@ const Player = () => {
                                 </div>
                             </div>
                         </div>
-                        {
-                            isLoading && <Loader />
-                        }
                     </div>
                     :
                     <Login />

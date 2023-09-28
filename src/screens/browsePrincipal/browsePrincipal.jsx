@@ -54,7 +54,7 @@ const BrowsePrincipal = () => {
 
     useEffect(() => {
         listingFilms()
-    }, [pathname]) // ACA TENIA DE DEPENDENCIA EL SELECTEDPROFILE pero lo quite.
+    }, [pathname])
 
     /* ------------------------------- GENRE LIST ------------------------------- */
 

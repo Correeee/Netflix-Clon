@@ -166,11 +166,12 @@
 
 .player__icons-language:hover>.player__icons-languageContainer {
     display: flex;
+    z-index: 2;
 }
 
 .player__icons-languageContainer {
     width: 40rem;
-    height: 25rem;
+    height: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -484,35 +485,238 @@ option {
     border: none;
 }
 
-.videoYoutube{
+.videoYoutube {
     display: flex;
-    top: 50%;
-    right: 0;
     height: 20rem;
     background-color: #141414;
 }
 
-.videoYoutubeContainer{
+.videoYoutubeContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: absolute;
-    z-index: 99999;
+    z-index: 1;
     height: auto;
-    width: 30rem;
-    padding: 1rem 1rem 2rem 1rem;
     border-radius: 10px;
-    top: 50%;
+    top: 45%;
     left: 0;
     user-select: none;
+    padding-left: 1rem;
 }
 
-.videoYoutubeContainer h3{
+.videoYoutubeContainer h3 {
     color: var(--color-text);
     font-size: 1rem;
     background-color: #141414;
     border-radius: 10px;
     padding: 1rem 0;
+    width: 30rem;
 }
 
+.player__icons-velocityTitle {
+    width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+
+    .Player__controls1,
+    .Player__controls2 {
+        gap: 0 2rem;
+    }
+
+    .videoYoutube {
+        width: 25rem;
+        height: 15rem;
+    }
+
+    .videoYoutubeContainer h3 {
+        width: 25rem;
+    }
+
+    .player__icons {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .player__icons-languageContainer {
+        width: 30rem;
+    }
+
+    .player__icons-languageContainer h2,
+    .player__icons-velocityTitle h2 {
+        font-size: 2rem;
+    }
+
+    #velocityList option {
+        font-size: 1.25rem;
+    }
+
+    .player__icons-velocityContainer {
+        width: 35rem;
+        padding: 1rem;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .Player__controlsButtons {
+        padding: 0;
+    }
+
+    .Player__controls1,
+    .Player__controls2 {
+        gap: 0 1rem;
+    }
+
+    .Player__movieTitle {
+        font-size: 1.25rem;
+    }
+
+    .player__icons {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .videoYoutube {
+        width: 20rem;
+        height: 15rem;
+    }
+
+    .videoYoutubeContainer h3 {
+        width: 20rem;
+    }
+
+    .player__icons-languageContainer {
+        width: auto;
+        gap: 0 2rem;
+    }
+
+    .player__icons-languageContainer h2 {
+        font-size: 1.5rem;
+    }
+
+    .player__icons-languageContainer ul li {
+        font-size: 1rem;
+    }
+
+    .player__icons-velocityTitle h2{
+        font-size: 1.5rem;
+    }
+
+    .player__icons-velocityContainer {
+        width: 25rem;
+    }
+
+    .configuration{
+        padding: 1rem;
+    }
+
+    .configuration__option{
+        padding: 0;
+    }
+
+    .configuration__option h2{
+        font-size: 1rem;
+    }
+
+    .configuration__option p{
+        font-size: 0.75rem;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .Player__controlsButtons {
+        padding: 0;
+    }
+
+    .Player__controls1,
+    .Player__controls2 {
+        gap: 0;
+    }
+
+    .Player__movieTitle {
+        font-size: 1rem;
+    }
+
+    .player__icons {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    button {
+        padding: 0;
+    }
+
+    .videoYoutube {
+        width: 25rem;
+        height: 12rem;
+    }
+
+    .videoYoutubeContainer {
+        top: 8%;
+    }
+
+    .videoYoutubeContainer h3 {
+        width: 25rem;
+    }
+
+    .Player__controlsButtons {
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .player__icons-velocityContainer{
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .Player__controlsButtons {
+        padding: 0;
+    }
+
+    .Player__controls1,
+    .Player__controls2 {
+        gap: 0;
+    }
+
+    .Player__movieTitle {
+        font-size: 1rem;
+    }
+
+    .player__icons {
+        width: 1.5 rem;
+        height: 1.5 rem;
+    }
+
+    button {
+        padding: 0;
+    }
+
+    .videoYoutubeContainer h3 {
+        width: 15rem;
+        font-size: 0.75rem;
+    }
+
+    .videoYoutube {
+        width: 15rem;
+        height: 10rem;
+    }
+
+    .player__icons-velocityContainer, .player__icons-languageContainer{
+        right: -100%;
+    }
+
+    .configurationTitle h2{
+        font-size: 1rem;
+    }
+    .configuration{
+        width: auto;
+        height: 40rem;
+    }
+
+}
