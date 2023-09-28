@@ -7,7 +7,7 @@
     height: 100vh;
     /* background-image: url(./assets/demo.jpg); */
     background-position: center;
-    background-size: fill;
+    background-size:cover;
     background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
