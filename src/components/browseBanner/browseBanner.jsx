@@ -32,9 +32,14 @@ const BrowseBanner = (list) => {
 
     useEffect(() => {
         if (list.list.length) {
-            // const randomIndex = Math.floor(Math.random() * list.list.length);
-            const randomFilm = list.list[0];
-            setTrendingFilm(randomFilm)
+            if(pathname.includes('browse')){
+                const randomFilm = list.list[1]; //Asegura que el banner no sea igual al de Movies.
+                setTrendingFilm(randomFilm)
+            }else{
+                const randomFilm = list.list[0];
+                setTrendingFilm(randomFilm)
+            }
+
         }
     }, [list.list])
 
