@@ -41,12 +41,12 @@ export const APIGenreSeries = () =>
         .catch(err => console.error(err));
 
 export const APIGeneresMovie = (GENRE_ID) =>
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${GENRE_ID}`, options)
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${GENRE_ID}&language=${localStorage.getItem('language')}`, options)
         .then(response => response.json())
         .catch(err => console.error(err));
 
 export const APIGeneresSeries = (GENRE_ID) =>
-    fetch(`https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&with_genres=${GENRE_ID}`, options)
+    fetch(`https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&with_genres=${GENRE_ID}&language=${localStorage.getItem('language')}`, options)
         .then(response => response.json())
         .catch(err => console.error(err));
 
@@ -90,12 +90,12 @@ export const APISeriesToday = () =>
 /* ---------------------------- BUSCAR MULTIMEDIA --------------------------- */
 
 export const APISearchMovieVideo = (mid) =>
-    fetch(`https://api.themoviedb.org/3/movie/${mid}/videos?api_key=${API_KEY}`, options)
+    fetch(`https://api.themoviedb.org/3/movie/${mid}/videos?api_key=${API_KEY}&language=${localStorage.getItem('language')}`, options)
         .then(response => response.json())
         .catch(err => console.error(err));
 
 export const APISearchSerieVideo = (sid) =>
-    fetch(`https://api.themoviedb.org/3/tv/${sid}/videos?api_key=${API_KEY}`, options)
+    fetch(`https://api.themoviedb.org/3/tv/${sid}/videos?api_key=${API_KEY}&language=${localStorage.getItem('language')}`, options)
         .then(response => response.json())
         .catch(err => console.error(err));
 

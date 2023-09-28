@@ -282,7 +282,7 @@ const InfoFilm = ({ fid }) => {
                                             <h1>{film.seasons ? 'Serie' : 'Movie'}</h1>
                                         </div>
                                         <div className='principalInfo__title'>
-                                            <h2>{film.title || film.name}</h2>
+                                            <h2>{film.title ? film.title : film.name}</h2>
                                         </div>
                                         <div className='principalInfo__info-Btns'>
                                             <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'20rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(film.id)} imageSrc={playBlack} />
@@ -331,7 +331,7 @@ const InfoFilm = ({ fid }) => {
                                 </div>
                             </div>
                             <div className='InfoFilm__info-text'>
-                                <p>{film.overview}</p>
+                                <p>{film.overview || 'There is no description...'}</p>
                             </div>
                         </div>
                         <div className='InfoFilm__moreTitles'>
@@ -371,7 +371,7 @@ const InfoFilm = ({ fid }) => {
                                                         </div>
                                                     </div>
                                                     <div className='filmCard__texts'>
-                                                        <p>{mov.overview}</p>
+                                                        <p>{mov.overview || 'There is no description'}</p>
                                                     </div>
                                                 </div>
                                             )
