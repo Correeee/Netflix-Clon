@@ -3,6 +3,7 @@ import React, { createContext, useState } from 'react'
 import { useEffect } from 'react'
 import { auth, db } from '../firebase/firebase'
 import { collection, getDocs } from '@firebase/firestore'
+import i18next from 'i18next'
 
 export const AuthContext = createContext()
 
@@ -20,12 +21,13 @@ const AuthProvider = ({ children }) => {
         if (localStorage.getItem('language')) {
             const lang = localStorage.getItem('language')
             setLanguage(lang)
+            i18next.changeLanguage(lang)
         } else {
             localStorage.setItem('language', 'en')
             setLanguage('en')
+            i18next.changeLanguage('en')
         }
     }, [])
-
 
     useEffect(() => {
         onAuthStateChanged(auth, (status) => {

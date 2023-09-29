@@ -50,6 +50,7 @@ export const addToLike = async (film, userData, selectedProfile) => {
     const response = await getDoc(userReference)
     const user = response.data()
     const profile = user.profiles.find((prof) => prof.id === selectedProfile.id)
+    const notProfile = user.profiles.find((prof) => prof.id !== selectedProfile.id)
     const filmNotExist = profile.likes.filter((li) => li.id != film.id)
     const filmExist = profile.likes.filter((li) => li.id == film.id)
 
@@ -64,7 +65,7 @@ export const addToLike = async (film, userData, selectedProfile) => {
 
         const userUpdate = {
             ...user,
-            profiles: [newProfile]
+            profiles: [notProfile, newProfile]
         }
 
         await updateDoc(userReference, userUpdate)
@@ -79,7 +80,7 @@ export const addToLike = async (film, userData, selectedProfile) => {
 
         const userUpdate = {
             ...user,
-            profiles: [newProfile]
+            profiles: [notProfile, newProfile]
         }
 
         await updateDoc(userReference, userUpdate)

@@ -525,6 +525,7 @@
 .principalInfo__playAndAdd{
     display: flex;
     flex-direction: row;
+    gap: 0 1rem;
 }
 
 @media screen and (max-width: 1024px) {

@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { signOut } from '@firebase/auth'
 import { auth } from '../../firebase/firebase'
 import { AuthContext } from '../../context/authContext'
+import { useTranslation } from 'react-i18next'
 
 const BrowseNavbar = () => {
     const navigate = useNavigate()
@@ -17,6 +18,8 @@ const BrowseNavbar = () => {
 
     const [scrolling, setScrolling] = useState(false)
     const [search, setSearch] = useState('')
+
+    const { t } = useTranslation(["lang"])
 
     useEffect(() => {
 
@@ -72,8 +75,8 @@ const BrowseNavbar = () => {
     useEffect(() => {
         window.addEventListener('resize', (e) => {
             const windowWidth = e.target.innerWidth
-            if (windowWidth > 800) { 
-                if(navbarRef.current){
+            if (windowWidth > 800) {
+                if (navbarRef.current) {
                     navbarRef.current.style.display = 'none'
                     triangleRef.current.style.display = 'none'
                 }
@@ -92,19 +95,19 @@ const BrowseNavbar = () => {
                     <button className='BrowseNavbar__openOptions' onClick={handlerNav}>Explorar</button>
                     <ul className='BrowseNavbar__listResponsive' ref={navbarRef}>
                         <div className='triangle' ref={triangleRef}></div>
-                        <NavLink to={'/browse'} onClick={() => widthResponsive()}>Home</NavLink>
-                        <NavLink to={'/series'} onClick={() => widthResponsive()}>Series</NavLink>
-                        <NavLink to={'/movies'} onClick={() => widthResponsive()}>Movies</NavLink>
-                        <NavLink to={'/news'} onClick={() => widthResponsive()}>Popular News</NavLink>
-                        <NavLink to={'/mylist'} onClick={() => widthResponsive()}>My List</NavLink>
+                        <NavLink to={'/browse'} onClick={() => widthResponsive()}>{t("HOME")}</NavLink>
+                        <NavLink to={'/series'} onClick={() => widthResponsive()}>{t("SERIES")}</NavLink>
+                        <NavLink to={'/movies'} onClick={() => widthResponsive()}>{t("MOVIES")}</NavLink>
+                        <NavLink to={'/news'} onClick={() => widthResponsive()}>{t("POPULAR_NEWS")}</NavLink>
+                        <NavLink to={'/mylist'} onClick={() => widthResponsive()}>{t("MY_LIST")}</NavLink>
                     </ul>
                 </div>
                 <ul className='BrowseNavbar__list' >
-                    <NavLink to={'/browse'}>Home</NavLink>
-                    <NavLink to={'/series'}>Series</NavLink>
-                    <NavLink to={'/movies'}>Movies</NavLink>
-                    <NavLink to={'/news'}>Popular News</NavLink>
-                    <NavLink to={'/mylist'}>My List</NavLink>
+                    <NavLink to={'/browse'}>{t("HOME")}</NavLink>
+                    <NavLink to={'/series'} >{t("SERIES")}</NavLink>
+                    <NavLink to={'/movies'} >{t("MOVIES")}</NavLink>
+                    <NavLink to={'/news'} >{t("POPULAR_NEWS")}</NavLink>
+                    <NavLink to={'/mylist'} >{t("MY_LIST")}</NavLink>
                 </ul>
             </div>
             <div className='BrowseNavbar__profileBar'>
@@ -112,7 +115,7 @@ const BrowseNavbar = () => {
                     <img src={busqueda} alt="buscar" className='BrowseNavbar__icons' id='iconLookFor' onClick={() => {
                         setIsLookingFor(true)
                     }} />
-                    <input type="text" placeholder='Titles, people, genres' className='BrowseNavbar__profileBar-lookfor' style={{ display: isLookingFor && 'flex' }} onBlur={(e) => {
+                    <input type="text" placeholder={t("INPUT_SEARCH")} className='BrowseNavbar__profileBar-lookfor' style={{ display: isLookingFor && 'flex' }} onBlur={(e) => {
                         setIsLookingFor(false);
                         e.target.value = ''
                         setSearch('');
@@ -140,13 +143,13 @@ const BrowseNavbar = () => {
 
                         </ul>
                         <ul>
-                            <Link to={'/profiles'} onClick={() => setSelectedProfile(null)}>Administrar perfiles</Link>
+                            <Link to={'/profiles'} onClick={() => setSelectedProfile(null)}>{t("SELECTPROFILE_BTN")}</Link>
                             {/* <a>Transferir perfil</a>
                             <a>Cuenta</a>
                             <a>Centro de ayuda</a> */}
                         </ul>
                         <span></span>
-                        <a className='BrowseNavbar__logout' onClick={handlerLogout}>Cerrar sesión en Netflix</a>
+                        <a className='BrowseNavbar__logout' onClick={handlerLogout}>{t("SIGN_OUT_NETFLIX")}</a>
                     </div>
                 </div>
             </div>

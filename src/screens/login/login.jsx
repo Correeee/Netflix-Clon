@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { AuthContext } from '../../context/authContext';
 import Browse from '../browse/browse';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 
 const Login = () => {
@@ -19,7 +20,7 @@ const Login = () => {
     const [isWriting, setIsWriting] = useState(false)
 
     const { user, setUser, setIsLogin, isLogin } = useContext(AuthContext)
-
+    const { t } = useTranslation(["lang"])
 
     const handlerLogin = async () => {
         try {
@@ -51,22 +52,22 @@ const Login = () => {
                         <div className='Login__container'>
                             <div className='Login__filter'></div>
                             <div className='Login__all'>
-                                <h1>Log in</h1>
+                                <h1>{t("HOME_LOGIN")}</h1>
                                 <form id='login' onSubmit={(e) => e.preventDefault()}>
-                                    <input type="email" onChange={e => setEmail(e.target.value)} onFocus={() => setIsWriting(false)} />
-                                    <input type="password" onChange={e => setPassword(e.target.value)} onFocus={() => setIsWriting(false)} />
+                                    <input type="email" placeholder={t("REGISTER_STEP_INPUT_EMAIL")} onChange={e => setEmail(e.target.value)} onFocus={() => setIsWriting(false)} />
+                                    <input type="password" placeholder={t("REGISTER_STEP_INPUT_PASSWORD")} onChange={e => setPassword(e.target.value)} onFocus={() => setIsWriting(false)} />
                                     <p className='login__error' style={{ visibility: isWriting ? 'visible' : 'hidden' }}>The email or password does not match.</p>
                                 </form>
-                                <Btn text={'Log in'} width={'100%'} onclick={handlerLogin} imgDisplay={'none'} form={'login'} />
+                                <Btn text={t("HOME_LOGIN")} width={'100%'} onclick={handlerLogin} imgDisplay={'none'} form={'login'} />
                                 <div className='Login__checkbox'>
                                     {/* <div className='Login__checkboxInput'>
                                         <input type="checkbox" name="rememberMe" placeholder='Recuérdame' defaultChecked={false} />
                                         <h3>Remember me</h3>
                                     </div> */}
-                                    <a href="">Need help?</a>
+                                    <a href="">{t("NEED_HELP")}</a>
                                 </div>
                                 <div>
-                                    <h2>First time on Netflix? <a onClick={() => navigate('/')}>Subscribe now.</a></h2>
+                                    <h2>{t("FIRST_TIME_ON_NETFLIX")}<a onClick={() => navigate('/')}>{t("SUSCRIBE_NOW")}</a></h2>
                                 </div>
                             </div>
                         </div>

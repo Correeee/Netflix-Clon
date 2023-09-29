@@ -5,12 +5,15 @@ import edit from '../assets/edit.png'
 import { doc, getDoc, getDocs, updateDoc } from '@firebase/firestore'
 import { db } from '../../../firebase/firebase'
 import SelectionImage from './selectionImage/selectionImage'
+import { useTranslation } from 'react-i18next'
 
 const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserData }) => {
 
     const [profileName, setProfileName] = useState(profileSelected.name)
     const [selectedImage, setSelectedImage] = useState(profileSelected.image)
     const [selectionImage, setSelectionImage] = useState(false)
+
+    const { t } = useTranslation(["lang"])
 
     const profileRef = doc(db, 'users', userData.id)
 
@@ -24,7 +27,7 @@ const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserDat
             if (profileName) {
                 let user = await getDoc(profileRef)
                 user = user.data()
-                
+
                 const lastProfiles = user.profiles.filter(prof => prof.id !== profileSelected.id)
                 const actualProfile = user.profiles.filter(prof => prof.id === profileSelected.id)[0]
                 const newProfile = {
@@ -91,20 +94,20 @@ const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserDat
                                     <img src={edit} alt="edit" className='EditProfile__imageContainer-edit' />
                                 </div>
                                 <div>
-                                    <input type="text" placeholder='Name' defaultValue={profileName} onChange={(e) => setProfileName(e.target.value)} className='inputName'/>
-                                    <p style={{ visibility: profileName ? 'hidden' : 'visible' }}>Enter a name</p>
+                                    <input type="text" placeholder='Name' defaultValue={profileName} onChange={(e) => setProfileName(e.target.value)} className='inputName' />
+                                    <p style={{ visibility: profileName ? 'hidden' : 'visible' }}>{t("ENTERNAME")}</p>
                                 </div>
                             </form>
                             <span></span>
                             <div className='EditProfile__containerBtns'>
                                 <div>
-                                    <button onClick={handlerUpdateProfile}>Save</button>
-                                    <button onClick={() => setProfileSelected(false)}>Cancel</button>
+                                    <button onClick={handlerUpdateProfile}>{t("MANAGEPROFILE_BTN3")}</button>
+                                    <button onClick={() => setProfileSelected(false)}>{t("MANAGEPROFILE_BTN4")}</button>
                                 </div>
                                 <div>
                                     {
                                         profileSelected.id != 1 &&
-                                        <button onClick={handlerDelete}>Delete profile</button>
+                                        <button onClick={handlerDelete}>{t("DELETEPROFILE")}</button>
                                     }
                                 </div>
                             </div>

@@ -12,6 +12,7 @@ import Btn from '../button/button'
 import { addToLike, addToList, getProfileData } from '../../data/userFn'
 import { AuthContext } from '../../context/authContext'
 import OK from './assets/OK.png'
+import { useTranslation } from 'react-i18next'
 
 const InfoFilm = ({ fid }) => {
 
@@ -22,6 +23,7 @@ const InfoFilm = ({ fid }) => {
     const navigate = useNavigate()
     const { pathname } = useLocation()
     const { userData, selectedProfile, setSelectedProfile } = useContext(AuthContext)
+    const { t } = useTranslation(["lang"])
 
     if (fid) {
         document.querySelector('body').classList.add('hiddenBody')
@@ -254,8 +256,10 @@ const InfoFilm = ({ fid }) => {
     }
 
     useEffect(() => {
-        isInList(film)
-        isInLikes(film)
+        if(film){
+            isInList(film)
+            isInLikes(film)
+        }
     }, [selectedProfile])
 
     const ScrollInfoFilmTop = () => {
@@ -268,7 +272,7 @@ const InfoFilm = ({ fid }) => {
             {
                 film &&
                 <div className='InfoFilmContainer' style={{ display: !fid && 'none' }}>
-                    <ScrollInfoFilmTop />
+                    {/* <ScrollInfoFilmTop /> */}
                     <div className='out' onClick={handlerClose}></div>
                     <div className='InfoFilm' >
                         <button className='InfoFilm__close' onClick={handlerClose}>X</button>
@@ -279,13 +283,13 @@ const InfoFilm = ({ fid }) => {
                                     <div className='principalInfo__infoContainer'>
                                         <div className='principalInfo__infoLogo'>
                                             <img src={logo} alt="logo" className='principalInfo__info-logo' />
-                                            <h1>{film.seasons ? 'Serie' : 'Movie'}</h1>
+                                            <h1>{film.seasons ? t("SERIE") : t("MOVIE")}</h1>
                                         </div>
                                         <div className='principalInfo__title'>
                                             <h2>{film.title ? film.title : film.name}</h2>
                                         </div>
                                         <div className='principalInfo__info-Btns'>
-                                            <Btn text={'Reproducir'} id={'BrowseBannerBtnPlay'} width={'20rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(film.id)} imageSrc={playBlack} />
+                                            <Btn text={t("PLAY")} id={'BrowseBannerBtnPlay'} width={'20rem'} color={'black'} fontSize={'2rem'} onclick={() => handlerPlay(film.id)} imageSrc={playBlack} />
                                             <div className='principalInfo__playAndAdd'>
                                                 <button
                                                     className='principalInfo__info-add'
@@ -293,7 +297,7 @@ const InfoFilm = ({ fid }) => {
                                                     style={{ backgroundColor: inList && '#45D068' }}
                                                 >
                                                     <img src={imageList ? OK : more} alt="add" />
-                                                    <PopUp text={!inList ? 'Add to My list' : 'Remove from the list'} textColor={inList && 'var(--color-primary)'} />
+                                                    <PopUp text={!inList ? t("ADD_LIST") : t("REMOVE_LIST")} textColor={inList && 'var(--color-primary)'} />
                                                 </button>
                                                 <button
                                                     className='principalInfo__info-like'
@@ -301,7 +305,7 @@ const InfoFilm = ({ fid }) => {
                                                     style={{ backgroundColor: inLikes && '#45D068' }}
                                                 >
                                                     <img src={like} alt="like" />
-                                                    <PopUp text={!inLikes ? 'Like it' : "I don't like"} textColor={inLikes && 'var(--color-primary)'} />
+                                                    <PopUp text={!inLikes ? t("LIKE_IT") : t("DONT_LIKE_IT")} textColor={inLikes && 'var(--color-primary)'} />
                                                 </button>
                                             </div>
                                         </div>
@@ -313,7 +317,7 @@ const InfoFilm = ({ fid }) => {
                         <div className='InfoFilm__info'>
                             <div className='InfoFilm__info-date'>
                                 <div>
-                                    <h2>80% para ti</h2>
+                                    <h2>80%{t("FOR_YOU")}</h2>
                                     <h3>{film.release_date || film.first_air_date}</h3>
                                     {
                                         film.genres && film.genres.slice(0, 3).map((gen, i) => {
@@ -335,7 +339,7 @@ const InfoFilm = ({ fid }) => {
                             </div>
                         </div>
                         <div className='InfoFilm__moreTitles'>
-                            <h1>More titles similar to this</h1>
+                            <h1>{t("MORE_TITLES")}</h1>
                             <div className='InfoFilm__moreTitles-filmsCards'>
                                 {
                                     moreMovies.length ?
@@ -355,7 +359,7 @@ const InfoFilm = ({ fid }) => {
                                                         <div className='filmCard__info-btns'>
                                                             <div className='filmCard__info-btnsDiv1'>
                                                                 <div>
-                                                                    <h3>75% for you</h3>
+                                                                    <h3>75%{t("FOR_YOU")}</h3>
                                                                 </div>
                                                                 <div>
                                                                     <h3>{!mov.adult ? '13+' : '+18'}</h3>
@@ -365,7 +369,7 @@ const InfoFilm = ({ fid }) => {
                                                             <div className='filmCard__info-btnsDiv2'>
                                                                 <button onClick={() => handlerList(mov)} style={{ backgroundColor: list && '#45D068' }} className='filmCard__addToList'>
                                                                     <img src={!list ? more : OK} alt="Add" />
-                                                                    <PopUp text={!list ? 'Add to My list' : 'Remove from the list'} textColor={list && 'var(--color-primary)'} top={'-220%'} left={'-195%'} />
+                                                                    <PopUp text={!list ? t("ADD_LIST") : t("REMOVE_LIST")} textColor={list && 'var(--color-primary)'} top={'-220%'} left={'-195%'} />
                                                                 </button>
                                                             </div>
                                                         </div>

@@ -8,12 +8,14 @@ import EditProfile from './editProfile/editProfile'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { createProfile, getUserData } from '../../data/userFn'
+import { useTranslation } from 'react-i18next'
 
 const ManageManageProfiles = () => {
     const navigate = useNavigate()
     const { isLogin, userData, setUserData } = useContext(AuthContext)
 
     const [profileSelected, setProfileSelected] = useState(false)
+    const { t } = useTranslation(["lang"])
 
     useEffect(() => {
 
@@ -44,7 +46,7 @@ const ManageManageProfiles = () => {
                                         delay: 0.2
                                     }}
                                     className='ManageProfiles'>
-                                    <h1>Who are you watching now?</h1>
+                                    <h1>{t("SELECTPROFILE1")}</h1>
                                     <div className='ManageProfiles__prof'>
                                         <div className='ManageProfiles__profUser'>
                                             {
@@ -61,10 +63,10 @@ const ManageManageProfiles = () => {
                                         </div>
                                     </div>
                                     <div className='ManageProfiles__profUserBtns'>
-                                        <button onClick={() => navigate('/profiles')}>Ready</button>
+                                        <button onClick={() => navigate('/profiles')}>{t("MANAGEPROFILE_BTN1")}</button>
                                         {
                                             userData && userData.profiles.length < 5 &&
-                                            <button onClick={handlerCreateProfile}>Add profile</button>
+                                            <button onClick={handlerCreateProfile}>{t("MANAGEPROFILE_BTN2")}</button>
                                         }
                                     </div>
                                 </motion.div>

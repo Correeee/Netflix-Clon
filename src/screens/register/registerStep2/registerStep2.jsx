@@ -6,6 +6,7 @@ import { registerAccount } from '../../../data/userFn'
 import { signOut } from '@firebase/auth'
 import { auth } from '../../../firebase/firebase'
 import { AuthContext } from '../../../context/authContext'
+import { useTranslation } from 'react-i18next'
 
 const RegisterStep2 = ({ step, setStep, preEmail }) => {
 
@@ -17,6 +18,8 @@ const RegisterStep2 = ({ step, setStep, preEmail }) => {
     const [secondPassword, setSecondPassword] = useState()
 
     const { setIsLogin, setUserData, isLogin, userData, setSelectedProfile, selectedProfile, setUser } = useContext(AuthContext)
+
+    const { t } = useTranslation(["lang"])
 
     useEffect(() => {
         setEmail(preEmail)
@@ -81,47 +84,47 @@ const RegisterStep2 = ({ step, setStep, preEmail }) => {
 
     return (
         <div className='RegisterStep2'>
-            <p>Step <strong>{step}</strong> de 3</p>
-            <h1>Create a password to start your membership</h1>
+            <p>{t("REGISTER_STEP1_STEP1")}<strong>{step}</strong>{t("REGISTER_STEP1_STEP2")}3</p>
+            <h1>{t("REGISTER_STEP2_STEP1")}</h1>
             <div className='textDiv'>
-                <h2>A few more steps and you're done!</h2>
-                <h2>We don't like paperwork either.</h2>
+                <h2>{t("REGISTER_STEP2_STEP2")}</h2>
+                <h2>{t("REGISTER_STEP2_STEP3")}</h2>
             </div>
             <div className='formDiv'>
                 <form className='formRegister' id='formRegister'>
                     <div>
-                        <input type="text" placeholder='name' onChange={(e) => {
+                        <input type="text" placeholder={t("REGISTER_STEP_INPUT_NAME")} onChange={(e) => {
                             const inputName = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)
                             setName(inputName.trim())
                         }} required={true} />
-                        <p style={{ visibility: name ? 'hidden' : 'visible' }}>You must enter a name</p>
+                        <p style={{ visibility: name ? 'hidden' : 'visible' }}>{t("YOU_MUST_NAME")}</p>
                     </div>
                     <div>
-                        <input type="text" placeholder='lastname' onChange={(e) => {
+                        <input type="text" placeholder={t("REGISTER_STEP_INPUT_LASTNAME")} onChange={(e) => {
                             const inputLastname = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)
                             setLastname(inputLastname.trim())
                         }} required={true} />
-                        <p style={{ visibility: lastname ? 'hidden' : 'visible' }}>You must enter a lastname</p>
+                        <p style={{ visibility: lastname ? 'hidden' : 'visible' }}>{t("YOU_MUST_LASTNAME")}</p>
                     </div>
                     <div>
-                        <input type="text" placeholder='phone' onChange={(e) => isPhone(e.target.value)} required={true} />
-                        <p style={{ visibility: phone ? 'hidden' : 'visible' }}>You must enter a phone</p>
+                        <input type="text" placeholder={t("REGISTER_STEP_INPUT_PHONE")} onChange={(e) => isPhone(e.target.value)} required={true} />
+                        <p style={{ visibility: phone ? 'hidden' : 'visible' }}>{t("YOU_MUST_PHONE")}</p>
                     </div>
                     <div>
-                        <input type="email" placeholder='email' defaultValue={preEmail} onChange={(e) => isEmail(e.target.value)} autoComplete='off' required={true} />
-                        <p style={{ visibility: email ? 'hidden' : 'visible' }}>You must enter a email</p>
+                        <input type="email" placeholder={t("REGISTER_STEP_INPUT_EMAIL")} defaultValue={preEmail} onChange={(e) => isEmail(e.target.value)} autoComplete='off' required={true} />
+                        <p style={{ visibility: email ? 'hidden' : 'visible' }}>{t("YOU_MUST_EMAIL")}</p>
                     </div>
                     <div>
-                        <input type="password" placeholder='password' onChange={(e) => passwordHaveANumber(e.target.value)} autoComplete='off' required={true} />
-                        <p style={{ color: 'green' }}>It must contain at least one number.</p>
-                        <p style={{ visibility: password ? 'hidden' : 'visible' }}>You must enter a password</p>
+                        <input type="password" placeholder={t("REGISTER_STEP_INPUT_PASSWORD")} onChange={(e) => passwordHaveANumber(e.target.value)} autoComplete='off' required={true} />
+                        <p style={{ color: 'green' }}>{t("MUST_CONTAIN_NUMBER")}</p>
+                        <p style={{ visibility: password ? 'hidden' : 'visible' }}>{t("YOU_MUST_PASSWORD")}</p>
                     </div>
                     <div>
-                        <input type="password" placeholder='password' onChange={(e) => setSecondPassword(e.target.value)} autoComplete='off' required={true} />
-                        <p style={{ visibility: password === secondPassword ? 'hidden' : 'visible' }}>Passwords do not match.</p>
+                        <input type="password" placeholder={t("REGISTER_STEP_INPUT_PASSWORD")} onChange={(e) => setSecondPassword(e.target.value)} autoComplete='off' required={true} />
+                        <p style={{ visibility: password === secondPassword ? 'hidden' : 'visible' }}>{t("PASSWORD_MATCH")}</p>
                     </div>
                 </form>
-                <Btn text={'Continue'} imgDisplay={'none'} width={'20rem'} onclick={(e) => handlerContinue(e)} form={'formRegister'} />
+                <Btn text={t("REGISTER_STEP1_BTN")} imgDisplay={'none'} width={'20rem'} onclick={(e) => handlerContinue(e)} form={'formRegister'} />
             </div>
         </div>
     )

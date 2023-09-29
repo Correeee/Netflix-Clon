@@ -4,10 +4,13 @@ import back from './assets/back.png'
 import { collection, doc, getDocs } from '@firebase/firestore'
 import { db } from '../../../../firebase/firebase'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const SelectionImage = ({ profileName, selectedImage, setSelectionImage, setSelectedImage }) => {
 
     const [avatars, setAvatars] = useState([])
+
+    const { t } = useTranslation(["lang"])
 
     const avatarsCollection = collection(db, 'avatars')
 
@@ -29,8 +32,8 @@ const SelectionImage = ({ profileName, selectedImage, setSelectionImage, setSele
                 <div className='SelectionImage__text'>
                     <img src={back} alt={back} onClick={() => setSelectionImage(false)} />
                     <div>
-                        <h1>Edit profile</h1>
-                        <h2>Choose an icon for the profile.</h2>
+                        <h1>{t("MANAGEPROFILE_EDIT1")}</h1>
+                        <h2>{t("MANAGEPROFILE_EDIT2")}</h2>
                     </div>
                 </div>
                 <div className='SelectionImage__image'>

@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import BrowsePrincipal from '../browsePrincipal/browsePrincipal'
+import { useTranslation } from 'react-i18next'
 
 const Profiles = () => {
     const { userData, isLogin, selectedProfile, setSelectedProfile } = useContext(AuthContext)
     const navigate = useNavigate()
+    const { t } = useTranslation(["lang"])
 
     useEffect(() => {
 
@@ -35,7 +37,7 @@ const Profiles = () => {
                                         delay: 0.2
                                     }}
                                     className='Profiles'>
-                                    <h1>Who are you watching now?</h1>
+                                    <h1>{t("SELECTPROFILE1")}</h1>
                                     <div className='Profiles__prof'>
                                         <div className='Profiles__profUser'>
                                             {
@@ -50,7 +52,7 @@ const Profiles = () => {
                                             }
                                         </div>
                                     </div>
-                                    <button onClick={() => navigate('/manageprofiles')}>Manage profiles</button>
+                                    <button onClick={() => navigate('/manageprofiles')}>{t("SELECTPROFILE_BTN")}</button>
                                 </motion.div>
                                 :
                                 <BrowsePrincipal />

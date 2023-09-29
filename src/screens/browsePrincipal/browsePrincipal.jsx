@@ -12,6 +12,7 @@ import { motion } from 'framer-motion'
 import ScrollToTop from '../../components/scrollToTop/scrollToTop'
 import { AuthContext } from '../../context/authContext'
 import Login from '../login/login'
+import { useTranslation } from 'react-i18next'
 
 
 const BrowsePrincipal = () => {
@@ -19,6 +20,7 @@ const BrowsePrincipal = () => {
 
     const { fid } = useParams()
     const { isLogin, selectedProfile, setSelectedProfile } = useContext(AuthContext)
+    const { t } = useTranslation(["lang"])
 
     useEffect(() => {
         document.querySelector('body').classList.remove('hiddenBody')
@@ -31,7 +33,7 @@ const BrowsePrincipal = () => {
     const [trending, setTrending] = useState([])
     const listingFilms = async () => {
         try {
-            if(pathname.includes('browse')){
+            if (pathname.includes('browse')) {
                 const dataMovies = await APITrendingMovies()
                 const dataSeries = await APITrendingSeries()
                 const allFilms = dataMovies.concat(...dataSeries)
@@ -104,12 +106,12 @@ const BrowsePrincipal = () => {
                         <BrowseBanner list={trending} />
                         {
                             pathname.includes('browse') ?
-                                <Carousel categoryTitle={`Trending`} list={trending} genreList={genreList} id={9999999} /> 
+                                <Carousel categoryTitle={t("TRENDING")} list={trending} genreList={genreList} id={9999999} />
                                 :
                                 pathname.includes('movies') ?
-                                    <Carousel categoryTitle={`Trending Movies`} list={trending} genreList={genreList} id={9999999} />
+                                    <Carousel categoryTitle={`${t("TRENDING")} ${t("MOVIES")}`} list={trending} genreList={genreList} id={9999999} />
                                     :
-                                    <Carousel categoryTitle={`Trending Series`} list={trending} genreList={genreList} id={9999999} /> 
+                                    <Carousel categoryTitle={`${t("TRENDING")} ${t("SERIES")}`} list={trending} genreList={genreList} id={9999999} />
                         }
 
                         {

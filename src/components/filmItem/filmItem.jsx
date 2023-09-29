@@ -9,6 +9,7 @@ import PopUp from '../popUp/popUp'
 import { useEffect } from 'react'
 import { AuthContext } from '../../context/authContext'
 import { getProfileData } from '../../data/userFn'
+import { useTranslation } from 'react-i18next'
 
 
 const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, handlerLike, handlerList }) => {
@@ -17,6 +18,7 @@ const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, hand
     const [inLikes, setInLikes] = useState(false)
     const [imageList, setImageList] = useState(false)
     const { selectedProfile, setSelectedProfile, userData, setUserData } = useContext(AuthContext)
+    const { t } = useTranslation(["lang"])
 
     const isInList = async (film) => {
         try {
@@ -47,13 +49,13 @@ const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, hand
         isInLikes(film)
     }, [selectedProfile])
 
-console.log(film)
+
     return (
         <>
             {
                 film &&
                 <div className={`filmItem`} onMouseEnter={() => setDisabled(true)} onMouseLeave={() => setDisabled(false)}>
-                    <div className='imgtitle' onClick={()=>handlerInfo(film)}>
+                    <div className='imgtitle' onClick={() => handlerInfo(film)}>
                         <img src={film.poster_path ? `https://image.tmdb.org/t/p/w500${film.poster_path}` : `https://image.tmdb.org/t/p/w500${film.backdrop_path}`} className={`Carousel__item`} />
                         <h3>{film.title || film.name || film.original_title || film.original_name}</h3>
                     </div>
@@ -67,24 +69,24 @@ console.log(film)
                                     handlerList(film)
                                 }} style={{ backgroundColor: inList && '#40BA5E', borderColor: inList && '#40BA5E' }}>
                                     <img src={imageList ? OK : add} alt="AddList" />
-                                    <PopUp text={!inList ? 'Add to My list' : 'Remove from the list'} textColor={inList && 'var(--color-primary)'} />
+                                    <PopUp text={!inList ? t("ADD_LIST") : t("REMOVE_LIST")} textColor={inList && 'var(--color-primary)'} />
                                 </button>
                                 <button className='ItemButtons' onClick={() => {
                                     handlerLike(film)
                                 }} style={{ backgroundColor: inLikes && '#40BA5E', borderColor: inLikes && '#40BA5E' }}>
                                     <img src={like} alt="Like" />
-                                    <PopUp text={!inLikes ? 'Like it' : "I don't like"} textColor={inLikes && 'var(--color-primary)'} />
+                                    <PopUp text={!inLikes ? t("LIKE_IT") : t("DONT_LIKE_IT")} textColor={inLikes && 'var(--color-primary)'} />
                                 </button>
                             </div>
                             <div className='Carousel__itemInfo-Btns2'>
                                 <button className='ItemButtons' onClick={() => handlerInfo(film)}>
                                     <img src={down} alt="Down" />
-                                    <PopUp text={'More information'} />
+                                    <PopUp text={t("MORE_INFORMATION")} />
                                 </button>
                             </div>
                         </div>
                         <div className='Carousel__itemInfo-Texts'>
-                            <h3>80% for you</h3>
+                            <h3>80%{t("FOR_YOU")}</h3>
                             <h3>{film.adult ? '+18' : '+13'}</h3>
                         </div>
                         <div className='Carousel__itemInfo-Genere'>

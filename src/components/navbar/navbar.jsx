@@ -4,15 +4,20 @@ import Btn from '../button/button'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { AuthContext } from '../../context/authContext'
+import i18next from 'i18next'
+import { useTranslation } from 'react-i18next'
 
 
 const Navbar = () => {
 
     const navigate = useNavigate()
     const { language, setLanguage } = useContext(AuthContext)
+    const { t } = useTranslation(["lang"])
+
 
     const handlerLanguage = (e) => {
         const lang = e.target.value
+        i18next.changeLanguage(lang)
         setLanguage(lang)
         localStorage.setItem('language', lang)
     }
@@ -25,12 +30,12 @@ const Navbar = () => {
             <div className='Navbar__btns'>
                 <div>
                     <select name="language" id="language" value={language} onChange={(e) => handlerLanguage(e)}>
-                        <option value="es">Spanish</option>
-                        <option value="en">English</option>
+                        <option value="es">{t("HOME_NAVBAR_LANG1")}</option>
+                        <option value="en">{t("HOME_NAVBAR_LANG2")}</option>
                     </select>
                 </div>
                 <div>
-                    <Btn text={'Log in'} onclick={() => navigate('/login')} imgDisplay={'none'} />
+                    <Btn text={t("HOME_LOGIN")} onclick={() => navigate('/login')} imgDisplay={'none'} />
                 </div>
             </div>
         </div>
