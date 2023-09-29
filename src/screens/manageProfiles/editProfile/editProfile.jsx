@@ -18,7 +18,7 @@ const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserDat
     const profileRef = doc(db, 'users', userData.id)
 
     useEffect(() => {
-
+        
     }, [userData, selectedImage])
 
 
@@ -26,7 +26,11 @@ const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserDat
         try {
             if (profileName) {
                 let user = await getDoc(profileRef)
-                user = user.data()
+                
+                user = {
+                    ...user.data(),
+                    id: userData.id
+                }
 
                 const lastProfiles = user.profiles.filter(prof => prof.id !== profileSelected.id)
                 const actualProfile = user.profiles.filter(prof => prof.id === profileSelected.id)[0]
@@ -55,7 +59,10 @@ const EditProfile = ({ profileSelected, setProfileSelected, userData, setUserDat
     const handlerDelete = async () => {
         try {
             let user = await getDoc(profileRef)
-            user = user.data()
+            user = {
+                ...user.data(),
+                id: userData.id
+            }
 
             const lastProfiles = user.profiles.filter(prof => prof.id !== profileSelected.id)
             const foundedProfile = user.profiles.find(prof => prof.id === profileSelected.id).id

@@ -141,7 +141,10 @@ export const getUserData = async (userData) => {
     try {
         const userRef = doc(db, 'users', userData.id)
         const response = await getDoc(userRef)
-        const user = response.data()
+        const user = {
+            ...response.data(),
+            id: userData.id
+        }
         return user
     } catch (error) {
         console.log(error)

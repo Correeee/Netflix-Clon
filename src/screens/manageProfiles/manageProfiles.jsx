@@ -18,7 +18,6 @@ const ManageManageProfiles = () => {
     const { t } = useTranslation(["lang"])
 
     useEffect(() => {
-
     }, [userData])
 
     const handlerCreateProfile = async () => {
