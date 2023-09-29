@@ -63,12 +63,22 @@ export const addToLike = async (film, userData, selectedProfile) => {
             ]
         }
 
-        const userUpdate = {
-            ...user,
-            profiles: [notProfile, newProfile]
+        if (notProfile) {
+            const userUpdate = {
+                ...user,
+                profiles: [notProfile, newProfile]
+            }
+            await updateDoc(userReference, userUpdate)
+        } else {
+            const userUpdate = {
+                ...user,
+                profiles: [newProfile]
+            }
+            await updateDoc(userReference, userUpdate)
         }
 
-        await updateDoc(userReference, userUpdate)
+
+
 
     } else {
         const newProfile = {
@@ -78,12 +88,19 @@ export const addToLike = async (film, userData, selectedProfile) => {
             ]
         }
 
-        const userUpdate = {
-            ...user,
-            profiles: [notProfile, newProfile]
+        if (notProfile) {
+            const userUpdate = {
+                ...user,
+                profiles: [notProfile, newProfile]
+            }
+            await updateDoc(userReference, userUpdate)
+        } else {
+            const userUpdate = {
+                ...user,
+                profiles: [newProfile]
+            }
+            await updateDoc(userReference, userUpdate)
         }
-
-        await updateDoc(userReference, userUpdate)
     }
 
 }
