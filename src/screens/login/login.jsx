@@ -56,7 +56,7 @@ const Login = () => {
                                 <form id='login' onSubmit={(e) => e.preventDefault()}>
                                     <input type="email" placeholder={t("REGISTER_STEP_INPUT_EMAIL")} onChange={e => setEmail(e.target.value)} onFocus={() => setIsWriting(false)} />
                                     <input type="password" placeholder={t("REGISTER_STEP_INPUT_PASSWORD")} onChange={e => setPassword(e.target.value)} onFocus={() => setIsWriting(false)} />
-                                    <p className='login__error' style={{ visibility: isWriting ? 'visible' : 'hidden' }}>The email or password does not match.</p>
+                                    <p className='login__error' style={{ visibility: isWriting ? 'visible' : 'hidden' }}>{t("LOGIN_DONT_MATCH")}</p>
                                 </form>
                                 <Btn text={t("HOME_LOGIN")} width={'100%'} onclick={handlerLogin} imgDisplay={'none'} form={'login'} />
                                 <div className='Login__checkbox'>

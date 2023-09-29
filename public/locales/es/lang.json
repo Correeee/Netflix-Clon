@@ -37,6 +37,7 @@
     "MUST_CONTAIN_NUMBER": "Debe contener al menos un número.",
     "PASSWORD_MATCH": "Las contraseñas no coinciden.",
     "ACCOUNT_CREATED": "¡Cuenta creada!",
+    "LOGIN_DONT_MATCH": "El correo electrónico o la contraseña no coinciden.",
     "NEED_HELP": "¿Necesitas ayuda?",
     "FIRST_TIME_ON_NETFLIX": "¿Primera vez en Netflix? ",
     "SUSCRIBE_NOW": "Suscribir ahora.",
