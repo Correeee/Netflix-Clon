@@ -172,7 +172,6 @@
 .player__icons-languageContainer {
     width: 40rem;
     height: auto;
-    display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: start;
@@ -183,6 +182,7 @@
     padding: 1rem;
     box-sizing: border-box;
     display: none;
+    cursor: auto;
 }
 
 .player__icons-languageContainer h2 {
@@ -204,6 +204,7 @@
 
 .player__icons-languageContainer ul li {
     font-size: 2rem;
+    cursor: pointer;
 }
 
 .player__icons-velocity {
@@ -213,7 +214,6 @@
 .player__icons-velocityContainer {
     width: 70rem;
     height: 25rem;
-    display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: start;
@@ -224,6 +224,7 @@
     padding: 2rem;
     box-sizing: border-box;
     display: none;
+    cursor: auto;
 }
 
 .player__icons-velocity:hover>.player__icons-velocityContainer {

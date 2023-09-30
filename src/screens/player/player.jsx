@@ -38,10 +38,18 @@ const Player = () => {
 
     useEffect(() => {
 
-        if (pathname.includes('movies')) {
+        if (pathname.includes('browse') || pathname.includes('movies')) {
             APISearchMovieForId(fid)
-                .then(res => setFilm(res))
-                .catch(error => console.log(error))
+                .then(res => {
+                    if (res.status_code) {
+                        navigate('/browse')
+                    } else {
+                        setFilm(res)
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                })
             setIsMovie(true)
             APISearchMovieVideo(fid)
                 .then(res => {
@@ -65,10 +73,16 @@ const Player = () => {
         if (pathname.includes('series')) {
             APISearchSerieForId(fid)
                 .then(res => {
-                    setFilm(res)
-                    console.log(res)
+                    if (res.status_code) {
+                        navigate('/browse')
+                    } else {
+                        setFilm(res)
+                    }
                 })
-                .catch(error => console.log(error))
+                .catch(error => {
+                    console.log(error);
+                    navigate('/')
+                })
             setIsMovie(false)
             APISearchSerieVideo(fid)
                 .then(res => {
@@ -128,10 +142,13 @@ const Player = () => {
             }, 1000);
 
         } else {
-            setPlaying(true)
-            setPlayMovie(play)
-            videoPlayer.current.pause()
-            clearInterval(interval)
+            if (videoPlayer.current) {
+                setPlaying(true)
+                setPlayMovie(play)
+                videoPlayer.current.pause()
+                clearInterval(interval)
+            }
+
         }
     }
 
