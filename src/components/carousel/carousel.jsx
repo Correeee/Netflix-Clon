@@ -213,7 +213,7 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
     return (
         <>
             {
-                list &&
+                (list.length || categoryList) &&
                 <div className='Carousel'>
                     <div className='Carousel__container' id={`slider-${id}`} >
                         <div className='Carousel__pages'>
@@ -228,7 +228,7 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
                         </div>
 
                         {
-                            list.length && !pathname.includes('news') ?
+                            list.length  && !pathname.includes('news') ?
                                 list.map((li, i) => {
                                     return (
                                         <FilmItem film={li} key={i} setDisabled={setDisabled} genreList={genreList} handlerPlay={handlerPlay} handlerInfo={handlerInfo} handlerLike={() => handlerLike(li)} handlerList={() => handlerList(li)} />
