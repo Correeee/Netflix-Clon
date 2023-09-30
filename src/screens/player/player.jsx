@@ -42,7 +42,7 @@ const Player = () => {
             APISearchMovieForId(fid)
                 .then(res => {
                     if (res.status_code) {
-                        navigate('/browse')
+                        navigate('/login')
                     } else {
                         setFilm(res)
                     }
@@ -74,7 +74,7 @@ const Player = () => {
             APISearchSerieForId(fid)
                 .then(res => {
                     if (res.status_code) {
-                        navigate('/browse')
+                        navigate('/login')
                     } else {
                         setFilm(res)
                     }
@@ -103,7 +103,7 @@ const Player = () => {
                 .catch(error => console.log(error))
         }
 
-    }, [fid])
+    }, [])
 
     const navigate = useNavigate()
     const configRef = useRef(null)
