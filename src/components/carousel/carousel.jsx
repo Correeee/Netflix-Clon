@@ -23,13 +23,34 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
     const [actualPage, setActualPage] = useState(1)
     const [disabled, setDisabled] = useState(false)
     const [scrolling, setScrolling] = useState(false)
+    const [visibleItems, setVisibleItems] = useState(5)
     const [list, setList] = useState([])
 
     const navigate = useNavigate()
 
     const { pathname } = useLocation()
 
-    const visibleItems = 5
+    useEffect(() => {
+        const winWidth = window.innerWidth
+        const itemWidth = 340
+        const initialVisibleCal = Math.round(winWidth / itemWidth)
+        setVisibleItems(initialVisibleCal)
+    }, [])
+
+
+    useEffect(() => {
+
+        window.addEventListener('resize', (e) => {
+            const windowWidth = e.target.innerWidth;
+            const itemWidth = document.getElementsByClassName('filmItem')[0].offsetWidth
+            const visibleCalc = Math.round(windowWidth / itemWidth)
+            setVisibleItems(visibleCalc)
+            const slider = document.getElementById(`slider-${id}`)
+            slider.scrollTo(0, 0)
+            setActualPage(1)
+        })
+    }, [])
+
 
     useEffect(() => {
 
@@ -79,8 +100,6 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
         movieType()
     }, [])
 
-
-
     useEffect(() => {
 
         if (list) {
@@ -96,7 +115,7 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
             movieType()
         }
 
-    }, [list.length, categoryList, pathname])
+    }, [list.length, categoryList, pathname, visibleItems])
 
 
     useEffect(() => {
@@ -104,7 +123,7 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
         if (carouselId) {
             for (let i = 0; i < carouselId.length; i++) {
                 const pageElement = carouselId[i];
-                if (pageElement.classList[2].includes(actualPage)) {
+                if (pageElement.classList[2] === `Carousel__page-${actualPage}`) {
                     pageElement.style.backgroundColor = 'var(--color-text)'
                 } else {
                     pageElement.style.backgroundColor = 'var(--color-grey)'
@@ -150,6 +169,12 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
             slider.scrollTo(0, 0)
             setActualPage(1)
         }
+
+        if (actualPage == (pages - 1)) {
+            slider.scrollTo(slider.scrollWidth, 0)
+            setActualPage(actualPage + 1)
+        }
+
         setTimeout(() => {
             setScrolling(false)
         }, 1000);
@@ -187,8 +212,6 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
             }
         }
     }
-
-
 
     const handlerList = async (film) => {
         try {
@@ -228,7 +251,7 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
                         </div>
 
                         {
-                            list.length  && !pathname.includes('news') ?
+                            list.length && !pathname.includes('news') ?
                                 list.map((li, i) => {
                                     return (
                                         <FilmItem film={li} key={i} setDisabled={setDisabled} genreList={genreList} handlerPlay={handlerPlay} handlerInfo={handlerInfo} handlerLike={() => handlerLike(li)} handlerList={() => handlerList(li)} />

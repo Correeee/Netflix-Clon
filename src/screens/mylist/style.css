@@ -21,6 +21,8 @@
     width: 100%;
     height: auto;
     gap: 2rem 0;
+    padding-bottom: 15rem;
+    box-sizing: border-box;
 }
 
 .MyList__container h1{
