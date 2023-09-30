@@ -335,7 +335,7 @@ const InfoFilm = ({ fid }) => {
                                 </div>
                             </div>
                             <div className='InfoFilm__info-text'>
-                                <p>{film.overview || 'There is no description...'}</p>
+                                <p>{film.overview || t("NO_DESCRIPTION")}</p>
                             </div>
                         </div>
                         <div className='InfoFilm__moreTitles'>
@@ -375,13 +375,13 @@ const InfoFilm = ({ fid }) => {
                                                         </div>
                                                     </div>
                                                     <div className='filmCard__texts'>
-                                                        <p>{mov.overview || 'There is no description'}</p>
+                                                        <p>{mov.overview || t("NO_DESCRIPTION")}</p>
                                                     </div>
                                                 </div>
                                             )
                                         })
                                         :
-                                        <h2 className='noTitles'>There are not related titles...</h2>
+                                        <h2 className='noTitles'>{t("NO_MORE_TITLES")}</h2>
                                 }
                             </div>
                         </div>

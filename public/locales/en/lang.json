@@ -73,5 +73,7 @@
     "PLAYER_FLAG_SUBTITLE3": "Audio and video",
     "PLAYER_FLAG_SUBTITLE3_TEXT": "The video is hard to see or hear.",
     "PLAYER_FLAG_SUBTITLE4": "Another problem",
-    "PLAYER_FLAG_SUBTITLE4_TEXT": "There is another issue with the series or movie."
+    "PLAYER_FLAG_SUBTITLE4_TEXT": "There is another issue with the series or movie.",
+    "NO_DESCRIPTION": "There is no description...",
+    "NO_MORE_TITLES": "There are not related titles..."
 }

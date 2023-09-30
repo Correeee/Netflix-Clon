@@ -73,7 +73,7 @@
     width: 100%;
 }
 
-.InfoFilm__info div{
+.InfoFilm__info div {
     padding: 0 0 0 0.5rem;
 }
 
@@ -285,25 +285,32 @@
     justify-content: center;
     align-items: center;
     color: var(--color-text);
+    width: 100%;
     height: 100%;
-    overflow-y: hidden;
     user-select: none;
+    overflow-y: scroll;
+    cursor: auto;
 }
 
+
 .filmCard__texts::-webkit-scrollbar {
-    display: none;
+    width: 3px;
+}
+
+.filmCard__texts::-webkit-scrollbar-thumb {
+    background-color: var(--color-grey);
+    border-radius: 5px;
 }
 
 .filmCard__texts p {
     margin: 0;
+    width: 100%;
     height: 80%;
     font-size: 1.25rem;
-    padding: 1rem;
+    padding: 0 1rem;
     box-sizing: border-box;
-    overflow: hidden;
     text-overflow: ellipsis;
 }
-
 
 
 .filmCard__info-btnsDiv2 button {
@@ -361,7 +368,7 @@
     width: 50rem;
 }
 
-.principalInfo__title{
+.principalInfo__title {
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -371,7 +378,7 @@
     font-size: 1.5rem;
 }
 
-.principalInfo__title h2{
+.principalInfo__title h2 {
     color: var(--color-text);
 }
 
@@ -412,12 +419,12 @@
     padding: 1rem 0 0 1.5rem;
 }
 
-.principalInfo__info-Btns button{
+.principalInfo__info-Btns button {
     position: relative;
     /* z-index: 9999; */
 }
 
-.principalInfo__info-Btns button:hover > .PopUp{
+.principalInfo__info-Btns button:hover>.PopUp {
     display: flex;
 }
 
@@ -452,7 +459,8 @@
     cursor: pointer;
 }
 
-.principalInfo__info-add img, .principalInfo__info-like img {
+.principalInfo__info-add img,
+.principalInfo__info-like img {
     width: 2rem;
     height: 2rem;
     object-fit: cover;
@@ -463,7 +471,7 @@
     border: 2px solid var(--color-text);
 }
 
-.filmCard__title{
+.filmCard__title {
     text-align: center;
     position: absolute;
     background-color: var(--color-primary);
@@ -478,15 +486,16 @@
     opacity: 50%;
 }
 
-.filmCard__playBtn:hover ~ .filmCard__title{
+.filmCard__playBtn:hover~.filmCard__title {
     opacity: 1;
 }
-.InfoFilmContainer__close{
+
+.InfoFilmContainer__close {
     width: 100%;
     height: 100%;
 }
 
-.out{
+.out {
     width: 100%;
     height: 100vh;
     background-color: transparent;
@@ -494,7 +503,7 @@
     cursor: pointer;
 }
 
-.InfoFilmContainer__filter{
+.InfoFilmContainer__filter {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -507,45 +516,45 @@
     opacity: 40%;
 }
 
-.filmCard__addToList{
+.filmCard__addToList {
     position: relative;
 }
 
-.filmCard__addToList:hover .PopUp{
+.filmCard__addToList:hover .PopUp {
     display: flex;
 }
 
-.noTitles{
+.noTitles {
     text-align: center;
     color: var(--color-primary);
     font-size: 2rem;
     margin: 2rem 0;
 }
 
-.principalInfo__playAndAdd{
+.principalInfo__playAndAdd {
     display: flex;
     flex-direction: row;
     gap: 0 1rem;
 }
 
 @media screen and (max-width: 1024px) {
-    .InfoFilm{
+    .InfoFilm {
         width: 90%;
     }
 
-    .principalInfo__info-Btns{
+    .principalInfo__info-Btns {
         flex-wrap: wrap;
         gap: 2rem 0;
     }
 
-    .principalInfo__info-Btns button{
+    .principalInfo__info-Btns button {
         margin: 0 1rem;
     }
 }
 
 @media screen and (max-width: 525px) {
 
-    .InfoFilm__info-date div:nth-child(1){
+    .InfoFilm__info-date div:nth-child(1) {
         flex-wrap: wrap;
         justify-content: start;
         gap: 1rem;
@@ -554,12 +563,15 @@
 }
 
 @media screen and (max-width: 425px) {
-    .InfoFilm{
+    .InfoFilm {
         width: 90%;
     }
-    
 
-    .principalInfo__infoContainer, .principalInfo__infoLogo, .principalInfo__title, .principalInfo__info-Btns{
+
+    .principalInfo__infoContainer,
+    .principalInfo__infoLogo,
+    .principalInfo__title,
+    .principalInfo__info-Btns {
         justify-content: center;
         align-items: center;
     }
