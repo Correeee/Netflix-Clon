@@ -344,7 +344,7 @@ const Player = () => {
                                         <div className='player__icons-soundContainerBar'>
                                             <input type="range"
                                                 min={0} max={1} step={0.01}
-                                                defaultValue={volume}
+                                                // defaultValue={volume}
                                                 value={volume}
                                                 onChange={e => handlerVolumeRange(e)}
                                                 disabled={disabledButton}
