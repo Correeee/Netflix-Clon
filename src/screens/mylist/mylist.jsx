@@ -125,11 +125,11 @@ const MyList = () => {
                                                 selectedProfile.list.length && selectedProfile.list.map((film, i) => {
                                                     if (film.original_title) {
                                                         return (
-                                                            <FilmItem film={film} key={i} setDisabled={setDisabled} genreList={genreMovies} handlerPlay={handlerPlay} handlerInfo={handlerInfo} handlerLike={() => handlerLike(film)} handlerList={() => handlerList(film)} />
+                                                            <FilmItem film={film} key={i} setDisabled={setDisabled} genreList={genreMovies} handlerPlay={handlerPlay} handlerInfo={handlerInfo} handlerLike={() => handlerLike(film)} handlerList={() => handlerList(film)} position={"absolute"}/>
                                                         )
                                                     } else {
                                                         return (
-                                                            <FilmItem film={film} key={i} setDisabled={setDisabled} genreList={genreSeries} handlerPlay={handlerPlay} handlerInfo={handlerInfo} handlerLike={() => handlerLike(film)} handlerList={() => handlerList(film)} />
+                                                            <FilmItem film={film} key={i} setDisabled={setDisabled} genreList={genreSeries} handlerPlay={handlerPlay} handlerInfo={handlerInfo} handlerLike={() => handlerLike(film)} handlerList={() => handlerList(film)} position={"absolute"}/>
                                                         )
                                                     }
 

@@ -12,7 +12,7 @@ import { getProfileData } from '../../data/userFn'
 import { useTranslation } from 'react-i18next'
 
 
-const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, handlerLike, handlerList }) => {
+const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, handlerLike, handlerList, position }) => {
 
     const [inList, setInList] = useState(false)
     const [inLikes, setInLikes] = useState(false)
@@ -59,7 +59,7 @@ const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, hand
                         <img src={film.poster_path ? `https://image.tmdb.org/t/p/w500${film.poster_path}` : `https://image.tmdb.org/t/p/w500${film.backdrop_path}`} className={`Carousel__item`} />
                         <h3>{film.title || film.name || film.original_title || film.original_name}</h3>
                     </div>
-                    <div className='Carousel__itemInfo'>
+                    <div className='Carousel__itemInfo' style={{ position: position }}>
                         <div className='Carousel__itemInfo-Btns'>
                             <div className='Carousel__itemInfo-Btns1'>
                                 <button className='ItemButtons'>
@@ -97,12 +97,20 @@ const FilmItem = ({ film, setDisabled, genreList, handlerPlay, handlerInfo, hand
                                             return genre.name
                                         }
                                     })
-                                    return (
-                                        <div className='titleContainer' key={i}>
-                                            <h3>{title}</h3>
-                                            <span></span>
-                                        </div>
-                                    )
+                                    if (i == film.genre_ids.length - 1) { //Si es el último género no agrega SPAN.
+                                        return (
+                                            <div className='titleContainer' key={i}>
+                                                <h3>{title}</h3>
+                                            </div>
+                                        )
+                                    } else {
+                                        return (
+                                            <div className='titleContainer' key={i}>
+                                                <h3>{title}</h3>
+                                                <span></span>
+                                            </div>
+                                        )
+                                    }
                                 })
                             }
                         </div>

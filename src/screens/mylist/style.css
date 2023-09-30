@@ -31,14 +31,13 @@
     margin: 2rem 0;
 }
 
-
 .MyList__containerFilms{
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: start;
     width: 100%;
-    gap: 2rem;
+    gap: 5rem;
     padding: 0 2rem;
     flex-wrap: wrap;
 }
