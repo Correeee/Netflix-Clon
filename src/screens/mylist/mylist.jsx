@@ -117,7 +117,6 @@ const MyList = () => {
                                         delay: 0.2
                                     }}
                                     className='MyList'>
-                                    <ScrollToTop />
                                     <BrowseNavbar />
                                     <div className='MyList__container'>
                                         <h1>My List</h1>

@@ -58,5 +58,20 @@
     "REMOVE_LIST": "Remover de la lista",
     "LIKE_IT": "Me gusta",
     "DONT_LIKE_IT": "Ya no me gusta",
-    "TRENDING": "Tendencia"
+    "TRENDING": "Tendencia",
+    "PLAYER_MSG": "Debido a que la API de TMDB solo ofrece videos de YouTube para integrar con 'IFRAME', el video de la película o serie será una demostración.",
+    "PLAYER_SEASON": "Temporada",
+    "PLAYER_AUDIO": "Audio",
+    "PLAYER_SUBTITLES": "Subtitulos",
+    "PLAYER_SPEED": "Velocidad de reproducción",
+    "PLAYER_NORMAL": "Normal",
+    "PLAYER_FLAG_TITLE": "¿Cuál es el problema?",
+    "PLAYER_FLAG_SUBTITLE1": "Almacenamiento y búfer de carga",
+    "PLAYER_FLAG_SUBTITLE1_TEXT": "El video está borroso, tarda en almacenarse en búfer o no carga.",
+    "PLAYER_FLAG_SUBTITLE2": "Subtítulos y subtítulos ocultos",
+    "PLAYER_FLAG_SUBTITLE2_TEXT": "Los subtítulos o subtítulos ocultos no parecen funcionar correctamente.",
+    "PLAYER_FLAG_SUBTITLE3": "Audio y video",
+    "PLAYER_FLAG_SUBTITLE3_TEXT": "El video es difícil de ver u oír.",
+    "PLAYER_FLAG_SUBTITLE4": "Otro problema",
+    "PLAYER_FLAG_SUBTITLE4_TEXT": "Hay otro problema con la serie o película."
 }

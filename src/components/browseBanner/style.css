@@ -170,6 +170,9 @@
 }
 
 @media screen and (max-width: 1024px) {
+    .BrowseBanner__infoMovieContainer h2{
+        font-size: 3.5rem;
+    }
     .BrowseBanner__infoMovieContainer{
         width: 100%;
     }
@@ -184,11 +187,13 @@
 }
 
 @media screen and (max-width: 768px) {
+
     .BrowseBanner__infoMovie{
         justify-content: center;
         align-items: center;
         padding: 0 0 0 1rem;
         flex-wrap: wrap;
+        top: 15%;
     }
     .BrowseBanner__movieOptions{
         padding: 0;

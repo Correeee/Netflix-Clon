@@ -20,6 +20,7 @@ import { useLocation } from 'react-router-dom'
 import { AuthContext } from '../../context/authContext'
 import Login from '../login/login'
 import demoVideoEN from './assets/demoEN.mp4'
+import { useTranslation } from 'react-i18next'
 
 const Player = () => {
     const { isLogin } = useContext(AuthContext)
@@ -32,6 +33,8 @@ const Player = () => {
     const [srcVideo, setSrcVideo] = useState(null)
     const [duration, setDuration] = useState(0)
     const [actualTime, setActualTime] = useState(0)
+
+    const { t } = useTranslation(["lang"])
 
     useEffect(() => {
 
@@ -284,7 +287,7 @@ const Player = () => {
                 isLogin ?
                     <div className='Player'>
                         <div className='videoYoutubeContainer'>
-                            <h3>Because the TMDB API only offers YouTube videos to integrate with 'IFRAME', the Movie or Series video will be a demo.</h3>
+                            <h3>{t("PLAYER_MSG")}</h3>
                             {isLoading ?
                                 <Loader />
                                 :
@@ -368,7 +371,7 @@ const Player = () => {
                                         <img src={chapters} alt="chapters" className='player__icons' />
                                         <div className='player__icons-chaptersContainer'>
                                             <div className='player__icons-chaptersSeason'>
-                                                <h2>Season 1</h2>
+                                                <h2>{t("PLAYER_SEASON")} 1</h2>
                                             </div>
                                             <div className='player__icons-chaptersList'>
                                             </div>
@@ -379,17 +382,17 @@ const Player = () => {
                                         <img src={language} alt="language" className='player__icons' />
                                         <div className='player__icons-languageContainer'>
                                             <div className='player__icons-languageContainer-audio'>
-                                                <h2>Audio</h2>
+                                                <h2>{t("PLAYER_AUDIO")}</h2>
                                                 <ul>
-                                                    <li>Spanish</li>
-                                                    <li>English</li>
+                                                    <li>{t("HOME_NAVBAR_LANG1")}</li>
+                                                    <li>{t("HOME_NAVBAR_LANG2")}</li>
                                                 </ul>
                                             </div>
                                             <div className='player__icons-languageContainer-subtitle'>
-                                                <h2>Subtitles</h2>
+                                                <h2>{t("PLAYER_SUBTITLES")}</h2>
                                                 <ul>
-                                                    <li>Spanish</li>
-                                                    <li>English</li>
+                                                    <li>{t("HOME_NAVBAR_LANG1")}</li>
+                                                    <li>{t("HOME_NAVBAR_LANG2")}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -400,7 +403,7 @@ const Player = () => {
 
                                         <div className='player__icons-velocityContainer'>
                                             <div className='player__icons-velocityTitle'>
-                                                <h2>Playback speed</h2>
+                                                <h2>{t("PLAYER_SPEED")}</h2>
                                             </div>
                                             <div className='player__icons-velocityRange'>
                                                 <input type="range"
@@ -415,7 +418,7 @@ const Player = () => {
                                                 <datalist id="velocityList" >
                                                     <option value="0" label="0.5x" style={{ opacity: rangeValue == 0 && '100%' }}></option>
                                                     <option value="25" label="0.75x" style={{ opacity: rangeValue == 25 && '100%' }}></option>
-                                                    <option value="50" label="1x(Normal)" style={{ opacity: rangeValue == 50 && '100%' }}></option>
+                                                    <option value="50" label={`1x(${t("PLAYER_NORMAL")})`} style={{ opacity: rangeValue == 50 && '100%' }}></option>
                                                     <option value="75" label="1.5x" style={{ opacity: rangeValue == 75 && '100%' }}></option>
                                                     <option value="100" label="1.75x" style={{ opacity: rangeValue == 100 && '100%' }}></option>
                                                 </datalist>
@@ -429,25 +432,25 @@ const Player = () => {
                         </div>
                         <div className='configuration' ref={configRef}>
                             <div className='configurationTitle'>
-                                <h2>¿Cuál es el problema?</h2>
+                                <h2>{t("PLAYER_FLAG_TITLE")}</h2>
                                 <button className='configuration__close' onClick={handlerCloseConfiguration}>X</button>
                             </div>
                             <div className='configuration__option'>
                                 <div>
-                                    <h2>Almacenamiento y búfer de carga</h2>
-                                    <p>El video está borroso, tarda en almacenarse en búfer o no carga.</p>
+                                    <h2>{t("PLAYER_FLAG_SUBTITLE1")}</h2>
+                                    <p>{t("PLAYER_FLAG_SUBTITLE1_TEXT")}</p>
                                 </div>
                                 <div>
-                                    <h2>Subtítulos y subtítulos ocultos</h2>
-                                    <p>Los subtítulos o subtítulos ocultos no parecen funcionar correctamente.</p>
+                                    <h2>{t("PLAYER_FLAG_SUBTITLE2")}</h2>
+                                    <p>{t("PLAYER_FLAG_SUBTITLE2_TEXT")}</p>
                                 </div>
                                 <div>
-                                    <h2>Audio y Video</h2>
-                                    <p>El video es difícil de ver u oír.</p>
+                                    <h2>{t("PLAYER_FLAG_SUBTITLE3")}</h2>
+                                    <p>{t("PLAYER_FLAG_SUBTITLE3_TEXT")}</p>
                                 </div>
                                 <div>
-                                    <h2>Otro problema</h2>
-                                    <p>Hay otro problema con la serie o película.</p>
+                                    <h2>{t("PLAYER_FLAG_SUBTITLE4")}</h2>
+                                    <p>{t("PLAYER_FLAG_SUBTITLE4_TEXT")}</p>
                                 </div>
                             </div>
                         </div>

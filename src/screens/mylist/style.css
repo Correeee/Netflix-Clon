@@ -1,11 +1,16 @@
 .MyList{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    width: 100%;
-    height: 100vh;
-    overflow-x: hidden;
+    width: auto;
+    overflow: hidden;
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+}
+
+.MyList::-webkit-scrollbar{
+    display: none;
 }
 
 .MyList__container{
@@ -14,8 +19,7 @@
     justify-content: start;
     align-items: start;
     width: 100%;
-    height: 100vh;
-    margin: 8rem 0;
+    height: auto;
     gap: 2rem 0;
 }
 

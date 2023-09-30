@@ -8,6 +8,7 @@ import { useState } from "react";
 import RegisterStep2 from "./registerStep2/registerStep2";
 import RegisterStep3 from "./registerStep2/registerStep3.jsx/registerStep3";
 import { useTranslation } from "react-i18next";
+import ScrollToTop from "../../components/scrollToTop/scrollToTop";
 
 const Register = () => {
 
@@ -21,6 +22,7 @@ const Register = () => {
     /* --------- NO PERMITIR INGRESAR SI NO LE LLEGA UN MAIL CON FORMATO -------- */
     return (
         <div className="Register">
+            <ScrollToTop />
             <div className="Register__topBar">
                 <img src={logo} alt="logo" className="Register__logo" />
                 <Link to={'/login'}>{t("HOME_LOGIN")}</Link>
