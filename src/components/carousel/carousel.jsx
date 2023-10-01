@@ -42,12 +42,15 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
 
         window.addEventListener('resize', (e) => {
             const windowWidth = e.target.innerWidth;
-            const itemWidth = document.getElementsByClassName('filmItem')[0].offsetWidth
-            const visibleCalc = Math.round(windowWidth / itemWidth)
-            setVisibleItems(visibleCalc)
-            const slider = document.getElementById(`slider-${id}`)
-            slider.scrollTo(0, 0)
-            setActualPage(1)
+            if(windowWidth > 425){
+                const itemWidth = document.getElementsByClassName('filmItem')[0].offsetWidth
+                const visibleCalc = Math.round(windowWidth / itemWidth)
+                setVisibleItems(visibleCalc)
+                const slider = document.getElementById(`slider-${id}`)
+                slider.scrollTo(0, 0)
+                setActualPage(1)
+            }
+
         })
     }, [])
 
