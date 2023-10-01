@@ -184,6 +184,8 @@
 
 .Carousel__item{
     width: 100%;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 @media screen and (max-width: 425px) {
@@ -199,7 +201,7 @@
 
     .imgtitle{
         border-radius: 10px;
-            overflow: hidden;
+        overflow: hidden;
     }
 
     .filmItem:hover .imgtitle img {
