@@ -274,8 +274,8 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
                                 null
                         }
                     </div>
-                    <button className='Carousel__arrow Carousel__arrow-left' id='arrowLeft' onClick={handlerArrowLeft} style={{ display: disabled ? 'none' : 'block' }} disabled={scrolling}><img src={left} alt="left" /></button>
-                    <button className='Carousel__arrow Carousel__arrow-right' id='arrowRight' onClick={handlerArrowRight} style={{ display: disabled ? 'none' : 'block' }} disabled={scrolling}><img src={right} alt="right" /></button>
+                    <button className='Carousel__arrow Carousel__arrow-left' id='arrowLeft' onClick={handlerArrowLeft} disabled={scrolling}><img src={left} alt="left" /></button>
+                    <button className='Carousel__arrow Carousel__arrow-right' id='arrowRight' onClick={handlerArrowRight}  disabled={scrolling}><img src={right} alt="right" /></button>
                 </div>
             }
         </>

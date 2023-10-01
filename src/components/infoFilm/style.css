@@ -567,13 +567,20 @@
         width: 90%;
     }
 
-
     .principalInfo__infoContainer,
     .principalInfo__infoLogo,
     .principalInfo__title,
     .principalInfo__info-Btns {
-        justify-content: center;
+        justify-content: start;
         align-items: center;
     }
 
+}
+
+@media screen and (max-width: 388px) {
+    .principalInfo__playAndAdd{
+        width: 100%;
+        justify-content: end;
+        padding: 0 1rem;
+    }
 }
