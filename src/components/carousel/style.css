@@ -129,7 +129,6 @@
     display: none;
 }
 
-
 .Carousel__arrow {
     width: 11rem;
     height: 20rem;
@@ -165,7 +164,11 @@
     right: 0;
 }
 
+
 @media screen and (max-width: 425px) {
+    .Carousel__arrow, .Carousel__arrow-left img, .Carousel__arrow-right img, .Carousel__page{
+        display: none;
+    }
     .Carousel__title h2{
         font-size: 1.5rem;
     }
