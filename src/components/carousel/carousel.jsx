@@ -47,7 +47,7 @@ const Carousel = ({ categoryTitle, genreList, id, GENERE_ID, categoryList }) => 
                 const visibleCalc = Math.round(windowWidth / itemWidth)
                 setVisibleItems(visibleCalc)
                 const slider = document.getElementById(`slider-${id}`)
-                slider.scrollTo(0, 0)
+                slider && slider.scrollTo(0, 0)
                 setActualPage(1)
             }
 

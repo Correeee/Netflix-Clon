@@ -164,8 +164,22 @@
     right: 0;
 }
 
+@media screen and (max-width: 768px) {
+    .Carousel__title h2{
+        font-size: 1.5rem;
+        padding: 0 5rem 0 0;
+    }
+}
+
 
 @media screen and (max-width: 425px) {
+
+    .Carousel__title h2{
+        padding: 0;
+    }
+    .Carousel__container{
+        gap: 0 0.5rem;
+    }
     .Carousel__arrow, .Carousel__arrow-left img, .Carousel__arrow-right img, .Carousel__page{
         display: none;
     }

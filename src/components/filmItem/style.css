@@ -156,6 +156,7 @@
 
 .imgtitle {
     position: relative;
+    min-height: 20rem;
 }
 
 .imgtitle h3 {
@@ -181,15 +182,24 @@
     display: flex;
 }
 
+.Carousel__item{
+    width: 100%;
+}
+
 @media screen and (max-width: 425px) {
 
-    .filmItem, .Carousel__itemInfo{
-        width: 25rem;
+
+    .filmItem{
+        width: 15rem;
+    }
+
+    .filmItem:hover>.Carousel__itemInfo {
+        display: none;
     }
 
     .imgtitle{
         border-radius: 10px;
-        overflow: hidden;
+            overflow: hidden;
     }
 
     .filmItem:hover .imgtitle img {
