@@ -134,6 +134,7 @@
     width: 11rem;
     height: 20rem;
     opacity: 70%;
+    margin: 0 1rem;
     transition: 0.2s;
     cursor: pointer;
     z-index: 1;
