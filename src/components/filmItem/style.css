@@ -190,7 +190,6 @@
 
 @media screen and (max-width: 425px) {
 
-
     .filmItem{
         width: 15rem;
     }
@@ -206,6 +205,12 @@
 
     .filmItem:hover .imgtitle img {
         object-fit: cover;
+    }
+
+    .Carousel__item{
+        min-width: 15rem;
+        min-height: 100%;
+        object-position: top;
     }
 
 }
