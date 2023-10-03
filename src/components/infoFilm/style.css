@@ -26,6 +26,10 @@
     z-index: 99999999;
 }
 
+.InfoFilmContainer::-webkit-scrollbar{
+    display: none;
+}
+
 .InfoFilm {
     display: flex;
     flex-direction: column;
