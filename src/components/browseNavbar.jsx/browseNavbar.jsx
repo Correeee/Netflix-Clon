@@ -89,7 +89,7 @@ const BrowseNavbar = () => {
         <div className='BrowseNavbar' style={{ backgroundColor: scrolling ? 'rgba(0, 0, 0, 0.7)' : 'transparent' }}>
             <div className='BrowseNavbar__links'>
                 <div>
-                    <img src={logo} alt="logo" className='logo' />
+                    <img src={logo} alt="logo" className='logo' onClick={()=> navigate('/browse')}/>
                 </div>
                 <div>
                     <button className='BrowseNavbar__openOptions' onClick={handlerNav}>Explorar</button>
