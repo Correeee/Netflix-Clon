@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-const API_KEY = '6b4d2056fede6332be0f70499d14960f'
-const BEARER = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2YjRkMjA1NmZlZGU2MzMyYmUwZjcwNDk5ZDE0OTYwZiIsInN1YiI6IjY0ZTgxNjAyZjJjZjI1MDEwMGY3ODVkZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kOZL7aF8qC6ReiSwvVB1KbhJkYUR2YMtbEw1VNiFiOk'
+const API_KEY = process.env.REACT_APP_API_KEY_TMDB
+const BEARER = process.env.REACT_APP_BEARER_TMDB
 
 const options = {
     method: 'GET',

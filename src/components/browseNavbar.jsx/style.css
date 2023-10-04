@@ -15,6 +15,7 @@
 .BrowseNavbar .logo {
     width: 12rem;
     height: auto;
+    cursor: pointer;
 }
 
 .BrowseNavbar__links {
