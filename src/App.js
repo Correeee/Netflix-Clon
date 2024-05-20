@@ -14,7 +14,7 @@ import ManageProfiles from './screens/manageProfiles/manageProfiles';
 function App() {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/Netflix-Clon'>
       <AuthProvider>
         <div className="App" id='App'>
           <Routes>
